@@ -39,6 +39,7 @@
             overflow: hidden; 
         }
         
+        /* Utilities */
         .flex { display: flex; }
         .flex-col { display: flex; flex-direction: column; }
         .gap-2 { gap: 8px; }
@@ -49,9 +50,11 @@
         .mb-4 { margin-bottom: 16px; }
         .hidden { display: none !important; }
 
+        /* Typography */
         h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; font-family: var(--font-display); }
         h1 { font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase; }
         
+        /* Sidebar */
         .sidebar { 
             width: 250px; 
             background: var(--sidebar-bg); 
@@ -94,6 +97,18 @@
             color: var(--bento-orange); 
         }
         
+        /* Live Clock */
+        .live-clock {
+            margin-top: auto;
+            padding: 20px 24px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            background: rgba(0,0,0,0.2);
+        }
+        #clock-time { font-size: 1.25rem; font-weight: 900; color: var(--bento-orange); font-family: var(--font-display); letter-spacing: 1px;}
+        #clock-date { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-top: 4px; letter-spacing: 0.5px;}
+
+        /* Main Content */
         .main-content { 
             flex-grow: 1; 
             display: flex; 
@@ -105,6 +120,7 @@
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
 
+        /* Bento Grid */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -112,6 +128,7 @@
             margin-bottom: 24px;
         }
         
+        /* Dashboard Specific 4-Block Layout */
         .bento-dashboard {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -141,6 +158,7 @@
         .bg-grey { background: var(--bento-grey); color: var(--text-dark); }
         .bg-dark { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); }
         
+        /* Panel Specifics */
         .cart-icon-placeholder { width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 15px 0; }
         .btn-white { background: #fff; color: var(--bento-orange); border: none; padding: 10px; border-radius: 20px; font-weight: 700; cursor: pointer; text-align: center; font-size: 0.9rem;}
         
@@ -150,11 +168,12 @@
         .sales-toggles span.active { background: #fff; color: var(--bento-orange); border-radius: 20px; }
         
         .chart-mockup { display: flex; align-items: flex-end; gap: 8px; height: 80px; margin: 20px 0; }
-        .bar { flex: 1; background: #fff; border-radius: 4px 4px 0 0; opacity: 0.9; transition: height 0.4s ease;}
+        .bar { flex: 1; background: #fff; border-radius: 4px 4px 0 0; opacity: 0.9; transition: height 0.4s ease; min-height: 2px;}
         .bar.blue { background: var(--bento-blue); }
-        .change-indicator { font-size: 0.85rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;}
+        .change-indicator { font-size: 0.85rem; font-weight: 600; padding: 2px 6px; border-radius: 4px; display: inline-block;}
         .change-positive { color: #fef08a; background: rgba(254, 240, 138, 0.1); }
         .change-negative { color: #fca5a5; background: rgba(252, 165, 165, 0.1); }
+        .change-neutral { color: #d1d5db; background: rgba(209, 213, 219, 0.1); }
         
         .inventory-list { display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; font-weight: 500; margin-top: 16px; flex-grow: 1; overflow-y: auto; max-height: 250px;}
         .inv-card { background: #fff; color: var(--text-dark); padding: 12px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;}
@@ -163,6 +182,7 @@
         .order-history-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; flex-grow: 1;}
         .history-item { background: rgba(255,255,255,0.8); color: var(--text-dark); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
         
+        /* Internal UI Elements */
         .internal-panel { background: var(--sidebar-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-bento); padding: 24px; margin-bottom: 24px; }
         
         input, select, textarea { width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-family: var(--font-ui); margin-bottom: 12px; transition: 0.2s;}
@@ -176,11 +196,13 @@
         button.action-primary:hover { background: var(--bento-orange-hover); }
         button.action-danger { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
 
+        /* Tables */
         .table-container { overflow-x: auto; background: var(--sidebar-bg); border-radius: var(--radius-small); margin-bottom: 24px;}
         table { width: 100%; border-collapse: collapse; text-align: left; }
         th, td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;}
         th { background: rgba(0,0,0,0.2); font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem;}
         
+        /* POS Terminal */
         .pos-grid { display: grid; grid-template-columns: 2fr 1.2fr; gap: 20px; height: calc(100vh - 120px); }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; overflow-y: auto; align-content: start; }
         .pos-item { background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; text-align: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: 0.2s; position: relative;}
@@ -194,6 +216,7 @@
         .cart-totals .row { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: center; }
         .cart-totals .grand-total { font-size: 1.4rem; font-weight: 800; color: var(--bento-orange); margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.1);}
 
+        /* Badges */
         .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
         .badge-bronze { background: #cd7f32; color: #fff; }
         .badge-silver { background: #94a3b8; color: #fff; }
@@ -202,11 +225,11 @@
         .badge-regular { background: rgba(255,255,255,0.1); color: #fff; }
         .badge-sale { background: var(--danger); color: #fff; }
 
+        /* Modals */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000; }
         .modal-overlay.active { display: flex; }
         .modal-content { width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; background: var(--sidebar-bg); padding: 24px; border-radius: var(--radius-bento); border: 1px solid rgba(255,255,255,0.1);}
         
-        /* Receipt UI */
         .receipt-container { font-family: 'Courier New', Courier, monospace; background: #000; color: #fff; padding: 20px; border: 1px dashed rgba(255,255,255,0.3); margin-bottom: 20px; white-space: pre-wrap; font-size: 13px; border-radius: 8px;}
 
         /* Interactive Help Accordions */
@@ -242,6 +265,7 @@
                 backdrop-filter: blur(10px);
             }
             .brand { display: none; } 
+            .live-clock { display: none; } /* Hide clock on mobile to save space */
             .nav-links { 
                 flex-direction: row; 
                 overflow-x: auto; 
@@ -255,7 +279,7 @@
             
             .main-content { 
                 padding: 16px; 
-                padding-bottom: calc(100px + env(safe-area-inset-bottom)); /* Fixed cutoff issue */
+                padding-bottom: calc(130px + env(safe-area-inset-bottom)); /* Fixed deep cutoff issue */
                 margin-bottom: 0;
             }
             
@@ -263,6 +287,8 @@
             .box-analytics, .box-orders { grid-column: span 1; }
             .pos-grid { grid-template-columns: 1fr; height: auto; }
             .product-grid { max-height: 35vh; }
+            
+            .team-profile { width: 100%; flex: 1 1 100%; margin-bottom: 16px; }
             .header-actions { flex-direction: column; width: 100%; align-items: stretch; }
             .header-actions input { width: 100%; margin-bottom: 8px; }
         }
@@ -283,6 +309,12 @@
             <li onclick="navigate('help')">Help Center</li>
             <li onclick="navigate('info')">System Info</li>
         </ul>
+        
+        <!-- Live Clock -->
+        <div class="live-clock" id="live-clock">
+            <div id="clock-time">00:00:00</div>
+            <div id="clock-date">Mon, Jan 1</div>
+        </div>
     </div>
 
     <!-- Main Content -->
@@ -307,7 +339,7 @@
                     <div class="change-indicator" id="dash-change">+0.0% vs Previous</div>
                     
                     <div class="chart-mockup" id="dash-chart">
-                        <!-- Bars generated by JS -->
+                        <!-- Bars dynamically scaled via JS based on selected view -->
                     </div>
                     
                     <div class="flex justify-between">
@@ -453,6 +485,7 @@
             <h1>Settings & Config</h1>
             
             <div class="bento-grid">
+                <!-- Backup Settings -->
                 <div class="bento-box bg-dark">
                     <h3 style="color: var(--bento-orange); margin-bottom: 8px;">Unified Data Backup</h3>
                     <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;">Securely export your entire database (Inventory, Orders, and VIP Customers) into a single, timestamped backup file.</p>
@@ -464,6 +497,7 @@
                     </div>
                 </div>
 
+                <!-- VIP Tier Settings -->
                 <div class="bento-box bg-dark">
                     <h3 style="color: var(--bento-orange); margin-bottom: 8px;">VIP Tier Thresholds</h3>
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Configure the lifetime spending amount (₱) required to reach each VIP level. Modifying this will automatically recalculate all current customer tiers.</p>
@@ -504,7 +538,7 @@
                 </details>
                 <details>
                     <summary>How do I edit a customer's profile or manually adjust points?</summary>
-                    <p>Go to the <strong>VIP Network</strong> tab. Find the customer in the table and click the <strong>Edit</strong> button. A prompt will allow you to update their Name, Phone, Email, and manually overwrite their current Points balance. The system will retain their lifetime spend.</p>
+                    <p>Go to the <strong>VIP Network</strong> tab. Find the customer in the table and click the <strong>Edit</strong> button. A prompt will allow you to update their Name, Phone, Email, change their VIP Tier manually (overriding the auto-calculator), and manually overwrite their current Points balance. The system will retain their lifetime spend.</p>
                 </details>
                 <details>
                     <summary>How do I put an item on sale?</summary>
@@ -512,8 +546,14 @@
                 </details>
                 <details>
                     <summary>How does the Sales Analytics chart work?</summary>
-                    <p>On the <strong>Dashboard</strong>, the Sales Analytics panel pulls data directly from your Order Logs. By clicking Day, Week, or Month, it compares your current revenue with the immediate previous period (e.g., Today vs Yesterday) to generate a percentage growth/decline indicator, providing accurate real-time business health checks.</p>
+                    <p>On the <strong>Dashboard</strong>, the Sales Analytics panel pulls data directly from your Order Logs. By clicking Day, Week, or Month, it builds a historical chart comparing the last 7 periods (e.g., the last 7 days) and generates a percentage growth/decline indicator comparing your current period to the immediate previous period, providing accurate real-time business health checks.</p>
                 </details>
+                
+                <div class="bento-box bg-dark" style="margin-top: 24px; padding: 20px;">
+                    <h3 style="color: var(--bento-orange); margin-bottom: 8px;">Need Further Assistance?</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px;">If you encounter any bugs, or have suggestions to improve Nexus POS, please reach out to our development team.</p>
+                    <a href="mailto:dadolnick@gmail.com" class="action-btn action-primary" style="text-decoration: none; display: inline-block; text-align: center; max-width: 250px;">Email Support</a>
+                </div>
             </div>
         </div>
 
@@ -588,10 +628,25 @@
             <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Full Name</label><input type="text" id="cust-name" required>
             <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Phone Number</label><input type="text" id="cust-phone">
             <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Email</label><input type="text" id="cust-email">
+            
+            <!-- Manual Override Fields -->
+            <div id="cust-vip-override-wrapper" class="hidden">
+                <label style="font-size: 0.8rem; color: var(--bento-orange); font-weight:700;">Manual VIP Tier Override</label>
+                <select id="cust-vip-tier">
+                    <option value="Auto">Auto (Based on Spend)</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Bronze">Bronze</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Platinum">Platinum</option>
+                </select>
+            </div>
+
             <div id="cust-points-wrapper" class="hidden">
-                <label style="font-size: 0.8rem; color: var(--bento-orange); font-weight:700;">Available Points</label>
+                <label style="font-size: 0.8rem; color: var(--bento-orange); font-weight:700;">Available Points Override</label>
                 <input type="number" id="cust-points" min="0">
             </div>
+
             <div class="flex gap-4 mt-4">
                 <button class="action-btn action-primary" style="flex:1;" onclick="saveCustomer()">Save VIP</button>
                 <button class="action-btn" style="flex:1;" onclick="closeModal('customer-modal')">Cancel</button>
@@ -652,18 +707,22 @@
         let orders = JSON.parse(localStorage.getItem('pos_orders')) || [];
         let customers = JSON.parse(localStorage.getItem('pos_customers')) || [];
         let cart = [];
-        let analyticsView = 'day'; // day, week, month
+        let analyticsView = 'day'; 
         
-        // VIP Threshold Settings
         let vipSettings = JSON.parse(localStorage.getItem('pos_vip_settings')) || {
-            bronze: 5000,
-            silver: 10000,
-            gold: 50000,
-            platinum: 100000
+            bronze: 5000, silver: 10000, gold: 50000, platinum: 100000
         };
 
+        // Live Clock Initialization
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock-time').innerText = now.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+            document.getElementById('clock-date').innerText = now.toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'});
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
         function initSystem() {
-            // Populate VIP settings inputs
             document.getElementById('set-bronze').value = vipSettings.bronze;
             document.getElementById('set-silver').value = vipSettings.silver;
             document.getElementById('set-gold').value = vipSettings.gold;
@@ -679,10 +738,10 @@
                         if (!existing) {
                             existing = {
                                 id: generateId(), customerId: generateCustomerId(), name: o.customer.name, phone: o.customer.phone || '', email: '',
-                                dateCreated: o.date, lifetimeSpend: parseFloat(o.total), points: earnedPoints,
+                                dateCreated: o.date, lifetimeSpend: parseFloat(o.total), points: earnedPoints, manualVipLevel: 'Auto',
                                 pointLedger: [{ date: o.date, reference: o.orderNum, type: 'Earned', points: earnedPoints, balance: earnedPoints, desc: 'Auto-sync from historical order' }]
                             };
-                            existing.vipLevel = calculateVip(existing.lifetimeSpend);
+                            existing.vipLevel = existing.manualVipLevel !== 'Auto' && existing.manualVipLevel ? existing.manualVipLevel : calculateVip(existing.lifetimeSpend);
                             customers.push(existing);
                             customersModified = true;
                             o.customer.id = existing.id;
@@ -691,7 +750,7 @@
                             if (!alreadyProcessed) {
                                 existing.lifetimeSpend += parseFloat(o.total);
                                 existing.points += earnedPoints;
-                                existing.vipLevel = calculateVip(existing.lifetimeSpend);
+                                existing.vipLevel = existing.manualVipLevel !== 'Auto' && existing.manualVipLevel ? existing.manualVipLevel : calculateVip(existing.lifetimeSpend);
                                 existing.pointLedger.push({ date: o.date, reference: o.orderNum, type: 'Earned', points: earnedPoints, balance: existing.points, desc: 'Auto-sync from historical order' });
                                 o.customer.id = existing.id;
                                 customersModified = true;
@@ -719,9 +778,9 @@
                 platinum: parseFloat(document.getElementById('set-platinum').value) || 100000
             };
             localStorage.setItem('pos_vip_settings', JSON.stringify(vipSettings));
-            
-            // Recalculate existing customers
-            customers.forEach(c => { c.vipLevel = calculateVip(c.lifetimeSpend); });
+            customers.forEach(c => { 
+                c.vipLevel = c.manualVipLevel !== 'Auto' && c.manualVipLevel ? c.manualVipLevel : calculateVip(c.lifetimeSpend); 
+            });
             saveData();
             alert('VIP Thresholds Saved. Customer tiers have been updated.');
         }
@@ -750,13 +809,10 @@
         function navigate(sectionId) {
             document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-links li').forEach(el => el.classList.remove('active'));
-            
             const target = document.getElementById(sectionId);
             if(target) target.classList.add('active');
-            
             const activeLi = Array.from(document.querySelectorAll('.nav-links li')).find(li => li.getAttribute('onclick').includes(`'${sectionId}'`));
             if(activeLi) activeLi.classList.add('active');
-
             if(sectionId === 'dashboard') renderDashboard();
             if(sectionId === 'products') renderProducts();
             if(sectionId === 'pos') renderPOSProducts();
@@ -769,32 +825,21 @@
         // --- UNIFIED EXPORT / IMPORT ---
         function exportUnifiedData() {
             const unifiedData = {
-                type: "NexusPOS_Unified_Backup",
-                version: "5.8",
-                timestamp: new Date().toISOString(),
-                products: products,
-                orders: orders,
-                customers: customers,
-                vipSettings: vipSettings
+                type: "NexusPOS_Unified_Backup", version: "5.8", timestamp: new Date().toISOString(),
+                products: products, orders: orders, customers: customers, vipSettings: vipSettings
             };
             const dataStr = JSON.stringify(unifiedData, null, 2);
             const now = new Date();
             const dateStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0') + ' ' + String(now.getHours()).padStart(2, '0') + '-' + String(now.getMinutes()).padStart(2, '0');
             const filename = `NexusPos - ${dateStr}.txt`;
-
             const blob = new Blob([dataStr], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = filename;
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
         document.getElementById('sync-input-unified').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
@@ -803,13 +848,8 @@
                         if (data.products) products = data.products;
                         if (data.orders) orders = data.orders;
                         if (data.customers) customers = data.customers;
-                        if (data.vipSettings) {
-                            vipSettings = data.vipSettings;
-                            localStorage.setItem('pos_vip_settings', JSON.stringify(vipSettings));
-                        }
-                        saveData();
-                        alert('Unified Data restored successfully!');
-                        initSystem();
+                        if (data.vipSettings) { vipSettings = data.vipSettings; localStorage.setItem('pos_vip_settings', JSON.stringify(vipSettings)); }
+                        saveData(); alert('Unified Data restored successfully!'); initSystem();
                     } else throw new Error("Invalid Format");
                 } catch (err) { alert('Error: Incompatible file format.'); }
                 document.getElementById('sync-input-unified').value = '';
@@ -817,7 +857,7 @@
             reader.readAsText(file);
         });
 
-        // --- Dashboard & Analytics ---
+        // --- Dashboard & Dynamic Analytics Chart ---
         function setAnalyticsView(view, el) {
             analyticsView = view;
             document.querySelectorAll('.sales-toggles span').forEach(e=>e.classList.remove('active'));
@@ -826,49 +866,57 @@
         }
 
         function renderDashboard() {
-            // Analytics Logic
             const now = new Date();
             let currentSales = 0; let prevSales = 0;
             let currentOrders = 0; let lbl = 'Today';
+            let chartData = [0, 0, 0, 0, 0, 0, 0];
             
-            // Helper to get start of day
-            const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+            const startOfDay = (dateObj) => new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate()).getTime();
             const startOfToday = startOfDay(now);
+            const startOfThisWeek = startOfToday - (now.getDay() * 86400000);
 
             orders.forEach(o => {
                 if (o.status !== 'Completed') return;
-                const oTime = new Date(o.date).getTime();
+                const oDate = new Date(o.date);
+                const oStartOfDay = startOfDay(oDate);
                 
                 if (analyticsView === 'day') {
                     lbl = 'Today';
-                    if (oTime >= startOfToday) { currentSales += parseFloat(o.total); currentOrders++; }
-                    else if (oTime >= startOfToday - 86400000 && oTime < startOfToday) { prevSales += parseFloat(o.total); }
+                    const diffDays = Math.round((startOfToday - oStartOfDay) / 86400000);
+                    if (diffDays === 0) { currentSales += parseFloat(o.total); currentOrders++; }
+                    else if (diffDays === 1) { prevSales += parseFloat(o.total); }
+                    if (diffDays >= 0 && diffDays < 7) { chartData[6 - diffDays] += parseFloat(o.total); }
                 } else if (analyticsView === 'week') {
                     lbl = 'This Week';
-                    const startOfWeek = startOfToday - (now.getDay() * 86400000);
-                    if (oTime >= startOfWeek) { currentSales += parseFloat(o.total); currentOrders++; }
-                    else if (oTime >= startOfWeek - (7*86400000) && oTime < startOfWeek) { prevSales += parseFloat(o.total); }
+                    const oStartOfWeek = oStartOfDay - (oDate.getDay() * 86400000);
+                    const diffWeeks = Math.round((startOfThisWeek - oStartOfWeek) / (7 * 86400000));
+                    if (diffWeeks === 0) { currentSales += parseFloat(o.total); currentOrders++; }
+                    else if (diffWeeks === 1) { prevSales += parseFloat(o.total); }
+                    if (diffWeeks >= 0 && diffWeeks < 7) { chartData[6 - diffWeeks] += parseFloat(o.total); }
                 } else if (analyticsView === 'month') {
                     lbl = 'This Month';
-                    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
-                    const startOfPrevMonth = new Date(now.getFullYear(), now.getMonth()-1, 1).getTime();
-                    if (oTime >= startOfMonth) { currentSales += parseFloat(o.total); currentOrders++; }
-                    else if (oTime >= startOfPrevMonth && oTime < startOfMonth) { prevSales += parseFloat(o.total); }
+                    const diffMonths = (now.getFullYear() - oDate.getFullYear()) * 12 + (now.getMonth() - oDate.getMonth());
+                    if (diffMonths === 0) { currentSales += parseFloat(o.total); currentOrders++; }
+                    else if (diffMonths === 1) { prevSales += parseFloat(o.total); }
+                    if (diffMonths >= 0 && diffMonths < 7) { chartData[6 - diffMonths] += parseFloat(o.total); }
                 }
             });
 
-            // Calc Change
+            // Calculate Change
             let percentChange = 0;
             if (prevSales === 0 && currentSales > 0) percentChange = 100;
             else if (prevSales > 0) percentChange = ((currentSales - prevSales) / prevSales) * 100;
             
             const changeEl = document.getElementById('dash-change');
-            if (percentChange >= 0) {
+            if (percentChange > 0) {
                 changeEl.innerText = `+${percentChange.toFixed(1)}% vs Previous`;
                 changeEl.className = 'change-indicator change-positive';
-            } else {
+            } else if (percentChange < 0) {
                 changeEl.innerText = `${percentChange.toFixed(1)}% vs Previous`;
                 changeEl.className = 'change-indicator change-negative';
+            } else {
+                changeEl.innerText = `0% vs Previous`;
+                changeEl.className = 'change-indicator change-neutral';
             }
 
             document.getElementById('dash-sales').innerText = formatMoney(currentSales);
@@ -876,13 +924,15 @@
             document.getElementById('dash-lbl-orders').innerText = lbl;
             document.getElementById('dash-vips').innerText = customers.filter(c => c.vipLevel !== 'Regular').length;
 
-            // Generate Mock Chart Bars dynamically based on total scale
+            // Generate Functional Chart
+            const maxVal = Math.max(...chartData, 1);
             let chartHtml = '';
-            for(let i=0; i<7; i++) {
-                let h = Math.floor(Math.random() * 70) + 30; // 30-100% height
-                let isBlue = (i%2 !== 0) ? 'blue' : '';
-                chartHtml += `<div class="bar ${isBlue}" style="height: ${h}%;"></div>`;
-            }
+            chartData.forEach((val, idx) => {
+                let h = (val / maxVal) * 100;
+                if (h < 5 && val > 0) h = 5; 
+                let isBlue = (idx % 2 !== 0) ? 'blue' : '';
+                chartHtml += `<div class="bar ${isBlue}" style="height: ${h}%;" title="${formatMoney(val)}"></div>`;
+            });
             document.getElementById('dash-chart').innerHTML = chartHtml;
 
             // Featured Sale
@@ -1084,7 +1134,7 @@
             renderCart();
         }
 
-        // Added functionality to set custom quantities via input
+        // Direct quantity input handling
         function setCartQty(id, val) {
             let qty = parseInt(val);
             const item = cart.find(c => c.id === id);
@@ -1197,7 +1247,7 @@
                     cust.points += pointsEarned;
                     cust.pointLedger.push({ date: dateStr, reference: orderNum, type: 'Earned', points: pointsEarned, balance: cust.points, desc: 'Order purchase' });
                 }
-                cust.vipLevel = calculateVip(cust.lifetimeSpend);
+                cust.vipLevel = cust.manualVipLevel !== 'Auto' && cust.manualVipLevel ? cust.manualVipLevel : calculateVip(cust.lifetimeSpend);
             } else {
                 const wName = document.getElementById('cart-cust-name').value.trim();
                 const wPhone = document.getElementById('cart-cust-phone').value.trim();
@@ -1207,16 +1257,16 @@
                     if (!exist) {
                         exist = {
                             id: generateId(), customerId: generateCustomerId(), name: wName, phone: wPhone, email: '',
-                            dateCreated: dateStr, lifetimeSpend: total, points: pointsEarned,
-                            pointLedger: [{ date: dateStr, reference: orderNum, type: 'Earned', points: pointsEarned, balance: pointsEarned, desc: 'First purchase' }],
-                            vipLevel: calculateVip(total)
+                            dateCreated: dateStr, lifetimeSpend: total, points: pointsEarned, manualVipLevel: 'Auto',
+                            pointLedger: [{ date: dateStr, reference: orderNum, type: 'Earned', points: pointsEarned, balance: pointsEarned, desc: 'First purchase' }]
                         };
+                        exist.vipLevel = calculateVip(total);
                         customers.push(exist);
                         updatePOSCustomerSelect();
                     } else {
                         exist.lifetimeSpend += total;
                         exist.points += pointsEarned;
-                        exist.vipLevel = calculateVip(exist.lifetimeSpend);
+                        exist.vipLevel = exist.manualVipLevel !== 'Auto' && exist.manualVipLevel ? exist.manualVipLevel : calculateVip(exist.lifetimeSpend);
                         exist.pointLedger.push({ date: dateStr, reference: orderNum, type: 'Earned', points: pointsEarned, balance: exist.points, desc: 'Order purchase' });
                     }
                     finalCustomer = { id: exist.id, name: exist.name, phone: exist.phone };
@@ -1284,8 +1334,7 @@
         }
 
         function generateReceipt(order) {
-            const receiptText = generateReceiptText(order);
-            document.getElementById('receipt-content').innerText = receiptText;
+            document.getElementById('receipt-content').innerText = generateReceiptText(order);
             document.getElementById('receipt-modal').classList.add('active');
         }
 
@@ -1298,8 +1347,7 @@
         }
 
         function copyReceipt() {
-            const content = document.getElementById('receipt-content').innerText;
-            navigator.clipboard.writeText(content).then(() => {
+            navigator.clipboard.writeText(document.getElementById('receipt-content').innerText).then(() => {
                 alert('Receipt copied to clipboard!');
             });
         }
@@ -1348,6 +1396,7 @@
                         <div class="flex gap-2">
                             <button class="action-btn" onclick="viewCustomerProfile('${c.id}')" style="padding: 6px 12px; font-size: 0.8rem;">Profile</button>
                             <button class="action-btn" onclick="editCustomer('${c.id}')" style="padding: 6px 12px; font-size: 0.8rem; background: rgba(255,255,255,0.15);">Edit</button>
+                            <button class="action-btn action-danger" onclick="deleteCustomer('${c.id}')" style="padding: 6px 12px; font-size: 0.8rem;">Del</button>
                         </div>
                     </td>
                 </tr>`;
@@ -1366,10 +1415,10 @@
             document.getElementById('cust-name').value = '';
             document.getElementById('cust-phone').value = '';
             document.getElementById('cust-email').value = '';
+            document.getElementById('cust-vip-override-wrapper').classList.add('hidden');
             document.getElementById('cust-points-wrapper').classList.add('hidden');
         }
 
-        // Added functionality to edit customer profile and manual points
         function editCustomer(id) {
             const c = customers.find(x => x.id === id);
             if(!c) return;
@@ -1380,8 +1429,19 @@
             document.getElementById('cust-phone').value = c.phone || '';
             document.getElementById('cust-email').value = c.email || '';
             
+            document.getElementById('cust-vip-override-wrapper').classList.remove('hidden');
+            document.getElementById('cust-vip-tier').value = c.manualVipLevel || 'Auto';
             document.getElementById('cust-points-wrapper').classList.remove('hidden');
             document.getElementById('cust-points').value = c.points;
+        }
+
+        function deleteCustomer(id) {
+            if(confirm("Are you sure you want to permanently delete this VIP customer and their point records?")) {
+                customers = customers.filter(c => c.id !== id);
+                saveData();
+                updatePOSCustomerSelect();
+                renderCustomers();
+            }
         }
 
         function saveCustomer() {
@@ -1395,6 +1455,9 @@
                 customers[idx].name = name;
                 customers[idx].phone = document.getElementById('cust-phone').value.trim();
                 customers[idx].email = document.getElementById('cust-email').value.trim();
+                
+                customers[idx].manualVipLevel = document.getElementById('cust-vip-tier').value;
+                customers[idx].vipLevel = customers[idx].manualVipLevel !== 'Auto' ? customers[idx].manualVipLevel : calculateVip(customers[idx].lifetimeSpend);
                 
                 const manualPts = parseInt(document.getElementById('cust-points').value);
                 if (!isNaN(manualPts) && manualPts >= 0 && manualPts !== customers[idx].points) {
@@ -1411,7 +1474,7 @@
                 customers.push({
                     id: generateId(), customerId: generateCustomerId(), name: name, phone: document.getElementById('cust-phone').value.trim(),
                     email: document.getElementById('cust-email').value.trim(), dateCreated: new Date().toISOString(),
-                    lifetimeSpend: 0, points: 0, pointLedger: [], vipLevel: 'Regular'
+                    lifetimeSpend: 0, points: 0, manualVipLevel: 'Auto', pointLedger: [], vipLevel: 'Regular'
                 });
             }
             
