@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus POS | Bento Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Nexus POS | Bento Edition v5.8</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
     
     <style>
@@ -116,6 +116,22 @@
             gap: 16px;
             margin-bottom: 24px;
         }
+        
+        /* Dashboard Specific 4-Block Layout */
+        .bento-dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .box-analytics { grid-column: span 2; }
+        .box-orders { grid-column: span 2; }
+        
+        @media (max-width: 1024px) {
+            .bento-dashboard { grid-template-columns: repeat(2, 1fr); }
+            .box-analytics, .box-orders { grid-column: span 2; }
+        }
+
         .bento-box {
             border-radius: var(--radius-bento);
             padding: 24px;
@@ -144,11 +160,11 @@
         .bar { flex: 1; background: #fff; border-radius: 4px 4px 0 0; opacity: 0.9; }
         .bar.blue { background: var(--bento-blue); }
         
-        .inventory-list { display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; font-weight: 500; margin-top: 16px;}
+        .inventory-list { display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; font-weight: 500; margin-top: 16px; flex-grow: 1; overflow-y: auto; max-height: 250px;}
         .inv-card { background: #fff; color: var(--text-dark); padding: 12px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;}
         .inv-card .alert { color: var(--danger); font-weight: 800; font-size: 0.75rem; text-transform: uppercase;}
         
-        .order-history-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+        .order-history-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; flex-grow: 1;}
         .history-item { background: rgba(255,255,255,0.8); color: var(--text-dark); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
         
         /* Internal UI Elements */
@@ -198,29 +214,55 @@
         .modal-content { width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; background: var(--sidebar-bg); padding: 24px; border-radius: var(--radius-bento); border: 1px solid rgba(255,255,255,0.1);}
         
         /* Interactive Help Accordions */
-        details { background: rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1); }
-        summary { padding: 16px; font-weight: 600; cursor: pointer; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        details { background: rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+        details[open] { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+        summary { padding: 18px 20px; font-weight: 700; cursor: pointer; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem; }
         summary::-webkit-details-marker { display: none; }
-        summary::after { content: '+'; font-size: 1.2rem; color: var(--bento-orange); font-weight: 800; }
-        details[open] summary::after { content: '-'; }
-        details p { padding: 0 16px 16px 16px; color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+        summary::after { content: '+'; font-size: 1.4rem; color: var(--bento-orange); font-weight: 800; transition: 0.2s;}
+        details[open] summary::after { content: '−'; }
+        details p { padding: 0 20px 20px 20px; color: var(--text-muted); line-height: 1.7; font-size: 0.95rem; }
 
         /* Team Profile */
-        .team-profile { display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.05); padding: 20px; border-radius: var(--radius-small); flex: 1; border: 1px solid rgba(255,255,255,0.1);}
-        .team-profile img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bento-orange); }
+        .team-profile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 24px; border-radius: var(--radius-bento); flex: 1; border: 1px solid rgba(255,255,255,0.1);}
+        .team-profile img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid var(--bento-orange); box-shadow: 0 5px 15px rgba(234, 88, 12, 0.4);}
+        .team-email { font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; background: rgba(0,0,0,0.3); padding: 6px 12px; border-radius: 20px;}
 
-        /* Mobile */
-        @media (max-width: 1024px) {
-            .bento-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        /* Mobile iPhone / Safe Area Optimizations */
         @media (max-width: 768px) {
             body { flex-direction: column; }
-            .sidebar { width: 100%; height: 75px; flex-direction: row; order: 2; border-right: none; border-top: 1px solid rgba(255,255,255,0.05); }
+            .sidebar { 
+                width: 100%; 
+                flex-direction: row; 
+                order: 2; 
+                border-right: none; 
+                border-top: 1px solid rgba(255,255,255,0.05);
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                height: calc(75px + env(safe-area-inset-bottom));
+                padding-bottom: env(safe-area-inset-bottom);
+                background: rgba(26, 26, 26, 0.95);
+                backdrop-filter: blur(10px);
+            }
             .brand { display: none; } 
-            .nav-links { flex-direction: row; overflow-x: auto; padding: 10px; width: 100%; gap: 8px; white-space: nowrap; -webkit-overflow-scrolling: touch;}
+            .nav-links { 
+                flex-direction: row; 
+                overflow-x: auto; 
+                padding: 10px 20px; 
+                width: 100%; 
+                gap: 8px; 
+                white-space: nowrap; 
+                -webkit-overflow-scrolling: touch;
+            }
             .nav-links li { padding: 10px 16px; border-radius: 20px;}
-            .main-content { padding: 16px; margin-bottom: 75px; }
-            .bento-grid { grid-template-columns: 1fr; }
+            
+            .main-content { 
+                padding: 16px; 
+                margin-bottom: calc(75px + env(safe-area-inset-bottom)); 
+            }
+            
+            .bento-dashboard { grid-template-columns: 1fr; }
+            .box-analytics, .box-orders { grid-column: span 1; }
             .pos-grid { grid-template-columns: 1fr; height: auto; }
             .product-grid { max-height: 35vh; }
         }
@@ -246,27 +288,21 @@
     <!-- Main Content -->
     <div class="main-content">
         
-        <!-- DASHBOARD (BENTO GRID) -->
+        <!-- DASHBOARD (4-Block Bento Grid) -->
         <div id="dashboard" class="section active">
             <h1>Business Overview</h1>
             
-            <div class="bento-grid">
-                <!-- Top Left: Featured Sale Item -->
-                <div class="bento-box bg-orange">
-                    <h3 style="color: rgba(255,255,255,0.9);">Featured Sale Item</h3>
-                    <div id="dash-featured-content"></div>
-                </div>
-
-                <!-- Top Center: Analytics -->
-                <div class="bento-box bg-orange">
+            <div class="bento-dashboard">
+                <!-- Box 1: Analytics -->
+                <div class="bento-box bg-orange box-analytics">
                     <div class="sales-header">
                         <h3 style="color: rgba(255,255,255,0.9); margin:0;">Sales Analytics</h3>
                         <div class="sales-toggles">
                             <span class="active">Day</span><span>Week</span><span>Month</span>
                         </div>
                     </div>
-                    <div style="font-size: 2.2rem; font-weight: 900; margin-top: 8px;" id="dash-sales">₱0</div>
-                    <div style="font-size: 0.8rem; color: #fef08a; font-weight: 600;">+8.2% vs Yesterday</div>
+                    <div style="font-size: 2.5rem; font-weight: 900; margin-top: 8px;" id="dash-sales">₱0</div>
+                    <div style="font-size: 0.85rem; color: #fef08a; font-weight: 600;">+8.2% vs Yesterday</div>
                     
                     <div class="chart-mockup">
                         <div class="bar" style="height: 40%;"></div>
@@ -274,39 +310,42 @@
                         <div class="bar" style="height: 30%;"></div>
                         <div class="bar blue" style="height: 80%;"></div>
                         <div class="bar" style="height: 50%;"></div>
+                        <div class="bar blue" style="height: 100%;"></div>
+                        <div class="bar" style="height: 70%;"></div>
                     </div>
                     
                     <div class="flex justify-between">
                         <div>
-                            <div style="font-size: 0.75rem; opacity: 0.9;">Total Orders</div>
-                            <div style="font-size: 1.4rem; font-weight: 800;" id="dash-orders">0</div>
+                            <div style="font-size: 0.8rem; opacity: 0.9;">Total Orders</div>
+                            <div style="font-size: 1.5rem; font-weight: 800;" id="dash-orders">0</div>
                         </div>
                         <div class="text-right">
-                            <div style="font-size: 0.75rem; opacity: 0.9;">VIP Active</div>
-                            <div style="font-size: 1.4rem; font-weight: 800;" id="dash-vips">0</div>
+                            <div style="font-size: 0.8rem; opacity: 0.9;">VIP Active</div>
+                            <div style="font-size: 1.5rem; font-weight: 800;" id="dash-vips">0</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Top Right: Inventory Status -->
+                <!-- Box 2: Featured Sale Item -->
                 <div class="bento-box bg-orange">
-                    <h3 style="color: rgba(255,255,255,0.9);">Inventory Status</h3>
-                    <p style="font-size: 0.8rem; opacity: 0.9;">Low stock items (5 or less)</p>
-                    <div class="inventory-list" id="inventory-status-list"></div>
+                    <h3 style="color: rgba(255,255,255,0.9);">Featured Sale Item</h3>
+                    <div id="dash-featured-content" class="flex-col items-center justify-center" style="height: 100%; text-align:center;"></div>
                 </div>
 
-                <!-- Bottom Left: Order History -->
-                <div class="bento-box bg-blue">
-                    <h3 style="color: var(--text-dark);">Recent Orders</h3>
-                    <p style="font-size: 0.8rem; color: var(--text-dark); font-weight: 600;">Last 5 transactions</p>
+                <!-- Box 3: Order History -->
+                <div class="bento-box bg-blue box-orders">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 style="color: var(--text-dark); margin:0;">Recent Orders</h3>
+                        <span style="font-size: 0.8rem; color: var(--text-dark); font-weight: 700;">Last 5 transactions</span>
+                    </div>
                     <div class="order-history-list" id="dash-recent-orders-list"></div>
                 </div>
 
-                <!-- Bottom Center: Feedback (Coming Soon) -->
-                <div class="bento-box bg-dark flex justify-center items-center" style="text-align: center;">
-                    <div style="font-size: 4rem; opacity: 0.2; margin-bottom: 10px;">★</div>
-                    <h3 style="color: var(--text-muted); font-size: 1.2rem;">Customer Feedback</h3>
-                    <div class="badge badge-regular" style="margin-top: 8px;">Coming Soon</div>
+                <!-- Box 4: Inventory Status -->
+                <div class="bento-box bg-dark">
+                    <h3 style="color: var(--bento-orange);">Inventory Alerts</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Items running low (5 or less)</p>
+                    <div class="inventory-list" id="inventory-status-list"></div>
                 </div>
             </div>
         </div>
@@ -415,15 +454,15 @@
 
         <!-- SETTINGS -->
         <div id="settings" class="section">
-            <h1>Settings & Data Sync</h1>
+            <h1>Data Sync & Settings</h1>
             <div class="bento-box bg-dark" style="max-width: 600px;">
-                <h3 style="color: var(--bento-orange); margin-bottom: 8px;">Unified Data Management</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Securely export your entire database (Inventory, Orders, and VIP Customers) into a single backup file. You can restore your system state by uploading this file on any device.</p>
+                <h3 style="color: var(--bento-orange); margin-bottom: 8px;">Unified Data Backup</h3>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;">Securely export your entire database (Inventory, Orders, and VIP Customers) into a single, timestamped backup file. You can restore your system state seamlessly by uploading this file on any device.</p>
                 
                 <div class="flex-col gap-4">
-                    <button class="action-btn action-primary" style="padding: 16px;" onclick="exportUnifiedData()">Download System Backup</button>
+                    <button class="action-btn action-primary" style="padding: 16px; font-size: 1.05rem;" onclick="exportUnifiedData()">Download System Backup</button>
                     <input type="file" id="sync-input-unified" accept=".txt,.json" style="display: none;">
-                    <button class="action-btn" style="padding: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);" onclick="document.getElementById('sync-input-unified').click()">Restore from Backup File</button>
+                    <button class="action-btn" style="padding: 16px; font-size: 1.05rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2);" onclick="document.getElementById('sync-input-unified').click()">Restore from Backup File</button>
                 </div>
             </div>
         </div>
@@ -434,19 +473,23 @@
             <div style="max-width: 800px;">
                 <details>
                     <summary>How do I process a sale?</summary>
-                    <p>Navigate to the <strong>Terminal</strong> tab. Tap on products in the grid to add them to your cart. Use the + and - buttons to adjust quantities. If the customer is a VIP, select their name from the dropdown. Once ready, click <strong>Complete Order</strong>.</p>
+                    <p>Navigate to the <strong>Terminal</strong> tab. Tap on products in the grid to add them to your cart. Use the + and - buttons to adjust quantities. If the customer is a VIP, select their name from the dropdown. Once ready, click <strong>Complete Order</strong>. The stock will automatically deduct from inventory.</p>
                 </details>
                 <details>
                     <summary>How do VIP points and tiers work?</summary>
-                    <p>Customers automatically earn 1 point for every ₱100 they spend. During checkout, they can redeem points as a direct discount (1 point = ₱1). The system tracks their lifetime spending and automatically upgrades them through Bronze (₱5k), Silver (₱10k), Gold (₱50k), and Platinum (₱100k) tiers.</p>
+                    <p>Customers automatically earn <strong>1 point for every ₱100 they spend</strong>. During checkout, they can redeem points as a direct discount (1 point = ₱1). The system tracks their lifetime spending and automatically upgrades them through Bronze (₱5k), Silver (₱10k), Gold (₱50k), and Platinum (₱100k) tiers.</p>
+                </details>
+                <details>
+                    <summary>How do I add or manage products?</summary>
+                    <p>Go to the <strong>Inventory</strong> tab and click "+ Add Item". Fill out the product name, SKU, price, and initial stock. To update stock levels later, simply click the "Edit" button next to the product.</p>
                 </details>
                 <details>
                     <summary>How do I put an item on sale?</summary>
-                    <p>Go to the <strong>Inventory</strong> tab and click 'Edit' on a product. Enter a value in the "Promo Price" field. The system will automatically display a SALE badge on the Terminal and use the discounted price for calculations. If you leave the Promo field empty, it reverts to normal.</p>
+                    <p>In the <strong>Inventory</strong> tab, click 'Edit' on a product. Enter a discounted value in the "Promo Price" field. The system will automatically display a SALE badge on the Terminal, push it to the Dashboard featured section, and use the discounted price for calculations. Leave it blank to revert to normal pricing.</p>
                 </details>
                 <details>
-                    <summary>How do I backup my store data?</summary>
-                    <p>Since Nexus POS operates completely offline, it is crucial to backup your data. Go to the <strong>Settings</strong> tab and click "Download System Backup". This downloads a single text file containing your entire store's history to your device.</p>
+                    <summary>How do I backup and restore my store data?</summary>
+                    <p>Because Nexus POS operates completely offline for blazing fast speed, it is crucial to backup your data. Go to the <strong>Settings</strong> tab and click "Download System Backup". This downloads a single text file. If you switch computers, simply click "Restore from Backup File" and select that file to restore your entire store.</p>
                 </details>
             </div>
         </div>
@@ -455,9 +498,16 @@
         <div id="info" class="section">
             <h1>System Info</h1>
             
-            <div class="bento-box bg-dark" style="max-width: 800px; margin-bottom: 24px;">
-                <h3 style="color: var(--bento-orange); margin-bottom: 12px; font-size: 1.4rem;">Why was Nexus POS developed?</h3>
-                <p style="color: var(--text-muted); line-height: 1.7; font-size: 1rem;">Nexus POS was built to empower local microbusinesses with a premium, zero-cost Point of Sale solution. By operating entirely offline within the browser, it eliminates expensive monthly cloud subscription fees and the need for constant internet dependency. Our goal is to ensure that every business—no matter its size or location—has the professional tools it needs to track inventory, reward loyal customers, and thrive.</p>
+            <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <div class="bento-box bg-dark">
+                    <h3 style="color: var(--bento-orange); margin-bottom: 12px; font-size: 1.4rem;">The Nexus Mission</h3>
+                    <p style="color: var(--text-muted); line-height: 1.7; font-size: 1rem;">Nexus POS was built to empower local microbusinesses with a premium, zero-cost Point of Sale solution. By operating entirely offline within the browser, it eliminates expensive monthly cloud subscription fees and the need for constant internet dependency. Our goal is to ensure that every business has the professional tools it needs to track inventory, reward loyal customers, and thrive.</p>
+                </div>
+                <div class="bento-box bg-blue" style="justify-content: center; text-align: center;">
+                    <div style="font-size: 4rem; font-weight: 900; color: var(--brand-blue); font-family: var(--font-display);">v5.8</div>
+                    <h3 style="color: var(--text-dark); margin-top: 10px;">Current Version Build</h3>
+                    <p style="color: var(--text-dark); opacity: 0.8; font-weight: 600; margin-top: 10px;">Offline Storage Engine Active<br>Bento UI Framework</p>
+                </div>
             </div>
 
             <h3 style="margin-bottom: 16px;">Development Team</h3>
@@ -465,17 +515,15 @@
                 <div class="team-profile">
                     <!-- Correct Asset Used: nicedadol.png -->
                     <img src="nicedadol.png" alt="Nice Dadol" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iI2VhNTgwYyIvPjwvc3ZnPg=='">
-                    <div>
-                        <h3 style="color: var(--text-light); margin:0;">Nice Dadol</h3>
-                        <p style="font-size: 0.8rem; color: var(--bento-orange); text-transform: uppercase; font-weight: 800;">Designer & Vibecoder</p>
-                    </div>
+                    <h3 style="color: var(--text-light); margin:0;">Nice Dadol</h3>
+                    <p style="font-size: 0.8rem; color: var(--bento-orange); text-transform: uppercase; font-weight: 800;">Designer & Vibecoder</p>
+                    <div class="team-email">Dadolnick@gmail.com</div>
                 </div>
                 <div class="team-profile">
                     <img src="dexterpunay.jpg" alt="Dexter Punay" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iI2VhNTgwYyIvPjwvc3ZnPg=='">
-                    <div>
-                        <h3 style="color: var(--text-light); margin:0;">Dexter Punay</h3>
-                        <p style="font-size: 0.8rem; color: var(--bento-orange); text-transform: uppercase; font-weight: 800;">Vibecoder</p>
-                    </div>
+                    <h3 style="color: var(--text-light); margin:0;">Dexter Punay</h3>
+                    <p style="font-size: 0.8rem; color: var(--bento-orange); text-transform: uppercase; font-weight: 800;">Vibecoder</p>
+                    <div class="team-email">Punaydexter123@gmail.com</div>
                 </div>
             </div>
         </div>
@@ -564,7 +612,6 @@
         let cart = [];
 
         function initSystem() {
-            // Retroactive VIP link logic
             if (orders.length > 0) {
                 let customersModified = false;
                 orders.forEach(o => {
@@ -628,11 +675,16 @@
             return `<span class="badge ${cls}">${tier}</span>`;
         }
 
+        // Safely navigate without relying on event.currentTarget to fix programmatic crashes
         function navigate(sectionId) {
             document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-links li').forEach(el => el.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-            event.currentTarget.classList.add('active');
+            
+            const targetSection = document.getElementById(sectionId);
+            if(targetSection) targetSection.classList.add('active');
+            
+            const activeLi = Array.from(document.querySelectorAll('.nav-links li')).find(li => li.getAttribute('onclick').includes(`'${sectionId}'`));
+            if(activeLi) activeLi.classList.add('active');
 
             if(sectionId === 'dashboard') renderDashboard();
             if(sectionId === 'products') renderProducts();
@@ -645,10 +697,9 @@
 
         // --- FIXED UNIFIED EXPORT / IMPORT ---
         function exportUnifiedData() {
-            // Pack everything into a standardized JSON format
             const unifiedData = {
                 type: "NexusPOS_Unified_Backup",
-                version: "2.0",
+                version: "5.8",
                 timestamp: new Date().toISOString(),
                 products: products,
                 orders: orders,
@@ -683,7 +734,6 @@
                 try {
                     const data = JSON.parse(e.target.result);
                     
-                    // Validate Strict Backup Format
                     if (data.type === "NexusPOS_Unified_Backup" || (data.products && Array.isArray(data.products))) {
                         if (data.products) products = data.products;
                         if (data.orders) orders = data.orders;
@@ -717,7 +767,6 @@
             document.getElementById('dash-orders').innerText = orders.length;
             document.getElementById('dash-vips').innerText = vips;
 
-            // Featured Sale Item
             const featPanel = document.getElementById('dash-featured-content');
             const saleItem = products.find(p => p.discountPrice && p.discountPrice < p.price);
             if (saleItem) {
@@ -734,7 +783,6 @@
                 `;
             }
 
-            // Inventory Status (Low Stock)
             let lowStockHtml = '';
             products.filter(p => p.stock <= 5).forEach(p => {
                 lowStockHtml += `<div class="inv-card">
@@ -751,7 +799,6 @@
             if (lowStockHtml === '') lowStockHtml = '<div style="color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-top:10px;">All stock levels optimal.</div>';
             document.getElementById('inventory-status-list').innerHTML = lowStockHtml;
 
-            // Order History List
             let recentHtml = '';
             orders.slice().reverse().slice(0, 5).forEach(o => {
                 let displayId = o.customer.id ? customers.find(c=>c.id===o.customer.id)?.customerId || 'Walk-in' : 'Walk-in';
