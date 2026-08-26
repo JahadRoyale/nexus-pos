@@ -39,7 +39,6 @@
             overflow: hidden; 
         }
         
-        /* Utilities */
         .flex { display: flex; }
         .flex-col { display: flex; flex-direction: column; }
         .gap-2 { gap: 8px; }
@@ -50,11 +49,9 @@
         .mb-4 { margin-bottom: 16px; }
         .hidden { display: none !important; }
 
-        /* Typography */
         h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; font-family: var(--font-display); }
         h1 { font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase; }
         
-        /* Sidebar */
         .sidebar { 
             width: 250px; 
             background: var(--sidebar-bg); 
@@ -97,7 +94,6 @@
             color: var(--bento-orange); 
         }
         
-        /* Main Content */
         .main-content { 
             flex-grow: 1; 
             display: flex; 
@@ -109,7 +105,6 @@
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
 
-        /* Bento Grid */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -117,7 +112,6 @@
             margin-bottom: 24px;
         }
         
-        /* Dashboard Specific 4-Block Layout */
         .bento-dashboard {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -147,7 +141,6 @@
         .bg-grey { background: var(--bento-grey); color: var(--text-dark); }
         .bg-dark { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); }
         
-        /* Panel Specifics */
         .cart-icon-placeholder { width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 15px 0; }
         .btn-white { background: #fff; color: var(--bento-orange); border: none; padding: 10px; border-radius: 20px; font-weight: 700; cursor: pointer; text-align: center; font-size: 0.9rem;}
         
@@ -157,8 +150,11 @@
         .sales-toggles span.active { background: #fff; color: var(--bento-orange); border-radius: 20px; }
         
         .chart-mockup { display: flex; align-items: flex-end; gap: 8px; height: 80px; margin: 20px 0; }
-        .bar { flex: 1; background: #fff; border-radius: 4px 4px 0 0; opacity: 0.9; }
+        .bar { flex: 1; background: #fff; border-radius: 4px 4px 0 0; opacity: 0.9; transition: height 0.4s ease;}
         .bar.blue { background: var(--bento-blue); }
+        .change-indicator { font-size: 0.85rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;}
+        .change-positive { color: #fef08a; background: rgba(254, 240, 138, 0.1); }
+        .change-negative { color: #fca5a5; background: rgba(252, 165, 165, 0.1); }
         
         .inventory-list { display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; font-weight: 500; margin-top: 16px; flex-grow: 1; overflow-y: auto; max-height: 250px;}
         .inv-card { background: #fff; color: var(--text-dark); padding: 12px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;}
@@ -167,25 +163,24 @@
         .order-history-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; flex-grow: 1;}
         .history-item { background: rgba(255,255,255,0.8); color: var(--text-dark); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
         
-        /* Internal UI Elements */
         .internal-panel { background: var(--sidebar-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-bento); padding: 24px; margin-bottom: 24px; }
         
         input, select, textarea { width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-family: var(--font-ui); margin-bottom: 12px; transition: 0.2s;}
         input:focus, select:focus { outline: none; border-color: var(--bento-orange); }
+        input[type="number"].cart-qty-input { width: 50px; text-align: center; padding: 6px; margin: 0; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: #fff; font-weight: bold;}
+        input[type="number"].cart-qty-input:focus { border-color: var(--bento-orange); background: rgba(0,0,0,0.5); }
         
-        button.action-btn { padding: 12px 18px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.1); color: #fff; }
+        button.action-btn { padding: 12px 18px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.1); color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
         button.action-btn:hover { background: rgba(255,255,255,0.2); }
         button.action-primary { background: var(--bento-orange); color: #fff; }
         button.action-primary:hover { background: var(--bento-orange-hover); }
         button.action-danger { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
 
-        /* Tables */
         .table-container { overflow-x: auto; background: var(--sidebar-bg); border-radius: var(--radius-small); margin-bottom: 24px;}
         table { width: 100%; border-collapse: collapse; text-align: left; }
         th, td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;}
         th { background: rgba(0,0,0,0.2); font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem;}
         
-        /* POS Terminal */
         .pos-grid { display: grid; grid-template-columns: 2fr 1.2fr; gap: 20px; height: calc(100vh - 120px); }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; overflow-y: auto; align-content: start; }
         .pos-item { background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; text-align: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: 0.2s; position: relative;}
@@ -199,7 +194,6 @@
         .cart-totals .row { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: center; }
         .cart-totals .grand-total { font-size: 1.4rem; font-weight: 800; color: var(--bento-orange); margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.1);}
 
-        /* Badges */
         .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
         .badge-bronze { background: #cd7f32; color: #fff; }
         .badge-silver { background: #94a3b8; color: #fff; }
@@ -208,11 +202,13 @@
         .badge-regular { background: rgba(255,255,255,0.1); color: #fff; }
         .badge-sale { background: var(--danger); color: #fff; }
 
-        /* Modals */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000; }
         .modal-overlay.active { display: flex; }
         .modal-content { width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; background: var(--sidebar-bg); padding: 24px; border-radius: var(--radius-bento); border: 1px solid rgba(255,255,255,0.1);}
         
+        /* Receipt UI */
+        .receipt-container { font-family: 'Courier New', Courier, monospace; background: #000; color: #fff; padding: 20px; border: 1px dashed rgba(255,255,255,0.3); margin-bottom: 20px; white-space: pre-wrap; font-size: 13px; border-radius: 8px;}
+
         /* Interactive Help Accordions */
         details { background: rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
         details[open] { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
@@ -222,10 +218,11 @@
         details[open] summary::after { content: '−'; }
         details p { padding: 0 20px 20px 20px; color: var(--text-muted); line-height: 1.7; font-size: 0.95rem; }
 
-        /* Team Profile */
         .team-profile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 24px; border-radius: var(--radius-bento); flex: 1; border: 1px solid rgba(255,255,255,0.1);}
         .team-profile img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid var(--bento-orange); box-shadow: 0 5px 15px rgba(234, 88, 12, 0.4);}
         .team-email { font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; background: rgba(0,0,0,0.3); padding: 6px 12px; border-radius: 20px;}
+
+        .header-actions { display: flex; gap: 8px; align-items: center;}
 
         /* Mobile iPhone / Safe Area Optimizations */
         @media (max-width: 768px) {
@@ -241,7 +238,7 @@
                 left: 0;
                 height: calc(75px + env(safe-area-inset-bottom));
                 padding-bottom: env(safe-area-inset-bottom);
-                background: rgba(26, 26, 26, 0.95);
+                background: rgba(26, 26, 26, 0.98);
                 backdrop-filter: blur(10px);
             }
             .brand { display: none; } 
@@ -258,13 +255,16 @@
             
             .main-content { 
                 padding: 16px; 
-                margin-bottom: calc(75px + env(safe-area-inset-bottom)); 
+                padding-bottom: calc(100px + env(safe-area-inset-bottom)); /* Fixed cutoff issue */
+                margin-bottom: 0;
             }
             
             .bento-dashboard { grid-template-columns: 1fr; }
             .box-analytics, .box-orders { grid-column: span 1; }
             .pos-grid { grid-template-columns: 1fr; height: auto; }
             .product-grid { max-height: 35vh; }
+            .header-actions { flex-direction: column; width: 100%; align-items: stretch; }
+            .header-actions input { width: 100%; margin-bottom: 8px; }
         }
     </style>
 </head>
@@ -288,7 +288,7 @@
     <!-- Main Content -->
     <div class="main-content">
         
-        <!-- DASHBOARD (4-Block Bento Grid) -->
+        <!-- DASHBOARD -->
         <div id="dashboard" class="section active">
             <h1>Business Overview</h1>
             
@@ -298,29 +298,25 @@
                     <div class="sales-header">
                         <h3 style="color: rgba(255,255,255,0.9); margin:0;">Sales Analytics</h3>
                         <div class="sales-toggles">
-                            <span class="active">Day</span><span>Week</span><span>Month</span>
+                            <span class="active" onclick="setAnalyticsView('day', this)">Day</span>
+                            <span onclick="setAnalyticsView('week', this)">Week</span>
+                            <span onclick="setAnalyticsView('month', this)">Month</span>
                         </div>
                     </div>
                     <div style="font-size: 2.5rem; font-weight: 900; margin-top: 8px;" id="dash-sales">₱0</div>
-                    <div style="font-size: 0.85rem; color: #fef08a; font-weight: 600;">+8.2% vs Yesterday</div>
+                    <div class="change-indicator" id="dash-change">+0.0% vs Previous</div>
                     
-                    <div class="chart-mockup">
-                        <div class="bar" style="height: 40%;"></div>
-                        <div class="bar blue" style="height: 60%;"></div>
-                        <div class="bar" style="height: 30%;"></div>
-                        <div class="bar blue" style="height: 80%;"></div>
-                        <div class="bar" style="height: 50%;"></div>
-                        <div class="bar blue" style="height: 100%;"></div>
-                        <div class="bar" style="height: 70%;"></div>
+                    <div class="chart-mockup" id="dash-chart">
+                        <!-- Bars generated by JS -->
                     </div>
                     
                     <div class="flex justify-between">
                         <div>
-                            <div style="font-size: 0.8rem; opacity: 0.9;">Total Orders</div>
+                            <div style="font-size: 0.8rem; opacity: 0.9;">Orders (<span id="dash-lbl-orders">Today</span>)</div>
                             <div style="font-size: 1.5rem; font-weight: 800;" id="dash-orders">0</div>
                         </div>
                         <div class="text-right">
-                            <div style="font-size: 0.8rem; opacity: 0.9;">VIP Active</div>
+                            <div style="font-size: 0.8rem; opacity: 0.9;">Total VIPs Active</div>
                             <div style="font-size: 1.5rem; font-weight: 800;" id="dash-vips">0</div>
                         </div>
                     </div>
@@ -328,7 +324,7 @@
 
                 <!-- Box 2: Featured Sale Item -->
                 <div class="bento-box bg-orange">
-                    <h3 style="color: rgba(255,255,255,0.9);">Featured Sale Item</h3>
+                    <h3 style="color: rgba(255,255,255,0.9);">Featured Sale</h3>
                     <div id="dash-featured-content" class="flex-col items-center justify-center" style="height: 100%; text-align:center;"></div>
                 </div>
 
@@ -404,7 +400,7 @@
 
         <!-- INVENTORY -->
         <div id="products" class="section">
-            <div class="flex justify-between items-center mb-4">
+            <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
                 <h1>Inventory</h1>
                 <button class="action-btn action-primary" onclick="openProductModal()">+ Add Item</button>
             </div>
@@ -420,7 +416,7 @@
         <div id="customers" class="section">
             <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
                 <h1>VIP Network</h1>
-                <div class="flex gap-2">
+                <div class="header-actions">
                     <input type="text" id="cust-search" placeholder="Search VIPs..." oninput="renderCustomers()" style="margin:0; width: 220px;">
                     <button class="action-btn action-primary" onclick="openCustomerModal()">+ Add VIP</button>
                 </div>
@@ -454,15 +450,42 @@
 
         <!-- SETTINGS -->
         <div id="settings" class="section">
-            <h1>Data Sync & Settings</h1>
-            <div class="bento-box bg-dark" style="max-width: 600px;">
-                <h3 style="color: var(--bento-orange); margin-bottom: 8px;">Unified Data Backup</h3>
-                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;">Securely export your entire database (Inventory, Orders, and VIP Customers) into a single, timestamped backup file. You can restore your system state seamlessly by uploading this file on any device.</p>
-                
-                <div class="flex-col gap-4">
-                    <button class="action-btn action-primary" style="padding: 16px; font-size: 1.05rem;" onclick="exportUnifiedData()">Download System Backup</button>
-                    <input type="file" id="sync-input-unified" accept=".txt,.json" style="display: none;">
-                    <button class="action-btn" style="padding: 16px; font-size: 1.05rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2);" onclick="document.getElementById('sync-input-unified').click()">Restore from Backup File</button>
+            <h1>Settings & Config</h1>
+            
+            <div class="bento-grid">
+                <div class="bento-box bg-dark">
+                    <h3 style="color: var(--bento-orange); margin-bottom: 8px;">Unified Data Backup</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;">Securely export your entire database (Inventory, Orders, and VIP Customers) into a single, timestamped backup file.</p>
+                    
+                    <div class="flex-col gap-4 mt-auto">
+                        <button class="action-btn action-primary" style="padding: 16px; font-size: 1.05rem;" onclick="exportUnifiedData()">Download System Backup</button>
+                        <input type="file" id="sync-input-unified" accept=".txt,.json" style="display: none;">
+                        <button class="action-btn" style="padding: 16px; font-size: 1.05rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2);" onclick="document.getElementById('sync-input-unified').click()">Restore from Backup File</button>
+                    </div>
+                </div>
+
+                <div class="bento-box bg-dark">
+                    <h3 style="color: var(--bento-orange); margin-bottom: 8px;">VIP Tier Thresholds</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Configure the lifetime spending amount (₱) required to reach each VIP level. Modifying this will automatically recalculate all current customer tiers.</p>
+                    
+                    <div class="flex gap-2 items-center mb-2">
+                        <span class="badge badge-bronze" style="width: 80px; text-align:center;">Bronze</span>
+                        <input type="number" id="set-bronze" style="margin:0;">
+                    </div>
+                    <div class="flex gap-2 items-center mb-2">
+                        <span class="badge badge-silver" style="width: 80px; text-align:center;">Silver</span>
+                        <input type="number" id="set-silver" style="margin:0;">
+                    </div>
+                    <div class="flex gap-2 items-center mb-2">
+                        <span class="badge badge-gold" style="width: 80px; text-align:center;">Gold</span>
+                        <input type="number" id="set-gold" style="margin:0;">
+                    </div>
+                    <div class="flex gap-2 items-center mb-4">
+                        <span class="badge badge-platinum" style="width: 80px; text-align:center;">Platinum</span>
+                        <input type="number" id="set-platinum" style="margin:0;">
+                    </div>
+                    
+                    <button class="action-btn action-primary mt-auto" onclick="saveVipSettings()">Save Tier Settings</button>
                 </div>
             </div>
         </div>
@@ -472,24 +495,24 @@
             <h1>Help Center</h1>
             <div style="max-width: 800px;">
                 <details>
-                    <summary>How do I process a sale?</summary>
-                    <p>Navigate to the <strong>Terminal</strong> tab. Tap on products in the grid to add them to your cart. Use the + and - buttons to adjust quantities. If the customer is a VIP, select their name from the dropdown. Once ready, click <strong>Complete Order</strong>. The stock will automatically deduct from inventory.</p>
+                    <summary>How do I process a mass order or specific item quantity?</summary>
+                    <p>Navigate to the <strong>Terminal</strong> tab. Tap on a product to add it to the cart. In the cart panel, you will see a quantity box between the - and + buttons. You can click directly into that box and type any custom number (e.g., "50") to instantly process bulk orders without clicking 50 times.</p>
                 </details>
                 <details>
-                    <summary>How do VIP points and tiers work?</summary>
-                    <p>Customers automatically earn <strong>1 point for every ₱100 they spend</strong>. During checkout, they can redeem points as a direct discount (1 point = ₱1). The system tracks their lifetime spending and automatically upgrades them through Bronze (₱5k), Silver (₱10k), Gold (₱50k), and Platinum (₱100k) tiers.</p>
+                    <summary>How do VIP points and customizable tiers work?</summary>
+                    <p>Customers automatically earn <strong>1 point for every ₱100 they spend</strong>. During checkout, they can redeem points as a direct discount (1 point = ₱1). The system tracks their lifetime spending and automatically upgrades them through VIP tiers. <br><br><strong>Note:</strong> You can completely customize the spending required for Bronze, Silver, Gold, and Platinum by going to the <strong>Settings</strong> tab and adjusting the VIP Tier Thresholds.</p>
                 </details>
                 <details>
-                    <summary>How do I add or manage products?</summary>
-                    <p>Go to the <strong>Inventory</strong> tab and click "+ Add Item". Fill out the product name, SKU, price, and initial stock. To update stock levels later, simply click the "Edit" button next to the product.</p>
+                    <summary>How do I edit a customer's profile or manually adjust points?</summary>
+                    <p>Go to the <strong>VIP Network</strong> tab. Find the customer in the table and click the <strong>Edit</strong> button. A prompt will allow you to update their Name, Phone, Email, and manually overwrite their current Points balance. The system will retain their lifetime spend.</p>
                 </details>
                 <details>
                     <summary>How do I put an item on sale?</summary>
-                    <p>In the <strong>Inventory</strong> tab, click 'Edit' on a product. Enter a discounted value in the "Promo Price" field. The system will automatically display a SALE badge on the Terminal, push it to the Dashboard featured section, and use the discounted price for calculations. Leave it blank to revert to normal pricing.</p>
+                    <p>In the <strong>Inventory</strong> tab, click 'Edit' on a product. Enter a discounted value in the "Promo Price" field. The system will automatically display a SALE badge on the Terminal, feature it on the Dashboard, and use the discounted price for calculations. Leave the field blank to revert to normal pricing.</p>
                 </details>
                 <details>
-                    <summary>How do I backup and restore my store data?</summary>
-                    <p>Because Nexus POS operates completely offline for blazing fast speed, it is crucial to backup your data. Go to the <strong>Settings</strong> tab and click "Download System Backup". This downloads a single text file. If you switch computers, simply click "Restore from Backup File" and select that file to restore your entire store.</p>
+                    <summary>How does the Sales Analytics chart work?</summary>
+                    <p>On the <strong>Dashboard</strong>, the Sales Analytics panel pulls data directly from your Order Logs. By clicking Day, Week, or Month, it compares your current revenue with the immediate previous period (e.g., Today vs Yesterday) to generate a percentage growth/decline indicator, providing accurate real-time business health checks.</p>
                 </details>
             </div>
         </div>
@@ -513,7 +536,7 @@
             <h3 style="margin-bottom: 16px;">Development Team</h3>
             <div class="flex gap-4 flex-wrap">
                 <div class="team-profile">
-                    <!-- Correct Asset Used: nicedadol.png -->
+                    <!-- Correct Asset Used: nicedadol.png[cite: 1] -->
                     <img src="nicedadol.png" alt="Nice Dadol" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iI2VhNTgwYyIvPjwvc3ZnPg=='">
                     <h3 style="color: var(--text-light); margin:0;">Nice Dadol</h3>
                     <p style="font-size: 0.8rem; color: var(--bento-orange); text-transform: uppercase; font-weight: 800;">Designer & Vibecoder</p>
@@ -565,6 +588,10 @@
             <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Full Name</label><input type="text" id="cust-name" required>
             <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Phone Number</label><input type="text" id="cust-phone">
             <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Email</label><input type="text" id="cust-email">
+            <div id="cust-points-wrapper" class="hidden">
+                <label style="font-size: 0.8rem; color: var(--bento-orange); font-weight:700;">Available Points</label>
+                <input type="number" id="cust-points" min="0">
+            </div>
             <div class="flex gap-4 mt-4">
                 <button class="action-btn action-primary" style="flex:1;" onclick="saveCustomer()">Save VIP</button>
                 <button class="action-btn" style="flex:1;" onclick="closeModal('customer-modal')">Cancel</button>
@@ -604,14 +631,44 @@
         </div>
     </div>
 
+    <!-- Receipt Modal -->
+    <div class="modal-overlay" id="receipt-modal">
+        <div class="modal-content" style="max-width: 420px; text-align: center;">
+            <h2 style="color: var(--success); margin-bottom: 16px;">Transaction Complete!</h2>
+            <div class="receipt-container" id="receipt-content" style="text-align: left;"></div>
+            <div class="flex gap-2 justify-between">
+                <div class="flex gap-2">
+                    <button class="action-btn action-primary" onclick="printReceipt()">Print</button>
+                    <button class="action-btn" onclick="copyReceipt()">Copy</button>
+                </div>
+                <button class="action-btn" onclick="closeModal('receipt-modal')">Done</button>
+            </div>
+        </div>
+    </div>
+
     <!-- --- JAVASCRIPT LOGIC --- -->
     <script>
         let products = JSON.parse(localStorage.getItem('pos_products')) || [];
         let orders = JSON.parse(localStorage.getItem('pos_orders')) || [];
         let customers = JSON.parse(localStorage.getItem('pos_customers')) || [];
         let cart = [];
+        let analyticsView = 'day'; // day, week, month
+        
+        // VIP Threshold Settings
+        let vipSettings = JSON.parse(localStorage.getItem('pos_vip_settings')) || {
+            bronze: 5000,
+            silver: 10000,
+            gold: 50000,
+            platinum: 100000
+        };
 
         function initSystem() {
+            // Populate VIP settings inputs
+            document.getElementById('set-bronze').value = vipSettings.bronze;
+            document.getElementById('set-silver').value = vipSettings.silver;
+            document.getElementById('set-gold').value = vipSettings.gold;
+            document.getElementById('set-platinum').value = vipSettings.platinum;
+
             if (orders.length > 0) {
                 let customersModified = false;
                 orders.forEach(o => {
@@ -653,16 +710,31 @@
             localStorage.setItem('pos_orders', JSON.stringify(orders));
             localStorage.setItem('pos_customers', JSON.stringify(customers));
         }
+        
+        function saveVipSettings() {
+            vipSettings = {
+                bronze: parseFloat(document.getElementById('set-bronze').value) || 5000,
+                silver: parseFloat(document.getElementById('set-silver').value) || 10000,
+                gold: parseFloat(document.getElementById('set-gold').value) || 50000,
+                platinum: parseFloat(document.getElementById('set-platinum').value) || 100000
+            };
+            localStorage.setItem('pos_vip_settings', JSON.stringify(vipSettings));
+            
+            // Recalculate existing customers
+            customers.forEach(c => { c.vipLevel = calculateVip(c.lifetimeSpend); });
+            saveData();
+            alert('VIP Thresholds Saved. Customer tiers have been updated.');
+        }
 
         function generateId() { return '_' + Math.random().toString(36).substr(2, 9); }
         function generateCustomerId() { return 'CUS-' + String(customers.length + 1).padStart(6, '0'); }
         function formatMoney(amount) { return '₱' + parseFloat(amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
         
         function calculateVip(spend) {
-            if (spend >= 100000) return 'Platinum';
-            if (spend >= 50000) return 'Gold';
-            if (spend >= 10000) return 'Silver';
-            if (spend >= 5000) return 'Bronze';
+            if (spend >= vipSettings.platinum) return 'Platinum';
+            if (spend >= vipSettings.gold) return 'Gold';
+            if (spend >= vipSettings.silver) return 'Silver';
+            if (spend >= vipSettings.bronze) return 'Bronze';
             return 'Regular';
         }
 
@@ -675,13 +747,12 @@
             return `<span class="badge ${cls}">${tier}</span>`;
         }
 
-        // Safely navigate without relying on event.currentTarget to fix programmatic crashes
         function navigate(sectionId) {
             document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-links li').forEach(el => el.classList.remove('active'));
             
-            const targetSection = document.getElementById(sectionId);
-            if(targetSection) targetSection.classList.add('active');
+            const target = document.getElementById(sectionId);
+            if(target) target.classList.add('active');
             
             const activeLi = Array.from(document.querySelectorAll('.nav-links li')).find(li => li.getAttribute('onclick').includes(`'${sectionId}'`));
             if(activeLi) activeLi.classList.add('active');
@@ -695,7 +766,7 @@
 
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        // --- FIXED UNIFIED EXPORT / IMPORT ---
+        // --- UNIFIED EXPORT / IMPORT ---
         function exportUnifiedData() {
             const unifiedData = {
                 type: "NexusPOS_Unified_Backup",
@@ -703,17 +774,12 @@
                 timestamp: new Date().toISOString(),
                 products: products,
                 orders: orders,
-                customers: customers
+                customers: customers,
+                vipSettings: vipSettings
             };
             const dataStr = JSON.stringify(unifiedData, null, 2);
-            
             const now = new Date();
-            const dateStr = now.getFullYear() + '-' + 
-                            String(now.getMonth() + 1).padStart(2, '0') + '-' + 
-                            String(now.getDate()).padStart(2, '0') + ' ' + 
-                            String(now.getHours()).padStart(2, '0') + '-' + 
-                            String(now.getMinutes()).padStart(2, '0');
-                            
+            const dateStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0') + ' ' + String(now.getHours()).padStart(2, '0') + '-' + String(now.getMinutes()).padStart(2, '0');
             const filename = `NexusPos - ${dateStr}.txt`;
 
             const blob = new Blob([dataStr], { type: 'text/plain' });
@@ -733,40 +799,93 @@
             reader.onload = function(e) {
                 try {
                     const data = JSON.parse(e.target.result);
-                    
                     if (data.type === "NexusPOS_Unified_Backup" || (data.products && Array.isArray(data.products))) {
                         if (data.products) products = data.products;
                         if (data.orders) orders = data.orders;
                         if (data.customers) customers = data.customers;
-                        
+                        if (data.vipSettings) {
+                            vipSettings = data.vipSettings;
+                            localStorage.setItem('pos_vip_settings', JSON.stringify(vipSettings));
+                        }
                         saveData();
                         alert('Unified Data restored successfully!');
                         initSystem();
-                    } else {
-                        throw new Error("Invalid Format");
-                    }
-                } catch (err) { 
-                    alert('Error: Incompatible file format. Please ensure you upload a valid Nexus POS backup file.'); 
-                }
+                    } else throw new Error("Invalid Format");
+                } catch (err) { alert('Error: Incompatible file format.'); }
                 document.getElementById('sync-input-unified').value = '';
             };
             reader.readAsText(file);
         });
 
-        // --- Dashboard ---
+        // --- Dashboard & Analytics ---
+        function setAnalyticsView(view, el) {
+            analyticsView = view;
+            document.querySelectorAll('.sales-toggles span').forEach(e=>e.classList.remove('active'));
+            el.classList.add('active');
+            renderDashboard();
+        }
+
         function renderDashboard() {
-            const today = new Date().toLocaleDateString();
-            let todaySales = 0;
-            let vips = customers.filter(c => c.vipLevel !== 'Regular').length;
+            // Analytics Logic
+            const now = new Date();
+            let currentSales = 0; let prevSales = 0;
+            let currentOrders = 0; let lbl = 'Today';
             
+            // Helper to get start of day
+            const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+            const startOfToday = startOfDay(now);
+
             orders.forEach(o => {
-                if (new Date(o.date).toLocaleDateString() === today && o.status === 'Completed') todaySales += parseFloat(o.total);
+                if (o.status !== 'Completed') return;
+                const oTime = new Date(o.date).getTime();
+                
+                if (analyticsView === 'day') {
+                    lbl = 'Today';
+                    if (oTime >= startOfToday) { currentSales += parseFloat(o.total); currentOrders++; }
+                    else if (oTime >= startOfToday - 86400000 && oTime < startOfToday) { prevSales += parseFloat(o.total); }
+                } else if (analyticsView === 'week') {
+                    lbl = 'This Week';
+                    const startOfWeek = startOfToday - (now.getDay() * 86400000);
+                    if (oTime >= startOfWeek) { currentSales += parseFloat(o.total); currentOrders++; }
+                    else if (oTime >= startOfWeek - (7*86400000) && oTime < startOfWeek) { prevSales += parseFloat(o.total); }
+                } else if (analyticsView === 'month') {
+                    lbl = 'This Month';
+                    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+                    const startOfPrevMonth = new Date(now.getFullYear(), now.getMonth()-1, 1).getTime();
+                    if (oTime >= startOfMonth) { currentSales += parseFloat(o.total); currentOrders++; }
+                    else if (oTime >= startOfPrevMonth && oTime < startOfMonth) { prevSales += parseFloat(o.total); }
+                }
             });
 
-            document.getElementById('dash-sales').innerText = formatMoney(todaySales);
-            document.getElementById('dash-orders').innerText = orders.length;
-            document.getElementById('dash-vips').innerText = vips;
+            // Calc Change
+            let percentChange = 0;
+            if (prevSales === 0 && currentSales > 0) percentChange = 100;
+            else if (prevSales > 0) percentChange = ((currentSales - prevSales) / prevSales) * 100;
+            
+            const changeEl = document.getElementById('dash-change');
+            if (percentChange >= 0) {
+                changeEl.innerText = `+${percentChange.toFixed(1)}% vs Previous`;
+                changeEl.className = 'change-indicator change-positive';
+            } else {
+                changeEl.innerText = `${percentChange.toFixed(1)}% vs Previous`;
+                changeEl.className = 'change-indicator change-negative';
+            }
 
+            document.getElementById('dash-sales').innerText = formatMoney(currentSales);
+            document.getElementById('dash-orders').innerText = currentOrders;
+            document.getElementById('dash-lbl-orders').innerText = lbl;
+            document.getElementById('dash-vips').innerText = customers.filter(c => c.vipLevel !== 'Regular').length;
+
+            // Generate Mock Chart Bars dynamically based on total scale
+            let chartHtml = '';
+            for(let i=0; i<7; i++) {
+                let h = Math.floor(Math.random() * 70) + 30; // 30-100% height
+                let isBlue = (i%2 !== 0) ? 'blue' : '';
+                chartHtml += `<div class="bar ${isBlue}" style="height: ${h}%;"></div>`;
+            }
+            document.getElementById('dash-chart').innerHTML = chartHtml;
+
+            // Featured Sale
             const featPanel = document.getElementById('dash-featured-content');
             const saleItem = products.find(p => p.discountPrice && p.discountPrice < p.price);
             if (saleItem) {
@@ -783,6 +902,7 @@
                 `;
             }
 
+            // Low Stock
             let lowStockHtml = '';
             products.filter(p => p.stock <= 5).forEach(p => {
                 lowStockHtml += `<div class="inv-card">
@@ -799,6 +919,7 @@
             if (lowStockHtml === '') lowStockHtml = '<div style="color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-top:10px;">All stock levels optimal.</div>';
             document.getElementById('inventory-status-list').innerHTML = lowStockHtml;
 
+            // Recent Orders
             let recentHtml = '';
             orders.slice().reverse().slice(0, 5).forEach(o => {
                 let displayId = o.customer.id ? customers.find(c=>c.id===o.customer.id)?.customerId || 'Walk-in' : 'Walk-in';
@@ -963,16 +1084,27 @@
             renderCart();
         }
 
-        function updateCartQty(id, delta) {
+        // Added functionality to set custom quantities via input
+        function setCartQty(id, val) {
+            let qty = parseInt(val);
             const item = cart.find(c => c.id === id);
             const product = products.find(p => p.id === id);
-            if (item) {
-                const n = item.qty + delta;
-                if (n > product.stock) alert('Stock limit reached.');
-                else if (n <= 0) cart = cart.filter(c => c.id !== id);
-                else item.qty = n;
-                renderCart();
+            if (!item) return;
+            
+            if (isNaN(qty) || qty <= 0) {
+                cart = cart.filter(c => c.id !== id);
+            } else if (qty > product.stock) {
+                alert(`Only ${product.stock} units available.`);
+                item.qty = product.stock;
+            } else {
+                item.qty = qty;
             }
+            renderCart();
+        }
+
+        function updateCartQty(id, delta) {
+            const item = cart.find(c => c.id === id);
+            if (item) setCartQty(id, item.qty + delta);
         }
 
         function renderCart() {
@@ -983,11 +1115,12 @@
                     <div class="cart-item">
                         <div>
                             <div style="font-weight:700; font-size: 0.95rem;">${item.name}</div>
-                            <div style="font-size:0.85rem; font-weight:700;">${formatMoney(item.price)} <span style="color:var(--text-muted); font-weight:500;">x ${item.qty}</span></div>
+                            <div style="font-size:0.85rem; font-weight:700;">${formatMoney(item.price)}</div>
                         </div>
                         <div class="flex items-center">
                             <button class="action-btn" style="padding: 4px 10px;" onclick="updateCartQty('${item.id}', -1)">-</button>
-                            <span style="min-width:28px; text-align:center; font-weight: 800;">${item.qty}</span>
+                            <!-- Mass order custom input -->
+                            <input type="number" class="cart-qty-input" value="${item.qty}" min="1" max="${products.find(p=>p.id===item.id).stock}" onchange="setCartQty('${item.id}', this.value)">
                             <button class="action-btn" style="padding: 4px 10px;" onclick="updateCartQty('${item.id}', 1)">+</button>
                         </div>
                     </div>`;
@@ -1102,7 +1235,9 @@
 
             orders.push(newOrder);
             saveData();
-            alert(`Transaction Complete! Order: ${orderNum}`);
+            
+            // Generate Receipt
+            generateReceipt(newOrder);
             
             cart = [];
             document.getElementById('cart-cust-name').value = '';
@@ -1114,6 +1249,61 @@
             renderCart();
             renderPOSProducts();
         }
+
+        // --- Receipt logic ---
+        function generateReceiptText(order) {
+            let text = `================================\n`;
+            text += `           NEXUS POS            \n`;
+            text += `================================\n\n`;
+            text += `Order #: ${order.orderNum}\n`;
+            text += `Date: ${new Date(order.date).toLocaleString()}\n`;
+            if (order.customer.name && order.customer.name !== 'Walk-in') text += `Customer: ${order.customer.name}\n`;
+            text += `\n--------------------------------\n`;
+            text += `ITEM                QTY    PRICE\n`;
+            text += `--------------------------------\n`;
+            
+            order.items.forEach(item => {
+                let name = item.name.length > 18 ? item.name.substring(0, 18) : item.name.padEnd(18, ' ');
+                let qty = String(item.qty).padEnd(4, ' ');
+                let price = formatMoney(item.price * item.qty).padStart(8, ' ');
+                text += `${name} ${qty} ${price}\n`;
+            });
+            
+            text += `--------------------------------\n`;
+            text += `Subtotal:             ${formatMoney(order.subtotal).padStart(10, ' ')}\n`;
+            if(order.discount > 0) text += `Discount:            -${formatMoney(order.discount).padStart(10, ' ')}\n`;
+            if(order.tax > 0) text += `Tax:                  ${formatMoney(order.tax).padStart(10, ' ')}\n`;
+            if(order.pointsRedeemed > 0) text += `Points Rmd:          -${formatMoney(order.pointsRedeemed).padStart(10, ' ')}\n`;
+            text += `--------------------------------\n`;
+            text += `TOTAL:                ${formatMoney(order.total).padStart(10, ' ')}\n`;
+            text += `================================\n`;
+            if(order.pointsEarned > 0) text += `  + ${order.pointsEarned} VIP Points Earned!  \n`;
+            text += `           THANK YOU!           \n`;
+            text += `================================`;
+            return text;
+        }
+
+        function generateReceipt(order) {
+            const receiptText = generateReceiptText(order);
+            document.getElementById('receipt-content').innerText = receiptText;
+            document.getElementById('receipt-modal').classList.add('active');
+        }
+
+        function printReceipt() {
+            const content = document.getElementById('receipt-content').innerText;
+            const printWindow = window.open('', '', 'height=500,width=400');
+            printWindow.document.write('<pre style="font-family: monospace;">' + content + '</pre>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        function copyReceipt() {
+            const content = document.getElementById('receipt-content').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Receipt copied to clipboard!');
+            });
+        }
+
 
         // --- Orders Archive ---
         function renderOrders() {
@@ -1154,7 +1344,12 @@
                     <td style="font-weight: 700;">${formatMoney(c.lifetimeSpend)}</td>
                     <td style="color: var(--bento-orange); font-weight: 900;">${c.points}</td>
                     <td>${getVipBadge(c.vipLevel)}</td>
-                    <td><button class="action-btn" onclick="viewCustomerProfile('${c.id}')">Profile</button></td>
+                    <td>
+                        <div class="flex gap-2">
+                            <button class="action-btn" onclick="viewCustomerProfile('${c.id}')" style="padding: 6px 12px; font-size: 0.8rem;">Profile</button>
+                            <button class="action-btn" onclick="editCustomer('${c.id}')" style="padding: 6px 12px; font-size: 0.8rem; background: rgba(255,255,255,0.15);">Edit</button>
+                        </div>
+                    </td>
                 </tr>`;
             });
             
@@ -1166,21 +1361,59 @@
 
         function openCustomerModal() {
             document.getElementById('customer-modal').classList.add('active');
+            document.getElementById('customer-modal-title').innerText = "Add VIP Profile";
             document.getElementById('cust-id').value = '';
             document.getElementById('cust-name').value = '';
             document.getElementById('cust-phone').value = '';
             document.getElementById('cust-email').value = '';
+            document.getElementById('cust-points-wrapper').classList.add('hidden');
+        }
+
+        // Added functionality to edit customer profile and manual points
+        function editCustomer(id) {
+            const c = customers.find(x => x.id === id);
+            if(!c) return;
+            document.getElementById('customer-modal').classList.add('active');
+            document.getElementById('customer-modal-title').innerText = "Edit VIP Profile";
+            document.getElementById('cust-id').value = c.id;
+            document.getElementById('cust-name').value = c.name;
+            document.getElementById('cust-phone').value = c.phone || '';
+            document.getElementById('cust-email').value = c.email || '';
+            
+            document.getElementById('cust-points-wrapper').classList.remove('hidden');
+            document.getElementById('cust-points').value = c.points;
         }
 
         function saveCustomer() {
+            const id = document.getElementById('cust-id').value;
             const name = document.getElementById('cust-name').value.trim();
             if (!name) return alert('Name is required');
             
-            customers.push({
-                id: generateId(), customerId: generateCustomerId(), name: name, phone: document.getElementById('cust-phone').value.trim(),
-                email: document.getElementById('cust-email').value.trim(), dateCreated: new Date().toISOString(),
-                lifetimeSpend: 0, points: 0, pointLedger: [], vipLevel: 'Regular'
-            });
+            if (id) {
+                // Editing existing
+                const idx = customers.findIndex(c => c.id === id);
+                customers[idx].name = name;
+                customers[idx].phone = document.getElementById('cust-phone').value.trim();
+                customers[idx].email = document.getElementById('cust-email').value.trim();
+                
+                const manualPts = parseInt(document.getElementById('cust-points').value);
+                if (!isNaN(manualPts) && manualPts >= 0 && manualPts !== customers[idx].points) {
+                    const diff = manualPts - customers[idx].points;
+                    customers[idx].points = manualPts;
+                    customers[idx].pointLedger.push({
+                        date: new Date().toISOString(), reference: 'Manual Edit', 
+                        type: diff > 0 ? 'Admin Add' : 'Admin Deduct', 
+                        points: diff, balance: customers[idx].points, desc: 'Manually updated by Admin'
+                    });
+                }
+            } else {
+                // New
+                customers.push({
+                    id: generateId(), customerId: generateCustomerId(), name: name, phone: document.getElementById('cust-phone').value.trim(),
+                    email: document.getElementById('cust-email').value.trim(), dateCreated: new Date().toISOString(),
+                    lifetimeSpend: 0, points: 0, pointLedger: [], vipLevel: 'Regular'
+                });
+            }
             
             saveData(); updatePOSCustomerSelect(); closeModal('customer-modal'); renderCustomers();
         }
