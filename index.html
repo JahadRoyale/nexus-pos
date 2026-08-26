@@ -117,15 +117,6 @@
             border-left: 3px solid var(--primary);
             text-shadow: 0 0 8px var(--primary-glow);
         }
-        .sidebar-credits {
-            padding: 20px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--glass-border);
-            line-height: 1.5;
-            background: rgba(0,0,0,0.2);
-        }
-        .sidebar-credits span { color: var(--primary); font-weight: 600; }
         
         /* Main Content Area */
         .main-content { 
@@ -294,6 +285,9 @@
         .badge-outstock { background: rgba(255, 0, 85, 0.1); color: var(--danger); border: 1px solid var(--danger); box-shadow: 0 0 8px var(--danger-glow); }
 
         .data-panel { margin-top: 30px; }
+        
+        .about-text p { margin-bottom: 15px; color: var(--text-main); line-height: 1.6; }
+        .about-text strong { color: var(--primary); }
     </style>
 </head>
 <body>
@@ -318,11 +312,11 @@
                 <svg style="width:20px;height:20px;margin-right:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                 Order Logs
             </li>
+            <li onclick="navigate('about')">
+                <svg style="width:20px;height:20px;margin-right:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                System Info
+            </li>
         </ul>
-        <div class="sidebar-credits">
-            <div>Designer: <span>Nice Dadol</span></div>
-            <div style="margin-top: 5px;">Vibecoders: <span>Dexter Punay, Nice Dadol</span></div>
-        </div>
     </div>
 
     <!-- Main Content -->
@@ -407,6 +401,46 @@
                 <thead><tr><th>Order ID</th><th>Timestamp</th><th>Client</th><th>Items</th><th>Value</th><th>Status</th><th>Access</th></tr></thead>
                 <tbody id="orders-table-body"></tbody>
             </table>
+        </div>
+
+        <!-- About / System Info Section -->
+        <div id="about" class="section">
+            <h1>System Architecture & Info</h1>
+            
+            <div class="card" style="margin-bottom: 20px;">
+                <h2 style="color: var(--primary);">Nexus Offline POS – Next-Gen Local Point of Sale</h2>
+                <div class="about-text">
+                    <p>Nexus POS is a sleek, high-tech Point of Sale system designed specifically for local retail and service businesses. Built with a premium, modern aesthetic, it provides robust inventory and transaction management entirely offline. No internet connection, no server outages, and no monthly cloud hosting fees—just blazing-fast, secure local performance.</p>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 30px; margin-bottom: 15px;">Core Value Proposition</h2>
+            <div class="grid-cards">
+                <div class="card">
+                    <h3 style="color: var(--primary);">100% Offline Reliability</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Operates entirely within the browser using local storage technology. Process orders and manage stock without ever needing a Wi-Fi or data connection.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--primary);">Zero Cloud Costs</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Requires no external database or server hosting. Save money on monthly software-as-a-service (SaaS) subscriptions.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--primary);">Manual Data Control</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Download product databases and order logs as simple text files to a USB drive for secure, offline backups or to sync across terminals.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--primary);">Next-Generation UI/UX</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Features a striking, cyberpunk-inspired dark mode interface with glassmorphism elements, giving local storefronts a cutting-edge, premium feel.</p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 10px;">
+                <h2>Development Team</h2>
+                <div class="about-text">
+                    <p><strong>Designer:</strong> Nice Dadol</p>
+                    <p><strong>Vibecoders:</strong> Dexter Punay, Nice Dadol</p>
+                </div>
+            </div>
         </div>
     </div>
 
