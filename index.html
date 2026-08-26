@@ -3,60 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus POS | Premium Retail & Retention Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <title>Nexus POS | Bento Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@600;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* Premium Cyberpunk / Dark SaaS Theme */
-            --bg-color: #020617;
-            --glass-bg: rgba(15, 23, 42, 0.7);
-            --glass-border: rgba(56, 189, 248, 0.15);
-            --glass-hover: rgba(30, 41, 59, 0.8);
+            --bg-dark: #121212;
+            --sidebar-bg: #1a1a1a;
+            --bento-orange: #ea580c; 
+            --bento-orange-hover: #c2410c;
+            --bento-blue: #93c5fd;   
+            --bento-grey: #f3f4f6;   
             
-            --primary: #38bdf8;
-            --primary-glow: rgba(56, 189, 248, 0.4);
-            --secondary: #818cf8;
-            
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --vip-bronze: #cd7f32;
-            --vip-silver: #94a3b8;
-            --vip-gold: #fbbf24;
-            --vip-platinum: #e879f9;
-            
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --text-neon: #e0f2fe;
+            --text-light: #ffffff;
+            --text-dark: #1f2937;
+            --text-muted: #9ca3af;
             
             --font-ui: 'Inter', sans-serif;
-            --font-display: 'Space Grotesk', sans-serif;
+            --font-display: 'Montserrat', sans-serif;
+            --radius-bento: 20px;
+            --radius-small: 12px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); }
-        ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--bento-orange); border-radius: 4px; }
 
         body { 
             display: flex; 
             height: 100vh; 
-            background-color: var(--bg-color);
-            background-image: radial-gradient(circle at top right, rgba(56, 189, 248, 0.05), transparent 40%),
-                              radial-gradient(circle at bottom left, rgba(129, 140, 248, 0.05), transparent 40%);
-            color: var(--text-main); 
+            background-color: var(--bg-dark);
+            color: var(--text-light); 
             font-family: var(--font-ui);
             overflow: hidden; 
         }
         
-        /* Typography */
-        h1, h2, h3, .brand, .value { font-family: var(--font-display); }
-        h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: var(--text-main); letter-spacing: -0.5px;}
-        h2 { font-size: 1.2rem; color: var(--text-neon); margin-bottom: 15px; font-weight: 600;}
-        h3 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-
         /* Utilities */
         .flex { display: flex; }
         .flex-col { display: flex; flex-direction: column; }
@@ -66,46 +48,53 @@
         .items-center { align-items: center; }
         .mt-4 { margin-top: 16px; }
         .mb-4 { margin-bottom: 16px; }
-        .text-right { text-align: right; }
         .hidden { display: none !important; }
 
+        /* Typography */
+        h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; font-family: var(--font-display); }
+        h1 { font-size: 1.8rem; margin-bottom: 20px; text-transform: uppercase; }
+        
         /* Sidebar */
         .sidebar { 
             width: 250px; 
-            background: rgba(2, 6, 23, 0.8); 
-            backdrop-filter: blur(16px);
-            border-right: 1px solid var(--glass-border);
+            background: var(--sidebar-bg); 
             display: flex; 
             flex-direction: column; 
-            z-index: 10;
+            z-index: 100;
+            border-right: 1px solid rgba(255,255,255,0.05);
         }
         .brand { 
-            padding: 24px 20px; 
+            padding: 30px 24px; 
             font-size: 1.5rem; 
-            font-weight: 700; 
-            color: var(--primary);
-            border-bottom: 1px solid var(--glass-border); 
-            text-align: left; 
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px var(--primary-glow);
+            font-weight: 900; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-display);
         }
-        .nav-links { list-style: none; padding: 16px 0; flex-grow: 1; overflow-y: auto; }
+        .logo-icon {
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #FF007A, #00C2FF, #FFD700);
+            -webkit-background-clip: text;
+            color: transparent;
+            font-weight: 900;
+        }
+        .nav-links { list-style: none; padding: 10px; flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 4px;}
         .nav-links li { 
-            padding: 12px 20px; 
+            padding: 14px 20px; 
             cursor: pointer; 
             transition: 0.2s ease; 
             display: flex; 
             align-items: center;
             color: var(--text-muted);
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.95rem;
-            border-left: 3px solid transparent;
+            border-radius: var(--radius-small);
         }
-        .nav-links li:hover { background: rgba(56, 189, 248, 0.05); color: var(--text-main); }
+        .nav-links li:hover { background: rgba(255,255,255,0.05); color: var(--text-light); }
         .nav-links li.active { 
-            background: linear-gradient(90deg, rgba(56, 189, 248, 0.1) 0%, transparent 100%);
-            color: var(--primary); 
-            border-left-color: var(--primary);
+            background: rgba(234, 88, 12, 0.15);
+            color: var(--bento-orange); 
         }
         
         /* Main Content */
@@ -118,199 +107,240 @@
         }
         .section { display: none; animation: fadeIn 0.3s ease; }
         .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
 
-        /* Cards */
-        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
-        .card, .panel, .modal-content { 
-            background: var(--glass-bg); 
-            backdrop-filter: blur(12px);
-            padding: 20px; 
-            border-radius: 12px; 
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
         }
-        .card .value { font-size: 2rem; font-weight: 700; color: var(--text-main); }
-        
-        /* Forms */
-        input, select, textarea { 
-            width: 100%; 
-            padding: 10px 14px; 
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid var(--glass-border); 
-            border-radius: 8px; 
-            margin-bottom: 12px; 
-            color: var(--text-main);
-            font-family: var(--font-ui);
-            font-size: 0.95rem;
-            transition: 0.2s;
-        }
-        input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-glow); }
-        
-        /* Buttons */
-        button { 
-            padding: 10px 16px; 
-            border: 1px solid var(--glass-border); 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: 600; 
-            font-size: 0.9rem;
-            transition: 0.2s ease; 
-            background: rgba(255,255,255,0.05); 
-            color: var(--text-main);
-        }
-        button:hover { background: rgba(255,255,255,0.1); }
-        button.primary { background: var(--primary); border-color: var(--primary); color: #020617; }
-        button.primary:hover { background: #0ea5e9; box-shadow: 0 0 15px var(--primary-glow); }
-        button.danger { background: rgba(239, 68, 68, 0.1); border-color: var(--danger); color: var(--danger); }
-        button.danger:hover { background: var(--danger); color: #fff; }
-        button.success { background: rgba(16, 185, 129, 0.1); border-color: var(--success); color: var(--success); }
-        
-        /* Tables */
-        .table-container { overflow-x: auto; background: var(--glass-bg); border-radius: 12px; border: 1px solid var(--glass-border); margin-bottom: 24px;}
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th, td { padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem;}
-        th { background: rgba(2, 6, 23, 0.5); font-weight: 600; color: var(--text-muted); font-family: var(--font-display); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px;}
-        tr:hover td { background: rgba(56, 189, 248, 0.03); }
-        
-        /* POS Specific */
-        .pos-container { display: grid; grid-template-columns: 2fr 1.2fr; gap: 20px; height: calc(100vh - 100px); }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; overflow-y: auto; align-content: start; }
-        .pos-item { 
-            background: rgba(30, 41, 59, 0.5); 
-            padding: 16px; 
-            border-radius: 10px; 
-            text-align: center; 
-            cursor: pointer; 
-            border: 1px solid var(--glass-border); 
-            transition: 0.2s;
+        .bento-box {
+            border-radius: var(--radius-bento);
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            color: var(--text-light);
             position: relative;
+            border: 1px solid rgba(255,255,255,0.05);
         }
-        .pos-item:hover { border-color: var(--primary); transform: translateY(-2px); }
-        .pos-item.depleted { opacity: 0.4; pointer-events: none; }
+        .bg-orange { background: var(--bento-orange); }
+        .bg-blue { background: var(--bento-blue); color: var(--text-dark); }
+        .bg-grey { background: var(--bento-grey); color: var(--text-dark); }
+        .bg-dark { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); }
         
-        .cart-panel { display: flex; flex-direction: column; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; }
+        /* Panel Specifics */
+        .cart-icon-placeholder { width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 15px 0; }
+        .btn-white { background: #fff; color: var(--bento-orange); border: none; padding: 10px; border-radius: 20px; font-weight: 700; cursor: pointer; text-align: center; font-size: 0.9rem;}
+        
+        .sales-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .sales-toggles { display: flex; background: rgba(0,0,0,0.1); border-radius: 20px; overflow: hidden;}
+        .sales-toggles span { padding: 4px 10px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .sales-toggles span.active { background: #fff; color: var(--bento-orange); border-radius: 20px; }
+        
+        .chart-mockup { display: flex; align-items: flex-end; gap: 8px; height: 80px; margin: 20px 0; }
+        .bar { flex: 1; background: #fff; border-radius: 4px 4px 0 0; opacity: 0.9; }
+        .bar.blue { background: var(--bento-blue); }
+        
+        .inventory-list { display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; font-weight: 500; margin-top: 16px;}
+        .inv-card { background: #fff; color: var(--text-dark); padding: 12px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;}
+        .inv-card .alert { color: var(--danger); font-weight: 800; font-size: 0.75rem; text-transform: uppercase;}
+        
+        .order-history-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+        .history-item { background: rgba(255,255,255,0.8); color: var(--text-dark); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* Internal UI Elements */
+        .internal-panel { background: var(--sidebar-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-bento); padding: 24px; margin-bottom: 24px; }
+        
+        input, select, textarea { width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-family: var(--font-ui); margin-bottom: 12px; transition: 0.2s;}
+        input:focus, select:focus { outline: none; border-color: var(--bento-orange); }
+        
+        button.action-btn { padding: 12px 18px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.1); color: #fff; }
+        button.action-btn:hover { background: rgba(255,255,255,0.2); }
+        button.action-primary { background: var(--bento-orange); color: #fff; }
+        button.action-primary:hover { background: var(--bento-orange-hover); }
+        button.action-danger { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+
+        /* Tables */
+        .table-container { overflow-x: auto; background: var(--sidebar-bg); border-radius: var(--radius-small); margin-bottom: 24px;}
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;}
+        th { background: rgba(0,0,0,0.2); font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem;}
+        
+        /* POS Terminal */
+        .pos-grid { display: grid; grid-template-columns: 2fr 1.2fr; gap: 20px; height: calc(100vh - 120px); }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; overflow-y: auto; align-content: start; }
+        .pos-item { background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; text-align: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: 0.2s; position: relative;}
+        .pos-item:hover { border-color: var(--bento-orange); background: rgba(234, 88, 12, 0.05); }
+        .pos-item.depleted { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
+        
+        .cart-panel { display: flex; flex-direction: column; background: var(--sidebar-bg); border-radius: var(--radius-bento); padding: 20px; }
         .cart-items { flex-grow: 1; overflow-y: auto; margin-bottom: 16px; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed rgba(255,255,255,0.1); }
-        .qty-btn { padding: 2px 8px; margin: 0 6px; font-size: 1rem; border-radius: 4px;}
-        
-        .cart-totals { border-top: 1px solid var(--glass-border); padding-top: 16px; font-size: 0.95rem; }
-        .cart-totals .row { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: center; color: var(--text-muted); }
-        .cart-totals .grand-total { font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--glass-border); }
-        
-        /* Badges & Tags */
-        .badge { padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
-        .badge-bronze { background: rgba(205, 127, 50, 0.1); color: var(--vip-bronze); border: 1px solid var(--vip-bronze); }
-        .badge-silver { background: rgba(148, 163, 184, 0.1); color: var(--vip-silver); border: 1px solid var(--vip-silver); }
-        .badge-gold { background: rgba(251, 191, 36, 0.1); color: var(--vip-gold); border: 1px solid var(--vip-gold); }
-        .badge-platinum { background: rgba(232, 121, 249, 0.1); color: var(--vip-platinum); border: 1px solid var(--vip-platinum); }
-        .badge-regular { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--text-muted); }
-        .badge-sale { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+        .cart-totals { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; font-size: 0.9rem; }
+        .cart-totals .row { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: center; }
+        .cart-totals .grand-total { font-size: 1.4rem; font-weight: 800; color: var(--bento-orange); margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.1);}
+
+        /* Badges */
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+        .badge-bronze { background: #cd7f32; color: #fff; }
+        .badge-silver { background: #94a3b8; color: #fff; }
+        .badge-gold { background: #fbbf24; color: #000; }
+        .badge-platinum { background: #e879f9; color: #000; }
+        .badge-regular { background: rgba(255,255,255,0.1); color: #fff; }
+        .badge-sale { background: var(--danger); color: #fff; }
 
         /* Modals */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000; }
         .modal-overlay.active { display: flex; }
-        .modal-content { width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+        .modal-content { width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; background: var(--sidebar-bg); padding: 24px; border-radius: var(--radius-bento); border: 1px solid rgba(255,255,255,0.1);}
         
-        /* Help Center / Guide */
-        .guide-card { margin-bottom: 16px; background: rgba(30, 41, 59, 0.4); border: 1px solid var(--glass-border); border-radius: 8px; padding: 20px;}
-        .guide-card h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 12px; }
-        .guide-card p, .guide-card li { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px;}
-        .guide-card ul { padding-left: 20px; }
-        .tip-box { background: rgba(56, 189, 248, 0.1); border-left: 4px solid var(--primary); padding: 12px; margin-top: 12px; border-radius: 0 8px 8px 0; }
-        
-        /* Team Credits */
-        .team-profile { display: flex; align-items: center; gap: 16px; background: rgba(0,0,0,0.3); padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); flex: 1;}
-        .team-profile img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
-        .team-profile h3 { color: var(--text-main); margin-bottom: 4px; font-size: 1.1rem;}
-        .team-profile p { color: var(--text-muted); font-size: 0.85rem; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;}
+        /* Interactive Help Accordions */
+        details { background: rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1); }
+        summary { padding: 16px; font-weight: 600; cursor: pointer; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.2rem; color: var(--bento-orange); font-weight: 800; }
+        details[open] summary::after { content: '-'; }
+        details p { padding: 0 16px 16px 16px; color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+
+        /* Team Profile */
+        .team-profile { display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.05); padding: 20px; border-radius: var(--radius-small); flex: 1; border: 1px solid rgba(255,255,255,0.1);}
+        .team-profile img { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bento-orange); }
+
+        /* Mobile */
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: 75px; flex-direction: row; order: 2; border-right: none; border-top: 1px solid rgba(255,255,255,0.05); }
+            .brand { display: none; } 
+            .nav-links { flex-direction: row; overflow-x: auto; padding: 10px; width: 100%; gap: 8px; white-space: nowrap; -webkit-overflow-scrolling: touch;}
+            .nav-links li { padding: 10px 16px; border-radius: 20px;}
+            .main-content { padding: 16px; margin-bottom: 75px; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .pos-grid { grid-template-columns: 1fr; height: auto; }
+            .product-grid { max-height: 35vh; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar -->
+    <!-- Sidebar / Navigation -->
     <div class="sidebar">
-        <div class="brand">NEXUS POS</div>
+        <div class="brand"><span class="logo-icon">N</span> NEXUS POS</div>
         <ul class="nav-links">
             <li class="active" onclick="navigate('dashboard')">Dashboard</li>
-            <li onclick="navigate('pos')">POS / Terminal</li>
+            <li onclick="navigate('pos')">Terminal</li>
             <li onclick="navigate('products')">Inventory</li>
+            <li onclick="navigate('customers')">VIP Network</li>
             <li onclick="navigate('orders')">Order Logs</li>
-            <li onclick="navigate('customers')">Customers & VIP</li>
-            <li onclick="navigate('help')">System Info & Help</li>
+            <li onclick="navigate('settings')">Settings</li>
+            <li onclick="navigate('help')">Help Center</li>
+            <li onclick="navigate('info')">System Info</li>
         </ul>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
         
-        <!-- DASHBOARD -->
+        <!-- DASHBOARD (BENTO GRID) -->
         <div id="dashboard" class="section active">
             <h1>Business Overview</h1>
-            <div class="grid-cards">
-                <div class="card"><h3>Today's Revenue</h3><div class="value" id="dash-sales" style="color: var(--primary);">₱0</div></div>
-                <div class="card"><h3>Total Orders</h3><div class="value" id="dash-orders">0</div></div>
-                <div class="card"><h3>Registered VIPs</h3><div class="value" id="dash-vips">0</div></div>
-                <div class="card"><h3>Active Inventory</h3><div class="value" id="dash-products">0</div></div>
-            </div>
-
-            <div class="panel mb-4">
-                <h2>Data Management & Sync</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">Export local data for backup, or sync offline files from other terminals.</p>
-                <div class="flex gap-4 items-center">
-                    <button class="primary" onclick="exportData('products')">Export Inventory</button>
-                    <button class="primary" onclick="exportData('orders')">Export Orders</button>
-                    <button class="primary" onclick="exportData('customers')">Export Customers</button>
-                    <span style="color: var(--glass-border);">|</span>
-                    <input type="file" id="sync-input" accept=".txt" multiple style="display: none;">
-                    <button class="success" onclick="document.getElementById('sync-input').click()">Sync Files</button>
-                </div>
-            </div>
             
-            <h2>Recent Transactions</h2>
-            <div class="table-container">
-                <table>
-                    <thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Total</th><th>Status</th></tr></thead>
-                    <tbody id="dash-recent-orders"></tbody>
-                </table>
+            <div class="bento-grid">
+                <!-- Top Left: Featured Sale Item -->
+                <div class="bento-box bg-orange">
+                    <h3 style="color: rgba(255,255,255,0.9);">Featured Sale Item</h3>
+                    <div id="dash-featured-content"></div>
+                </div>
+
+                <!-- Top Center: Analytics -->
+                <div class="bento-box bg-orange">
+                    <div class="sales-header">
+                        <h3 style="color: rgba(255,255,255,0.9); margin:0;">Sales Analytics</h3>
+                        <div class="sales-toggles">
+                            <span class="active">Day</span><span>Week</span><span>Month</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 2.2rem; font-weight: 900; margin-top: 8px;" id="dash-sales">₱0</div>
+                    <div style="font-size: 0.8rem; color: #fef08a; font-weight: 600;">+8.2% vs Yesterday</div>
+                    
+                    <div class="chart-mockup">
+                        <div class="bar" style="height: 40%;"></div>
+                        <div class="bar blue" style="height: 60%;"></div>
+                        <div class="bar" style="height: 30%;"></div>
+                        <div class="bar blue" style="height: 80%;"></div>
+                        <div class="bar" style="height: 50%;"></div>
+                    </div>
+                    
+                    <div class="flex justify-between">
+                        <div>
+                            <div style="font-size: 0.75rem; opacity: 0.9;">Total Orders</div>
+                            <div style="font-size: 1.4rem; font-weight: 800;" id="dash-orders">0</div>
+                        </div>
+                        <div class="text-right">
+                            <div style="font-size: 0.75rem; opacity: 0.9;">VIP Active</div>
+                            <div style="font-size: 1.4rem; font-weight: 800;" id="dash-vips">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Right: Inventory Status -->
+                <div class="bento-box bg-orange">
+                    <h3 style="color: rgba(255,255,255,0.9);">Inventory Status</h3>
+                    <p style="font-size: 0.8rem; opacity: 0.9;">Low stock items (5 or less)</p>
+                    <div class="inventory-list" id="inventory-status-list"></div>
+                </div>
+
+                <!-- Bottom Left: Order History -->
+                <div class="bento-box bg-blue">
+                    <h3 style="color: var(--text-dark);">Recent Orders</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-dark); font-weight: 600;">Last 5 transactions</p>
+                    <div class="order-history-list" id="dash-recent-orders-list"></div>
+                </div>
+
+                <!-- Bottom Center: Feedback (Coming Soon) -->
+                <div class="bento-box bg-dark flex justify-center items-center" style="text-align: center;">
+                    <div style="font-size: 4rem; opacity: 0.2; margin-bottom: 10px;">★</div>
+                    <h3 style="color: var(--text-muted); font-size: 1.2rem;">Customer Feedback</h3>
+                    <div class="badge badge-regular" style="margin-top: 8px;">Coming Soon</div>
+                </div>
             </div>
         </div>
 
         <!-- POS TERMINAL -->
         <div id="pos" class="section">
-            <div class="pos-container">
-                <!-- Products -->
+            <h1>Terminal</h1>
+            <div class="pos-grid">
                 <div class="flex-col gap-4">
-                    <input type="text" id="pos-search" placeholder="Search inventory by SKU or Name..." oninput="renderPOSProducts()">
+                    <input type="text" id="pos-search" placeholder="Search products..." oninput="renderPOSProducts()">
                     <div class="product-grid" id="pos-products"></div>
                 </div>
                 
-                <!-- Cart -->
                 <div class="cart-panel">
-                    <h2>Current Order</h2>
+                    <h2 style="margin-bottom: 16px; font-size: 1.2rem;">Current Order</h2>
                     
-                    <!-- Customer Selection -->
-                    <div class="mb-4" style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border);">
-                        <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Select Customer</label>
+                    <div class="mb-4" style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px;">
+                        <label style="font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Select VIP Customer</label>
                         <select id="pos-customer-select" onchange="handleCustomerSelect()">
                             <option value="walkin">Walk-in / Unregistered</option>
-                            <!-- Populated via JS -->
                         </select>
                         
-                        <!-- Walk-in Details -->
                         <div id="pos-walkin-details" class="flex gap-2 mt-4 hidden">
                             <input type="text" id="cart-cust-name" placeholder="Name (Optional)" style="margin:0;">
                             <input type="text" id="cart-cust-phone" placeholder="Phone (Optional)" style="margin:0;">
                         </div>
 
-                        <!-- VIP Details -->
-                        <div id="pos-vip-details" class="hidden mt-4 pt-4" style="border-top: 1px dashed var(--glass-border);">
+                        <div id="pos-vip-details" class="hidden mt-4 pt-4" style="border-top: 1px dashed rgba(255,255,255,0.1);">
                             <div class="flex justify-between items-center mb-2">
                                 <span id="pos-vip-badge"></span>
-                                <span style="font-size: 0.9rem; color: var(--text-muted);">Points: <strong id="pos-vip-points" style="color:var(--text-main);">0</strong></span>
+                                <span style="font-size: 0.9rem; font-weight:700;">Points: <strong id="pos-vip-points" style="color:var(--bento-orange); font-size:1.1rem;">0</strong></span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <span style="font-size: 0.85rem; color: var(--text-muted); white-space: nowrap;">Redeem (₱):</span>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Redeem:</span>
                                 <input type="number" id="cart-points-redeem" value="0" min="0" oninput="updateCartTotals()" style="margin:0;">
                             </div>
                         </div>
@@ -319,15 +349,15 @@
                     <div class="cart-items" id="cart-items"></div>
 
                     <div class="cart-totals">
-                        <div class="row"><span>Subtotal:</span><span id="cart-subtotal" style="color: var(--text-main);">₱0.00</span></div>
-                        <div class="row"><span>Discount (₱):</span><input type="number" id="cart-discount" value="0" min="0" style="width: 80px; padding:4px; margin:0;" oninput="updateCartTotals()"></div>
-                        <div class="row"><span>Tax (₱):</span><input type="number" id="cart-tax" value="0" min="0" style="width: 80px; padding:4px; margin:0;" oninput="updateCartTotals()"></div>
-                        <div class="row hidden" id="row-points-deduction"><span style="color: var(--warning);">Points Redeemed:</span><span id="cart-points-deducted" style="color: var(--warning);">-₱0.00</span></div>
+                        <div class="row"><span>Subtotal:</span><span id="cart-subtotal">₱0.00</span></div>
+                        <div class="row"><span>Discount:</span><input type="number" id="cart-discount" value="0" min="0" style="width: 80px; padding:6px; margin:0; text-align:right;" oninput="updateCartTotals()"></div>
+                        <div class="row"><span>Tax:</span><input type="number" id="cart-tax" value="0" min="0" style="width: 80px; padding:6px; margin:0; text-align:right;" oninput="updateCartTotals()"></div>
+                        <div class="row hidden" id="row-points-deduction"><span style="color: var(--bento-orange);">Pts Redeemed:</span><span id="cart-points-deducted" style="color: var(--bento-orange);">-₱0.00</span></div>
+                        
                         <div class="row grand-total"><span style="font-family: var(--font-display);">Total:</span><span id="cart-total">₱0.00</span></div>
+                        <div style="text-align: center; font-size: 0.8rem; color: var(--success); font-weight: 700; margin-top: 8px;" id="cart-points-earned-preview">Earns +0 pts</div>
                         
-                        <div style="text-align: center; font-size: 0.8rem; color: var(--success); margin-top: 8px;" id="cart-points-earned-preview">Earns +0 pts</div>
-                        
-                        <button class="primary" style="width: 100%; margin-top: 12px; padding: 14px; font-size: 1rem;" onclick="completeOrder()">Complete Transaction</button>
+                        <button class="action-btn action-primary" style="width: 100%; margin-top: 16px; padding: 14px; font-size: 1.1rem;" onclick="completeOrder()">Complete Order</button>
                     </div>
                 </div>
             </div>
@@ -336,8 +366,8 @@
         <!-- INVENTORY -->
         <div id="products" class="section">
             <div class="flex justify-between items-center mb-4">
-                <h1>Inventory Matrix</h1>
-                <button class="primary" onclick="openProductModal()">+ Add Product</button>
+                <h1>Inventory</h1>
+                <button class="action-btn action-primary" onclick="openProductModal()">+ Add Item</button>
             </div>
             <div class="table-container">
                 <table>
@@ -347,247 +377,230 @@
             </div>
         </div>
 
-        <!-- ORDERS -->
-        <div id="orders" class="section">
-            <h1>Transaction Archive</h1>
-            <div class="table-container">
-                <table>
-                    <thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Items</th><th>Points Earned/Redeemed</th><th>Total</th></tr></thead>
-                    <tbody id="orders-table-body"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- CUSTOMERS & VIP -->
+        <!-- VIP CUSTOMERS -->
         <div id="customers" class="section">
-            <div class="flex justify-between items-center mb-4">
-                <h1>Customer Retention & VIP</h1>
+            <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
+                <h1>VIP Network</h1>
                 <div class="flex gap-2">
-                    <input type="text" id="cust-search" placeholder="Search by name, ID, phone..." oninput="renderCustomers()" style="margin:0; width: 250px;">
-                    <button class="primary" onclick="openCustomerModal()">+ Add Customer</button>
+                    <input type="text" id="cust-search" placeholder="Search VIPs..." oninput="renderCustomers()" style="margin:0; width: 220px;">
+                    <button class="action-btn action-primary" onclick="openCustomerModal()">+ Add VIP</button>
                 </div>
             </div>
 
-            <div class="grid-cards" style="grid-template-columns: repeat(4, 1fr);">
-                <div class="card" style="padding: 15px;"><h3>Total Customers</h3><div class="value" id="ret-total-cust" style="font-size: 1.5rem;">0</div></div>
-                <div class="card" style="padding: 15px;"><h3>VIP Members</h3><div class="value" id="ret-vip-cust" style="font-size: 1.5rem; color: var(--vip-gold)">0</div></div>
-                <div class="card" style="padding: 15px;"><h3>Total Points Out</h3><div class="value" id="ret-total-pts" style="font-size: 1.5rem; color: var(--primary)">0</div></div>
-                <div class="card" style="padding: 15px;"><h3>Avg Lifetime Spend</h3><div class="value" id="ret-avg-spend" style="font-size: 1.5rem;">₱0</div></div>
+            <div class="internal-panel flex justify-between flex-wrap gap-4" style="padding: 16px 24px;">
+                <div><div style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase;">Total VIPs</div><div style="font-size: 1.5rem; font-weight:800;" id="ret-total-cust">0</div></div>
+                <div><div style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase;">Tiered Members</div><div style="font-size: 1.5rem; font-weight:800; color:var(--bento-orange);" id="ret-vip-cust">0</div></div>
+                <div><div style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase;">Points Issued</div><div style="font-size: 1.5rem; font-weight:800;" id="ret-total-pts">0</div></div>
+                <div><div style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase;">Avg Spend</div><div style="font-size: 1.5rem; font-weight:800;" id="ret-avg-spend">₱0</div></div>
             </div>
 
             <div class="table-container">
                 <table>
-                    <thead><tr><th>ID</th><th>Name</th><th>Contact</th><th>Lifetime Spend</th><th>Points</th><th>VIP Tier</th><th>Actions</th></tr></thead>
+                    <thead><tr><th>ID</th><th>Name</th><th>Contact</th><th>Spend</th><th>Points</th><th>Tier</th><th>Actions</th></tr></thead>
                     <tbody id="customers-table-body"></tbody>
                 </table>
             </div>
         </div>
 
-        <!-- SYSTEM INFO & HELP CENTER -->
+        <!-- ORDER LOGS -->
+        <div id="orders" class="section">
+            <h1>Order Logs</h1>
+            <div class="table-container">
+                <table>
+                    <thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Items</th><th>Pts In/Out</th><th>Total</th></tr></thead>
+                    <tbody id="orders-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div id="settings" class="section">
+            <h1>Settings & Data Sync</h1>
+            <div class="bento-box bg-dark" style="max-width: 600px;">
+                <h3 style="color: var(--bento-orange); margin-bottom: 8px;">Unified Data Management</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Securely export your entire database (Inventory, Orders, and VIP Customers) into a single backup file. You can restore your system state by uploading this file on any device.</p>
+                
+                <div class="flex-col gap-4">
+                    <button class="action-btn action-primary" style="padding: 16px;" onclick="exportUnifiedData()">Download System Backup</button>
+                    <input type="file" id="sync-input-unified" accept=".txt,.json" style="display: none;">
+                    <button class="action-btn" style="padding: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);" onclick="document.getElementById('sync-input-unified').click()">Restore from Backup File</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HELP CENTER -->
         <div id="help" class="section">
-            <h1>System Architecture & Help Center</h1>
+            <h1>Help Center</h1>
+            <div style="max-width: 800px;">
+                <details>
+                    <summary>How do I process a sale?</summary>
+                    <p>Navigate to the <strong>Terminal</strong> tab. Tap on products in the grid to add them to your cart. Use the + and - buttons to adjust quantities. If the customer is a VIP, select their name from the dropdown. Once ready, click <strong>Complete Order</strong>.</p>
+                </details>
+                <details>
+                    <summary>How do VIP points and tiers work?</summary>
+                    <p>Customers automatically earn 1 point for every ₱100 they spend. During checkout, they can redeem points as a direct discount (1 point = ₱1). The system tracks their lifetime spending and automatically upgrades them through Bronze (₱5k), Silver (₱10k), Gold (₱50k), and Platinum (₱100k) tiers.</p>
+                </details>
+                <details>
+                    <summary>How do I put an item on sale?</summary>
+                    <p>Go to the <strong>Inventory</strong> tab and click 'Edit' on a product. Enter a value in the "Promo Price" field. The system will automatically display a SALE badge on the Terminal and use the discounted price for calculations. If you leave the Promo field empty, it reverts to normal.</p>
+                </details>
+                <details>
+                    <summary>How do I backup my store data?</summary>
+                    <p>Since Nexus POS operates completely offline, it is crucial to backup your data. Go to the <strong>Settings</strong> tab and click "Download System Backup". This downloads a single text file containing your entire store's history to your device.</p>
+                </details>
+            </div>
+        </div>
+
+        <!-- SYSTEM INFO -->
+        <div id="info" class="section">
+            <h1>System Info</h1>
             
-            <!-- System Info -->
-            <div class="card mb-4">
-                <h2 style="color: var(--primary);">Nexus Offline POS – Next-Gen Local Point of Sale</h2>
-                <p style="color: var(--text-main); line-height: 1.6;">Nexus POS is a sleek, high-tech Point of Sale system designed specifically for local retail and service businesses. Built with a premium, modern aesthetic, it provides robust inventory and transaction management entirely offline. No internet connection, no server outages, and no monthly cloud hosting fees—just blazing-fast, secure local performance.</p>
+            <div class="bento-box bg-dark" style="max-width: 800px; margin-bottom: 24px;">
+                <h3 style="color: var(--bento-orange); margin-bottom: 12px; font-size: 1.4rem;">Why was Nexus POS developed?</h3>
+                <p style="color: var(--text-muted); line-height: 1.7; font-size: 1rem;">Nexus POS was built to empower local microbusinesses with a premium, zero-cost Point of Sale solution. By operating entirely offline within the browser, it eliminates expensive monthly cloud subscription fees and the need for constant internet dependency. Our goal is to ensure that every business—no matter its size or location—has the professional tools it needs to track inventory, reward loyal customers, and thrive.</p>
             </div>
 
-            <h2 style="margin-top: 32px; margin-bottom: 16px;">Client Guide</h2>
-            <div class="grid-cards" style="grid-template-columns: 1fr 1fr;">
-                <div class="guide-card">
-                    <h3>1. Getting Started & Dashboard</h3>
-                    <p>The dashboard provides a real-time overview of today's performance. It works completely offline, meaning you don't need internet to process sales.</p>
-                    <div class="tip-box">
-                        <strong>Data Backup:</strong> Because data lives on your device, use the <em>Export</em> buttons on the Dashboard weekly to save backups to a USB drive.
-                    </div>
-                </div>
-
-                <div class="guide-card">
-                    <h3>2. Processing an Order</h3>
-                    <ul>
-                        <li>Go to <strong>POS / Terminal</strong>.</li>
-                        <li>Click items in the grid to add them to the cart.</li>
-                        <li>Select an existing customer from the dropdown to award them points, or leave as Walk-in.</li>
-                        <li>Add any standard manual discounts or taxes.</li>
-                        <li>Click <strong>Complete Transaction</strong>.</li>
-                    </ul>
-                </div>
-
-                <div class="guide-card">
-                    <h3>3. The Customer Retention / VIP Program</h3>
-                    <p>Nexus POS automatically tracks loyal customers. You do not need to calculate points or upgrade tiers manually.</p>
-                    <ul>
-                        <li><strong>Earning:</strong> Customers automatically earn 1 point for every ₱100 spent in a completed order.</li>
-                        <li><strong>Redeeming:</strong> 1 Point = ₱1. During checkout, select the customer and type the points they wish to redeem. It will instantly deduct from the total.</li>
-                        <li><strong>VIP Tiers:</strong> As lifetime spending increases, tiers auto-upgrade: Bronze (₱5k), Silver (₱10k), Gold (₱50k), Platinum (₱100k).</li>
-                    </ul>
-                </div>
-
-                <div class="guide-card">
-                    <h3>4. Managing Inventory & Customers</h3>
-                    <p><strong>Inventory:</strong> Add products via the Inventory tab. Ensure SKUs (barcodes/identifiers) are unique. The POS terminal prevents selling depleted stock.</p>
-                    <p><strong>Customers:</strong> Customers are automatically generated if you type a new name/phone in the Walk-in section during checkout. You can also manually add them in the Customers tab.</p>
-                </div>
-            </div>
-
-            <!-- Credits / Development Team -->
-            <h2 style="margin-top: 32px; margin-bottom: 16px;">Development Team</h2>
+            <h3 style="margin-bottom: 16px;">Development Team</h3>
             <div class="flex gap-4 flex-wrap">
                 <div class="team-profile">
-                    <img src="nicedadol.jpg" alt="Nice Dadol" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iIzFlMjkyYiIvPjwvc3ZnPg=='">
+                    <!-- Correct Asset Used: nicedadol.png -->
+                    <img src="nicedadol.png" alt="Nice Dadol" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iI2VhNTgwYyIvPjwvc3ZnPg=='">
                     <div>
-                        <h3>Nice Dadol</h3>
-                        <p>Designer & Vibecoder</p>
+                        <h3 style="color: var(--text-light); margin:0;">Nice Dadol</h3>
+                        <p style="font-size: 0.8rem; color: var(--bento-orange); text-transform: uppercase; font-weight: 800;">Designer & Vibecoder</p>
                     </div>
                 </div>
                 <div class="team-profile">
-                    <img src="dexterpunay.jpg" alt="Dexter Punay" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iIzFlMjkyYiIvPjwvc3ZnPg=='">
+                    <img src="dexterpunay.jpg" alt="Dexter Punay" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iI2VhNTgwYyIvPjwvc3ZnPg=='">
                     <div>
-                        <h3>Dexter Punay</h3>
-                        <p>Vibecoder</p>
+                        <h3 style="color: var(--text-light); margin:0;">Dexter Punay</h3>
+                        <p style="font-size: 0.8rem; color: var(--bento-orange); text-transform: uppercase; font-weight: 800;">Vibecoder</p>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Modals -->
+    <!-- MODALS -->
     <!-- Product Modal -->
     <div class="modal-overlay" id="product-modal">
         <div class="modal-content">
-            <h2 id="product-modal-title">Product Details</h2>
+            <h2 id="product-modal-title" style="margin-bottom: 20px;">Product Details</h2>
             <input type="hidden" id="prod-id">
-            <label style="font-size: 0.85rem; color: var(--text-muted);">Name</label><input type="text" id="prod-name" required>
-            <label style="font-size: 0.85rem; color: var(--text-muted);">SKU</label><input type="text" id="prod-sku" required>
+            <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Name</label><input type="text" id="prod-name" required>
+            <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">SKU</label><input type="text" id="prod-sku" required>
             
             <div class="flex gap-4">
                 <div style="flex:1">
-                    <label style="font-size: 0.85rem; color: var(--text-muted);">Regular Price (₱)</label>
+                    <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Regular Price (₱)</label>
                     <input type="number" id="prod-price" min="0" step="0.01" required>
                 </div>
                 <div style="flex:1">
-                    <label style="font-size: 0.85rem; color: var(--warning);">Today's Promo Price (₱)</label>
+                    <label style="font-size: 0.8rem; color: var(--bento-orange); font-weight:700;">Promo Price (₱)</label>
                     <input type="number" id="prod-discount-price" min="0" step="0.01" placeholder="Optional">
                 </div>
             </div>
 
-            <label style="font-size: 0.85rem; color: var(--text-muted);">Stock</label><input type="number" id="prod-stock" min="0" required>
+            <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Stock</label><input type="number" id="prod-stock" min="0" required>
             <div class="flex gap-4 mt-4">
-                <button class="primary" style="flex:1;" onclick="saveProduct()">Save</button>
-                <button style="flex:1;" onclick="closeModal('product-modal')">Cancel</button>
+                <button class="action-btn action-primary" style="flex:1;" onclick="saveProduct()">Save</button>
+                <button class="action-btn" style="flex:1;" onclick="closeModal('product-modal')">Cancel</button>
             </div>
         </div>
     </div>
 
-    <!-- Customer Modal -->
+    <!-- VIP Modal -->
     <div class="modal-overlay" id="customer-modal">
         <div class="modal-content">
-            <h2 id="customer-modal-title">Customer Profile</h2>
+            <h2 id="customer-modal-title" style="margin-bottom: 20px;">VIP Profile</h2>
             <input type="hidden" id="cust-id">
-            <label style="font-size: 0.85rem; color: var(--text-muted);">Full Name</label><input type="text" id="cust-name" required>
-            <label style="font-size: 0.85rem; color: var(--text-muted);">Phone Number</label><input type="text" id="cust-phone">
-            <label style="font-size: 0.85rem; color: var(--text-muted);">Email (Optional)</label><input type="text" id="cust-email">
+            <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Full Name</label><input type="text" id="cust-name" required>
+            <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Phone Number</label><input type="text" id="cust-phone">
+            <label style="font-size: 0.8rem; color: var(--text-muted); font-weight:700;">Email</label><input type="text" id="cust-email">
             <div class="flex gap-4 mt-4">
-                <button class="primary" style="flex:1;" onclick="saveCustomer()">Save Customer</button>
-                <button style="flex:1;" onclick="closeModal('customer-modal')">Cancel</button>
+                <button class="action-btn action-primary" style="flex:1;" onclick="saveCustomer()">Save VIP</button>
+                <button class="action-btn" style="flex:1;" onclick="closeModal('customer-modal')">Cancel</button>
             </div>
         </div>
     </div>
 
-    <!-- Customer Profile / Ledger Modal -->
+    <!-- VIP Profile Details Modal -->
     <div class="modal-overlay" id="profile-modal">
         <div class="modal-content" style="max-width: 600px;">
             <div class="flex justify-between items-center mb-4">
-                <h2 id="prof-name">Customer Name</h2>
+                <h2 id="prof-name" style="margin:0;">Name</h2>
                 <span id="prof-badge"></span>
             </div>
-            <div class="grid-cards" style="grid-template-columns: 1fr 1fr; margin-bottom: 16px;">
-                <div class="panel" style="padding: 12px;"><h3>Lifetime Spend</h3><div class="value" id="prof-spend" style="font-size: 1.4rem;">₱0</div></div>
-                <div class="panel" style="padding: 12px;"><h3>Available Points</h3><div class="value" id="prof-points" style="font-size: 1.4rem; color: var(--primary);">0</div></div>
+            
+            <div class="flex gap-4 mb-4">
+                <div class="internal-panel" style="flex:1; padding: 16px; margin:0;">
+                    <h3 style="font-size:0.75rem; color:var(--text-muted);">LIFETIME SPEND</h3>
+                    <div id="prof-spend" style="font-size: 1.5rem; font-weight: 800;">₱0</div>
+                </div>
+                <div class="internal-panel" style="flex:1; padding: 16px; margin:0; border-color:var(--bento-orange);">
+                    <h3 style="font-size:0.75rem; color:var(--text-muted);">POINTS</h3>
+                    <div id="prof-points" style="font-size: 1.5rem; font-weight: 800; color: var(--bento-orange);">0</div>
+                </div>
             </div>
             
-            <h3 style="margin-top: 16px; margin-bottom: 8px;">Points Ledger & History</h3>
-            <div class="table-container" style="max-height: 250px; margin-bottom: 16px;">
+            <h3 style="margin-bottom: 8px;">Points Ledger</h3>
+            <div class="table-container" style="max-height: 200px; margin-bottom: 16px;">
                 <table style="font-size: 0.85rem;">
-                    <thead><tr><th>Date</th><th>Reference</th><th>Type</th><th>Pts</th><th>Bal</th></tr></thead>
+                    <thead><tr><th>Date</th><th>Ref</th><th>Type</th><th>Pts</th><th>Bal</th></tr></thead>
                     <tbody id="prof-ledger-body"></tbody>
                 </table>
             </div>
             <div class="text-right">
-                <button onclick="closeModal('profile-modal')">Close Profile</button>
+                <button class="action-btn" onclick="closeModal('profile-modal')">Close</button>
             </div>
         </div>
     </div>
 
+    <!-- --- JAVASCRIPT LOGIC --- -->
     <script>
-        // --- Core Data Arrays ---
         let products = JSON.parse(localStorage.getItem('pos_products')) || [];
         let orders = JSON.parse(localStorage.getItem('pos_orders')) || [];
         let customers = JSON.parse(localStorage.getItem('pos_customers')) || [];
         let cart = [];
 
-        // --- System Initialization & Automated Migration ---
         function initSystem() {
-            // Backwards compatibility & Customer auto-generation
+            // Retroactive VIP link logic
             if (orders.length > 0) {
                 let customersModified = false;
                 orders.forEach(o => {
                     if (o.customer && o.customer.name && o.customer.name !== "Walk-in") {
-                        // Find if exists
                         let existing = customers.find(c => c.name.toLowerCase() === o.customer.name.toLowerCase());
-                        
-                        // Calculate points that should have been earned
                         let earnedPoints = Math.floor(parseFloat(o.total) / 100);
                         
                         if (!existing) {
-                            // Generate retroactive customer
                             existing = {
-                                id: generateId(),
-                                customerId: generateCustomerId(),
-                                name: o.customer.name,
-                                phone: o.customer.phone || '',
-                                email: '',
-                                dateCreated: o.date,
-                                lifetimeSpend: parseFloat(o.total),
-                                points: earnedPoints,
-                                pointLedger: [{
-                                    date: o.date, reference: o.orderNum, type: 'Earned', points: earnedPoints, balance: earnedPoints, desc: 'Auto-sync from historical order'
-                                }]
+                                id: generateId(), customerId: generateCustomerId(), name: o.customer.name, phone: o.customer.phone || '', email: '',
+                                dateCreated: o.date, lifetimeSpend: parseFloat(o.total), points: earnedPoints,
+                                pointLedger: [{ date: o.date, reference: o.orderNum, type: 'Earned', points: earnedPoints, balance: earnedPoints, desc: 'Auto-sync from historical order' }]
                             };
                             existing.vipLevel = calculateVip(existing.lifetimeSpend);
                             customers.push(existing);
                             customersModified = true;
-                            
-                            // Link order to customer ID
                             o.customer.id = existing.id;
                         } else {
-                            // Verify if order is already in ledger to prevent duplicate processing
                             let alreadyProcessed = existing.pointLedger.find(l => l.reference === o.orderNum);
                             if (!alreadyProcessed) {
                                 existing.lifetimeSpend += parseFloat(o.total);
                                 existing.points += earnedPoints;
                                 existing.vipLevel = calculateVip(existing.lifetimeSpend);
-                                existing.pointLedger.push({
-                                    date: o.date, reference: o.orderNum, type: 'Earned', points: earnedPoints, balance: existing.points, desc: 'Auto-sync from historical order'
-                                });
+                                existing.pointLedger.push({ date: o.date, reference: o.orderNum, type: 'Earned', points: earnedPoints, balance: existing.points, desc: 'Auto-sync from historical order' });
                                 o.customer.id = existing.id;
                                 customersModified = true;
                             }
                         }
                     }
                 });
-                if (customersModified) {
-                    saveData();
-                }
+                if (customersModified) saveData();
             }
-            
             updatePOSCustomerSelect();
             navigate('dashboard');
         }
 
-        // --- Core Utilities ---
         function saveData() {
             localStorage.setItem('pos_products', JSON.stringify(products));
             localStorage.setItem('pos_orders', JSON.stringify(orders));
@@ -595,12 +608,7 @@
         }
 
         function generateId() { return '_' + Math.random().toString(36).substr(2, 9); }
-        
-        function generateCustomerId() {
-            const count = customers.length + 1;
-            return 'CUS-' + String(count).padStart(6, '0');
-        }
-
+        function generateCustomerId() { return 'CUS-' + String(customers.length + 1).padStart(6, '0'); }
         function formatMoney(amount) { return '₱' + parseFloat(amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
         
         function calculateVip(spend) {
@@ -620,7 +628,6 @@
             return `<span class="badge ${cls}">${tier}</span>`;
         }
 
-        // --- Navigation ---
         function navigate(sectionId) {
             document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-links li').forEach(el => el.classList.remove('active'));
@@ -634,17 +641,31 @@
             if(sectionId === 'customers') renderCustomers();
         }
 
-        // --- Modals ---
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        // --- Export / Import Data (Preserved & Expanded) ---
-        function exportData(type) {
-            let data, filename;
-            if (type === 'products') { data = JSON.stringify(products, null, 2); filename = 'Nexus_Products.txt'; }
-            else if (type === 'orders') { data = JSON.stringify(orders, null, 2); filename = 'Nexus_Orders.txt'; }
-            else if (type === 'customers') { data = JSON.stringify(customers, null, 2); filename = 'Nexus_Customers.txt'; }
+        // --- FIXED UNIFIED EXPORT / IMPORT ---
+        function exportUnifiedData() {
+            // Pack everything into a standardized JSON format
+            const unifiedData = {
+                type: "NexusPOS_Unified_Backup",
+                version: "2.0",
+                timestamp: new Date().toISOString(),
+                products: products,
+                orders: orders,
+                customers: customers
+            };
+            const dataStr = JSON.stringify(unifiedData, null, 2);
+            
+            const now = new Date();
+            const dateStr = now.getFullYear() + '-' + 
+                            String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                            String(now.getDate()).padStart(2, '0') + ' ' + 
+                            String(now.getHours()).padStart(2, '0') + '-' + 
+                            String(now.getMinutes()).padStart(2, '0');
+                            
+            const filename = `NexusPos - ${dateStr}.txt`;
 
-            const blob = new Blob([data], { type: 'text/plain' });
+            const blob = new Blob([dataStr], { type: 'text/plain' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = filename;
@@ -653,31 +674,33 @@
             document.body.removeChild(link);
         }
 
-        document.getElementById('sync-input').addEventListener('change', function(event) {
-            const files = event.target.files;
-            if (files.length === 0) return;
-            let filesProcessed = 0;
+        document.getElementById('sync-input-unified').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
 
-            for (let file of files) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    try {
-                        const data = JSON.parse(e.target.result);
-                        if (file.name.toLowerCase().includes('product') || (data.length > 0 && data[0].sku)) { products = data; } 
-                        else if (file.name.toLowerCase().includes('order') || (data.length > 0 && data[0].orderNum)) { orders = data; }
-                        else if (file.name.toLowerCase().includes('customer') || (data.length > 0 && data[0].customerId)) { customers = data; }
-                        saveData();
-                    } catch (err) { alert('Sync error in: ' + file.name); }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
                     
-                    filesProcessed++;
-                    if (filesProcessed === files.length) {
-                        alert('Sync Complete. Initializing database...');
-                        initSystem(); // Re-run init to stitch any new orders to customers
-                        document.getElementById('sync-input').value = '';
+                    // Validate Strict Backup Format
+                    if (data.type === "NexusPOS_Unified_Backup" || (data.products && Array.isArray(data.products))) {
+                        if (data.products) products = data.products;
+                        if (data.orders) orders = data.orders;
+                        if (data.customers) customers = data.customers;
+                        
+                        saveData();
+                        alert('Unified Data restored successfully!');
+                        initSystem();
+                    } else {
+                        throw new Error("Invalid Format");
                     }
-                };
-                reader.readAsText(file);
-            }
+                } catch (err) { 
+                    alert('Error: Incompatible file format. Please ensure you upload a valid Nexus POS backup file.'); 
+                }
+                document.getElementById('sync-input-unified').value = '';
+            };
+            reader.readAsText(file);
         });
 
         // --- Dashboard ---
@@ -692,45 +715,81 @@
 
             document.getElementById('dash-sales').innerText = formatMoney(todaySales);
             document.getElementById('dash-orders').innerText = orders.length;
-            document.getElementById('dash-products').innerText = products.length;
             document.getElementById('dash-vips').innerText = vips;
 
+            // Featured Sale Item
+            const featPanel = document.getElementById('dash-featured-content');
+            const saleItem = products.find(p => p.discountPrice && p.discountPrice < p.price);
+            if (saleItem) {
+                featPanel.innerHTML = `
+                    <div class="cart-icon-placeholder">🛒</div>
+                    <h2 style="margin: 0; font-size: 1.4rem;">${saleItem.name}</h2>
+                    <p style="font-size: 1.2rem; font-weight: 700; margin-bottom: 12px;">${formatMoney(saleItem.discountPrice)} <span style="text-decoration:line-through; font-size:0.8rem; color:rgba(255,255,255,0.7);">${formatMoney(saleItem.price)}</span></p>
+                    <button class="btn-white" onclick="navigate('pos')">Add to Order</button>
+                `;
+            } else {
+                featPanel.innerHTML = `
+                    <div class="cart-icon-placeholder">📦</div>
+                    <p style="margin-top: 10px; color:rgba(255,255,255,0.8);">No active promos today. Go to Inventory to set a Promo Price.</p>
+                `;
+            }
+
+            // Inventory Status (Low Stock)
+            let lowStockHtml = '';
+            products.filter(p => p.stock <= 5).forEach(p => {
+                lowStockHtml += `<div class="inv-card">
+                    <div class="flex-col">
+                        <span class="alert">Low Stock</span>
+                        <span style="font-size:0.7rem; color:var(--text-muted);">${p.sku}</span>
+                    </div>
+                    <div class="text-right">
+                        <strong>${p.name}</strong><br>
+                        <span style="font-size: 0.8rem;">(${p.stock} left)</span>
+                    </div>
+                </div>`;
+            });
+            if (lowStockHtml === '') lowStockHtml = '<div style="color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-top:10px;">All stock levels optimal.</div>';
+            document.getElementById('inventory-status-list').innerHTML = lowStockHtml;
+
+            // Order History List
             let recentHtml = '';
             orders.slice().reverse().slice(0, 5).forEach(o => {
-                recentHtml += `<tr>
-                    <td style="font-family: var(--font-display);">${o.orderNum}</td>
-                    <td>${new Date(o.date).toLocaleDateString()}</td>
-                    <td>${o.customer.name || 'Walk-in'}</td>
-                    <td style="color: var(--primary); font-weight: 600;">${formatMoney(o.total)}</td>
-                    <td><span style="color: var(--success);">${o.status}</span></td>
-                </tr>`;
+                let displayId = o.customer.id ? customers.find(c=>c.id===o.customer.id)?.customerId || 'Walk-in' : 'Walk-in';
+                recentHtml += `<div class="history-item">
+                    <div>
+                        <div style="font-size:0.7rem; color:var(--text-muted);">${displayId}</div>
+                        <div style="font-weight:700;">${o.customer.name || 'Walk-in'}</div>
+                    </div>
+                    <div style="font-weight:900; color:var(--brand-blue);">${formatMoney(o.total)}</div>
+                </div>`;
             });
-            document.getElementById('dash-recent-orders').innerHTML = recentHtml;
+            if(recentHtml === '') recentHtml = '<div style="color:var(--text-dark); font-size:0.8rem;">No recent orders.</div>';
+            document.getElementById('dash-recent-orders-list').innerHTML = recentHtml;
         }
 
-        // --- Products & Inventory Management ---
+        // --- Products ---
         function renderProducts() {
             const tbody = document.getElementById('product-table-body');
             tbody.innerHTML = '';
             products.forEach(p => {
-                let stockCol = p.stock <= 5 ? `<span style="color: var(--warning)">${p.stock} (Low)</span>` : p.stock;
-                if (p.stock <= 0) stockCol = `<span style="color: var(--danger)">Depleted</span>`;
+                let stockCol = p.stock <= 5 ? `<span style="color: var(--warning); font-weight:800;">${p.stock} (Low)</span>` : p.stock;
+                if (p.stock <= 0) stockCol = `<span style="color: var(--danger); font-weight:800;">Depleted</span>`;
                 
-                let priceDisplay = `<span style="color: var(--primary);">${formatMoney(p.price)}</span>`;
+                let priceDisplay = `<span style="font-weight: 800;">${formatMoney(p.price)}</span>`;
                 if (p.discountPrice && p.discountPrice < p.price) {
-                    priceDisplay = `<span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.85rem;">${formatMoney(p.price)}</span> <br><span style="color: var(--warning); font-weight:600;">${formatMoney(p.discountPrice)} <span class="badge badge-sale">SALE</span></span>`;
+                    priceDisplay = `<span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.8rem;">${formatMoney(p.price)}</span> <br><span style="color: var(--bento-orange); font-weight:900;">${formatMoney(p.discountPrice)} <span class="badge badge-sale">SALE</span></span>`;
                 }
 
                 tbody.innerHTML += `<tr>
-                    <td style="font-family: var(--font-display); color: var(--text-muted);">${p.sku}</td>
-                    <td style="font-weight: 600;">${p.name}</td>
+                    <td style="font-family: var(--font-display); font-size: 0.8rem; color: var(--text-muted);">${p.sku}</td>
+                    <td style="font-weight: 700;">${p.name}</td>
                     <td>${priceDisplay}</td>
                     <td>${stockCol}</td>
-                    <td>${p.stock > 0 ? '<span style="color:var(--success)">Active</span>' : '<span style="color:var(--danger)">Inactive</span>'}</td>
+                    <td>${p.stock > 0 ? '<span style="color:var(--success); font-weight:700;">Active</span>' : '<span style="color:var(--danger); font-weight:700;">Inactive</span>'}</td>
                     <td>
                         <div class="flex gap-2">
-                            <button style="padding: 6px 12px; font-size: 0.8rem;" onclick="editProduct('${p.id}')">Edit</button>
-                            <button class="danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="deleteProduct('${p.id}')">Del</button>
+                            <button class="action-btn" onclick="editProduct('${p.id}')">Edit</button>
+                            <button class="action-btn action-danger" onclick="deleteProduct('${p.id}')">Del</button>
                         </div>
                     </td>
                 </tr>`;
@@ -759,15 +818,12 @@
             }
         }
 
-        function editProduct(id) {
-            openProductModal(id);
-        }
+        function editProduct(id) { openProductModal(id); }
 
         function deleteProduct(id) {
-            if(confirm("Are you sure you want to permanently delete this product?")) {
+            if(confirm("Permanently delete this product?")) {
                 products = products.filter(p => p.id !== id);
-                saveData();
-                renderProducts();
+                saveData(); renderProducts();
             }
         }
 
@@ -777,15 +833,11 @@
             const sku = document.getElementById('prod-sku').value.trim();
             const price = parseFloat(document.getElementById('prod-price').value);
             const stock = parseInt(document.getElementById('prod-stock').value);
-            
             const discVal = document.getElementById('prod-discount-price').value;
             const discountPrice = discVal !== '' ? parseFloat(discVal) : null;
 
             if (!name || !sku || isNaN(price) || isNaN(stock)) return alert('Invalid inputs.');
-            
-            if (discountPrice && discountPrice >= price) {
-                return alert('Discount price must be less than the regular price.');
-            }
+            if (discountPrice && discountPrice >= price) return alert('Promo price must be less than the regular price.');
 
             if (id) {
                 const idx = products.findIndex(p => p.id === id);
@@ -796,7 +848,7 @@
             saveData(); closeModal('product-modal'); renderProducts();
         }
 
-        // --- POS / Cart System ---
+        // --- POS Terminal ---
         function renderPOSProducts() {
             const grid = document.getElementById('pos-products');
             const search = document.getElementById('pos-search').value.toLowerCase();
@@ -804,25 +856,24 @@
             
             products.filter(p => p.name.toLowerCase().includes(search) || p.sku.toLowerCase().includes(search)).forEach(p => {
                 let clz = p.stock <= 0 ? 'depleted' : '';
-                
-                let priceHtml = `<div style="color:var(--primary); font-weight:700; font-size:1.1rem; margin:8px 0;">${formatMoney(p.price)}</div>`;
+                let priceHtml = `<div style="font-weight:900; font-size:1.1rem; margin:6px 0;">${formatMoney(p.price)}</div>`;
                 let badgeHtml = '';
                 
                 if (p.discountPrice && p.discountPrice < p.price) {
-                    priceHtml = `<div style="margin:8px 0;">
-                        <span style="text-decoration:line-through; font-size:0.8rem; color:var(--text-muted); margin-right:6px;">${formatMoney(p.price)}</span>
-                        <span style="color:var(--warning); font-weight:700; font-size:1.1rem;">${formatMoney(p.discountPrice)}</span>
+                    priceHtml = `<div style="margin:6px 0;">
+                        <span style="text-decoration:line-through; font-size:0.75rem; color:var(--text-muted); margin-right:4px;">${formatMoney(p.price)}</span>
+                        <span style="color:var(--bento-orange); font-weight:900; font-size:1.1rem;">${formatMoney(p.discountPrice)}</span>
                     </div>`;
-                    badgeHtml = `<div style="position:absolute; top:-8px; right:-8px;"><span class="badge badge-sale">SALE</span></div>`;
+                    badgeHtml = `<div style="position:absolute; top:-6px; right:-6px;"><span class="badge badge-sale">SALE</span></div>`;
                 }
 
                 grid.innerHTML += `
                     <div class="pos-item ${clz}" onclick="addToCart('${p.id}')">
                         ${badgeHtml}
-                        <div style="font-weight:600; margin-bottom:4px;">${p.name}</div>
-                        <div style="font-family: var(--font-display); font-size: 0.75rem; color: var(--text-muted);">${p.sku}</div>
+                        <div style="font-weight:700; margin-bottom:2px; font-size: 0.9rem;">${p.name}</div>
+                        <div style="font-family: var(--font-display); font-size: 0.7rem; color: var(--text-muted);">${p.sku}</div>
                         ${priceHtml}
-                        <div style="font-size:0.8rem; color: ${p.stock > 5 ? 'var(--success)' : 'var(--warning)'}">Stock: ${p.stock}</div>
+                        <div style="font-size:0.75rem; font-weight: 700; color: ${p.stock > 5 ? 'var(--success)' : 'var(--warning)'}">Stock: ${p.stock}</div>
                     </div>`;
             });
         }
@@ -830,9 +881,7 @@
         function updatePOSCustomerSelect() {
             const sel = document.getElementById('pos-customer-select');
             sel.innerHTML = '<option value="walkin">Walk-in / Unregistered</option>';
-            customers.forEach(c => {
-                sel.innerHTML += `<option value="${c.id}">${c.name} (${c.customerId})</option>`;
-            });
+            customers.forEach(c => { sel.innerHTML += `<option value="${c.id}">${c.name} (${c.customerId})</option>`; });
         }
 
         function handleCustomerSelect() {
@@ -840,14 +889,12 @@
             const walkinDiv = document.getElementById('pos-walkin-details');
             const vipDiv = document.getElementById('pos-vip-details');
             
-            document.getElementById('cart-points-redeem').value = 0; // reset
+            document.getElementById('cart-points-redeem').value = 0;
             
             if (val === 'walkin') {
-                walkinDiv.classList.remove('hidden');
-                vipDiv.classList.add('hidden');
+                walkinDiv.classList.remove('hidden'); vipDiv.classList.add('hidden');
             } else {
-                walkinDiv.classList.add('hidden');
-                vipDiv.classList.remove('hidden');
+                walkinDiv.classList.add('hidden'); vipDiv.classList.remove('hidden');
                 const c = customers.find(x => x.id === val);
                 document.getElementById('pos-vip-badge').innerHTML = getVipBadge(c.vipLevel);
                 document.getElementById('pos-vip-points').innerText = c.points;
@@ -858,17 +905,11 @@
         function addToCart(id) {
             const product = products.find(p => p.id === id);
             const cartItem = cart.find(c => c.id === id);
-            
-            // Determine active price
             const activePrice = (product.discountPrice && product.discountPrice < product.price) ? product.discountPrice : product.price;
             
             if (cartItem) {
-                if (cartItem.qty < product.stock) {
-                    cartItem.qty++;
-                    cartItem.price = activePrice; // update to latest active price just in case
-                } else {
-                    alert('Stock limit reached.');
-                }
+                if (cartItem.qty < product.stock) { cartItem.qty++; cartItem.price = activePrice; } 
+                else alert('Stock limit reached.');
             } else {
                 if (product.stock > 0) cart.push({ ...product, price: activePrice, qty: 1 });
             }
@@ -894,13 +935,13 @@
                 el.innerHTML += `
                     <div class="cart-item">
                         <div>
-                            <div style="font-weight:600;">${item.name}</div>
-                            <div style="font-size:0.85rem; color:var(--primary);">${formatMoney(item.price)} <span style="color:var(--text-muted)">x ${item.qty}</span></div>
+                            <div style="font-weight:700; font-size: 0.95rem;">${item.name}</div>
+                            <div style="font-size:0.85rem; font-weight:700;">${formatMoney(item.price)} <span style="color:var(--text-muted); font-weight:500;">x ${item.qty}</span></div>
                         </div>
                         <div class="flex items-center">
-                            <button class="qty-btn" onclick="updateCartQty('${item.id}', -1)">-</button>
-                            <span style="min-width:24px; text-align:center;">${item.qty}</span>
-                            <button class="qty-btn" onclick="updateCartQty('${item.id}', 1)">+</button>
+                            <button class="action-btn" style="padding: 4px 10px;" onclick="updateCartQty('${item.id}', -1)">-</button>
+                            <span style="min-width:28px; text-align:center; font-weight: 800;">${item.qty}</span>
+                            <button class="action-btn" style="padding: 4px 10px;" onclick="updateCartQty('${item.id}', 1)">+</button>
                         </div>
                     </div>`;
             });
@@ -913,7 +954,6 @@
             let tax = parseFloat(document.getElementById('cart-tax').value) || 0;
             let pointsRedeem = parseFloat(document.getElementById('cart-points-redeem').value) || 0;
             
-            // Points validation
             const custId = document.getElementById('pos-customer-select').value;
             if (custId !== 'walkin') {
                 const cust = customers.find(c => c.id === custId);
@@ -922,13 +962,12 @@
                     document.getElementById('cart-points-redeem').value = pointsRedeem;
                 }
             } else {
-                pointsRedeem = 0;
-                document.getElementById('cart-points-redeem').value = 0;
+                pointsRedeem = 0; document.getElementById('cart-points-redeem').value = 0;
             }
 
             let preTotal = subtotal - discount + tax;
             if (pointsRedeem > preTotal) {
-                pointsRedeem = Math.floor(preTotal); // Can't redeem more than order value
+                pointsRedeem = Math.floor(preTotal); 
                 document.getElementById('cart-points-redeem').value = pointsRedeem;
             }
 
@@ -945,7 +984,6 @@
 
             document.getElementById('cart-total').innerText = formatMoney(total > 0 ? total : 0);
             
-            // Preview earned points
             let earnPreview = Math.floor((total > 0 ? total : 0) / 100);
             document.getElementById('cart-points-earned-preview').innerText = `This order will earn +${earnPreview} points`;
         }
@@ -967,56 +1005,39 @@
             const selCustId = document.getElementById('pos-customer-select').value;
             
             if (selCustId !== 'walkin') {
-                // Existing VIP
                 const cust = customers.find(c => c.id === selCustId);
                 finalCustomer = { id: cust.id, name: cust.name, phone: cust.phone };
                 
-                // Process Retention Data
                 cust.lifetimeSpend += total;
-                
                 if (pointsRedeemed > 0) {
                     cust.points -= pointsRedeemed;
-                    cust.pointLedger.push({
-                        date: dateStr, reference: orderNum, type: 'Redeemed', points: -pointsRedeemed, balance: cust.points, desc: 'Used for checkout'
-                    });
+                    cust.pointLedger.push({ date: dateStr, reference: orderNum, type: 'Redeemed', points: -pointsRedeemed, balance: cust.points, desc: 'Used for checkout' });
                 }
-                
                 if (pointsEarned > 0) {
                     cust.points += pointsEarned;
-                    cust.pointLedger.push({
-                        date: dateStr, reference: orderNum, type: 'Earned', points: pointsEarned, balance: cust.points, desc: 'Order purchase'
-                    });
+                    cust.pointLedger.push({ date: dateStr, reference: orderNum, type: 'Earned', points: pointsEarned, balance: cust.points, desc: 'Order purchase' });
                 }
-                
                 cust.vipLevel = calculateVip(cust.lifetimeSpend);
-                
             } else {
-                // Check if Walk-in details provided to auto-create customer
                 const wName = document.getElementById('cart-cust-name').value.trim();
                 const wPhone = document.getElementById('cart-cust-phone').value.trim();
                 
                 if (wName !== '') {
-                    // Look for match or create new
                     let exist = customers.find(c => c.name.toLowerCase() === wName.toLowerCase());
                     if (!exist) {
                         exist = {
                             id: generateId(), customerId: generateCustomerId(), name: wName, phone: wPhone, email: '',
                             dateCreated: dateStr, lifetimeSpend: total, points: pointsEarned,
-                            pointLedger: [{
-                                date: dateStr, reference: orderNum, type: 'Earned', points: pointsEarned, balance: pointsEarned, desc: 'First purchase'
-                            }],
+                            pointLedger: [{ date: dateStr, reference: orderNum, type: 'Earned', points: pointsEarned, balance: pointsEarned, desc: 'First purchase' }],
                             vipLevel: calculateVip(total)
                         };
                         customers.push(exist);
                         updatePOSCustomerSelect();
                     } else {
-                        // Existing customer found by name typed
                         exist.lifetimeSpend += total;
                         exist.points += pointsEarned;
                         exist.vipLevel = calculateVip(exist.lifetimeSpend);
-                        exist.pointLedger.push({
-                            date: dateStr, reference: orderNum, type: 'Earned', points: pointsEarned, balance: exist.points, desc: 'Order purchase'
-                        });
+                        exist.pointLedger.push({ date: dateStr, reference: orderNum, type: 'Earned', points: pointsEarned, balance: exist.points, desc: 'Order purchase' });
                     }
                     finalCustomer = { id: exist.id, name: exist.name, phone: exist.phone };
                 }
@@ -1027,7 +1048,6 @@
                 items: [...cart], subtotal, discount, tax, pointsRedeemed, pointsEarned, total, status: 'Completed'
             };
 
-            // Deduct stock
             cart.forEach(cItem => {
                 const p = products.find(x => x.id === cItem.id);
                 if (p) p.stock -= cItem.qty;
@@ -1035,10 +1055,8 @@
 
             orders.push(newOrder);
             saveData();
-            
             alert(`Transaction Complete! Order: ${orderNum}`);
             
-            // Reset
             cart = [];
             document.getElementById('cart-cust-name').value = '';
             document.getElementById('cart-cust-phone').value = '';
@@ -1056,44 +1074,40 @@
             tbody.innerHTML = '';
             [...orders].reverse().forEach(o => {
                 let ptStr = '';
-                if(o.pointsEarned > 0) ptStr += `<span style="color:var(--success)">+${o.pointsEarned}</span> `;
-                if(o.pointsRedeemed > 0) ptStr += `<span style="color:var(--warning)">-${o.pointsRedeemed}</span>`;
+                if(o.pointsEarned > 0) ptStr += `<span style="color:var(--success); font-weight:800;">+${o.pointsEarned}</span> `;
+                if(o.pointsRedeemed > 0) ptStr += `<span style="color:var(--bento-orange); font-weight:800;">-${o.pointsRedeemed}</span>`;
                 if(ptStr === '') ptStr = '-';
 
                 tbody.innerHTML += `<tr>
-                    <td style="font-family: var(--font-display);">${o.orderNum}</td>
-                    <td style="color: var(--text-muted);">${new Date(o.date).toLocaleString()}</td>
-                    <td>${o.customer.name || 'Walk-in'}</td>
+                    <td style="font-weight: 700;">${o.orderNum}</td>
+                    <td style="color: var(--text-muted);">${new Date(o.date).toLocaleDateString()}</td>
+                    <td style="font-weight: 700;">${o.customer.name || 'Walk-in'}</td>
                     <td>${o.items.length} items</td>
                     <td>${ptStr}</td>
-                    <td style="color: var(--primary); font-weight: 600;">${formatMoney(o.total)}</td>
+                    <td style="color: var(--text-light); font-weight: 900;">${formatMoney(o.total)}</td>
                 </tr>`;
             });
         }
 
-        // --- Customers & VIP Logic ---
+        // --- Customers ---
         function renderCustomers() {
             const term = document.getElementById('cust-search').value.toLowerCase();
             const tbody = document.getElementById('customers-table-body');
             tbody.innerHTML = '';
             
-            let totalPts = 0;
-            let totalSpd = 0;
+            let totalPts = 0; let totalSpd = 0;
             
             customers.filter(c => c.name.toLowerCase().includes(term) || c.customerId.toLowerCase().includes(term) || c.phone.includes(term)).forEach(c => {
-                totalPts += c.points;
-                totalSpd += c.lifetimeSpend;
+                totalPts += c.points; totalSpd += c.lifetimeSpend;
                 
                 tbody.innerHTML += `<tr>
-                    <td style="font-family: var(--font-display); color: var(--text-muted);">${c.customerId}</td>
-                    <td style="font-weight: 600;">${c.name}</td>
+                    <td style="font-family: var(--font-display); font-size: 0.8rem; color: var(--text-muted);">${c.customerId}</td>
+                    <td style="font-weight: 800;">${c.name}</td>
                     <td>${c.phone || '-'}</td>
-                    <td>${formatMoney(c.lifetimeSpend)}</td>
-                    <td style="color: var(--primary); font-weight: 600;">${c.points}</td>
+                    <td style="font-weight: 700;">${formatMoney(c.lifetimeSpend)}</td>
+                    <td style="color: var(--bento-orange); font-weight: 900;">${c.points}</td>
                     <td>${getVipBadge(c.vipLevel)}</td>
-                    <td>
-                        <button class="primary" onclick="viewCustomerProfile('${c.id}')" style="padding: 6px 12px; font-size: 0.8rem;">Profile</button>
-                    </td>
+                    <td><button class="action-btn" onclick="viewCustomerProfile('${c.id}')">Profile</button></td>
                 </tr>`;
             });
             
@@ -1116,29 +1130,19 @@
             if (!name) return alert('Name is required');
             
             customers.push({
-                id: generateId(),
-                customerId: generateCustomerId(),
-                name: name,
-                phone: document.getElementById('cust-phone').value.trim(),
-                email: document.getElementById('cust-email').value.trim(),
-                dateCreated: new Date().toISOString(),
-                lifetimeSpend: 0,
-                points: 0,
-                pointLedger: [],
-                vipLevel: 'Regular'
+                id: generateId(), customerId: generateCustomerId(), name: name, phone: document.getElementById('cust-phone').value.trim(),
+                email: document.getElementById('cust-email').value.trim(), dateCreated: new Date().toISOString(),
+                lifetimeSpend: 0, points: 0, pointLedger: [], vipLevel: 'Regular'
             });
             
-            saveData();
-            updatePOSCustomerSelect();
-            closeModal('customer-modal');
-            renderCustomers();
+            saveData(); updatePOSCustomerSelect(); closeModal('customer-modal'); renderCustomers();
         }
 
         function viewCustomerProfile(id) {
             const c = customers.find(x => x.id === id);
             if(!c) return;
             
-            document.getElementById('prof-name').innerText = `${c.name} (${c.customerId})`;
+            document.getElementById('prof-name').innerText = `${c.name}`;
             document.getElementById('prof-badge').innerHTML = getVipBadge(c.vipLevel);
             document.getElementById('prof-spend').innerText = formatMoney(c.lifetimeSpend);
             document.getElementById('prof-points').innerText = c.points;
@@ -1151,11 +1155,11 @@
                     let color = l.points > 0 ? 'var(--success)' : 'var(--warning)';
                     let sign = l.points > 0 ? '+' : '';
                     tbody.innerHTML += `<tr>
-                        <td style="color: var(--text-muted);">${new Date(l.date).toLocaleDateString()}</td>
-                        <td>${l.reference}</td>
-                        <td>${l.type}</td>
-                        <td style="color: ${color}; font-weight: 600;">${sign}${l.points}</td>
-                        <td>${l.balance}</td>
+                        <td style="color: var(--text-muted); font-size: 0.8rem;">${new Date(l.date).toLocaleDateString()}</td>
+                        <td style="font-family: var(--font-display); font-size: 0.75rem;">${l.reference}</td>
+                        <td style="font-weight: 700;">${l.type}</td>
+                        <td style="color: ${color}; font-weight: 900;">${sign}${l.points}</td>
+                        <td style="font-weight: 800;">${l.balance}</td>
                     </tr>`;
                 });
             } else {
@@ -1165,7 +1169,6 @@
             document.getElementById('profile-modal').classList.add('active');
         }
 
-        // Boot
         initSystem();
     </script>
 </body>
