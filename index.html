@@ -163,6 +163,7 @@
         button.primary { background: var(--primary); border-color: var(--primary); color: #020617; }
         button.primary:hover { background: #0ea5e9; box-shadow: 0 0 15px var(--primary-glow); }
         button.danger { background: rgba(239, 68, 68, 0.1); border-color: var(--danger); color: var(--danger); }
+        button.danger:hover { background: var(--danger); color: #fff; }
         button.success { background: rgba(16, 185, 129, 0.1); border-color: var(--success); color: var(--success); }
         
         /* Tables */
@@ -183,6 +184,7 @@
             cursor: pointer; 
             border: 1px solid var(--glass-border); 
             transition: 0.2s;
+            position: relative;
         }
         .pos-item:hover { border-color: var(--primary); transform: translateY(-2px); }
         .pos-item.depleted { opacity: 0.4; pointer-events: none; }
@@ -203,6 +205,7 @@
         .badge-gold { background: rgba(251, 191, 36, 0.1); color: var(--vip-gold); border: 1px solid var(--vip-gold); }
         .badge-platinum { background: rgba(232, 121, 249, 0.1); color: var(--vip-platinum); border: 1px solid var(--vip-platinum); }
         .badge-regular { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--text-muted); }
+        .badge-sale { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
 
         /* Modals */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 1000; }
@@ -432,7 +435,7 @@
             <h2 style="margin-top: 32px; margin-bottom: 16px;">Development Team</h2>
             <div class="flex gap-4 flex-wrap">
                 <div class="team-profile">
-                    <img src="nicedadol.png" alt="Nice Dadol" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iIzFlMjkyYiIvPjwvc3ZnPg=='">
+                    <img src="nicedadol.jpg" alt="Nice Dadol" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iIzFlMjkyYiIvPjwvc3ZnPg=='">
                     <div>
                         <h3>Nice Dadol</h3>
                         <p>Designer & Vibecoder</p>
@@ -458,7 +461,18 @@
             <input type="hidden" id="prod-id">
             <label style="font-size: 0.85rem; color: var(--text-muted);">Name</label><input type="text" id="prod-name" required>
             <label style="font-size: 0.85rem; color: var(--text-muted);">SKU</label><input type="text" id="prod-sku" required>
-            <label style="font-size: 0.85rem; color: var(--text-muted);">Price (₱)</label><input type="number" id="prod-price" min="0" step="0.01" required>
+            
+            <div class="flex gap-4">
+                <div style="flex:1">
+                    <label style="font-size: 0.85rem; color: var(--text-muted);">Regular Price (₱)</label>
+                    <input type="number" id="prod-price" min="0" step="0.01" required>
+                </div>
+                <div style="flex:1">
+                    <label style="font-size: 0.85rem; color: var(--warning);">Today's Promo Price (₱)</label>
+                    <input type="number" id="prod-discount-price" min="0" step="0.01" placeholder="Optional">
+                </div>
+            </div>
+
             <label style="font-size: 0.85rem; color: var(--text-muted);">Stock</label><input type="number" id="prod-stock" min="0" required>
             <div class="flex gap-4 mt-4">
                 <button class="primary" style="flex:1;" onclick="saveProduct()">Save</button>
@@ -694,7 +708,7 @@
             document.getElementById('dash-recent-orders').innerHTML = recentHtml;
         }
 
-        // --- Products & Inventory ---
+        // --- Products & Inventory Management ---
         function renderProducts() {
             const tbody = document.getElementById('product-table-body');
             tbody.innerHTML = '';
@@ -702,14 +716,22 @@
                 let stockCol = p.stock <= 5 ? `<span style="color: var(--warning)">${p.stock} (Low)</span>` : p.stock;
                 if (p.stock <= 0) stockCol = `<span style="color: var(--danger)">Depleted</span>`;
                 
+                let priceDisplay = `<span style="color: var(--primary);">${formatMoney(p.price)}</span>`;
+                if (p.discountPrice && p.discountPrice < p.price) {
+                    priceDisplay = `<span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.85rem;">${formatMoney(p.price)}</span> <br><span style="color: var(--warning); font-weight:600;">${formatMoney(p.discountPrice)} <span class="badge badge-sale">SALE</span></span>`;
+                }
+
                 tbody.innerHTML += `<tr>
                     <td style="font-family: var(--font-display); color: var(--text-muted);">${p.sku}</td>
                     <td style="font-weight: 600;">${p.name}</td>
-                    <td style="color: var(--primary);">${formatMoney(p.price)}</td>
+                    <td>${priceDisplay}</td>
                     <td>${stockCol}</td>
                     <td>${p.stock > 0 ? '<span style="color:var(--success)">Active</span>' : '<span style="color:var(--danger)">Inactive</span>'}</td>
                     <td>
-                        <button onclick="editProduct('${p.id}')">Edit</button>
+                        <div class="flex gap-2">
+                            <button style="padding: 6px 12px; font-size: 0.8rem;" onclick="editProduct('${p.id}')">Edit</button>
+                            <button class="danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="deleteProduct('${p.id}')">Del</button>
+                        </div>
                     </td>
                 </tr>`;
             });
@@ -724,6 +746,7 @@
                 document.getElementById('prod-name').value = p.name;
                 document.getElementById('prod-sku').value = p.sku;
                 document.getElementById('prod-price').value = p.price;
+                document.getElementById('prod-discount-price').value = p.discountPrice || '';
                 document.getElementById('prod-stock').value = p.stock;
             } else {
                 document.getElementById('product-modal-title').innerText = 'Add Product';
@@ -731,7 +754,20 @@
                 document.getElementById('prod-name').value = '';
                 document.getElementById('prod-sku').value = '';
                 document.getElementById('prod-price').value = '';
+                document.getElementById('prod-discount-price').value = '';
                 document.getElementById('prod-stock').value = '';
+            }
+        }
+
+        function editProduct(id) {
+            openProductModal(id);
+        }
+
+        function deleteProduct(id) {
+            if(confirm("Are you sure you want to permanently delete this product?")) {
+                products = products.filter(p => p.id !== id);
+                saveData();
+                renderProducts();
             }
         }
 
@@ -741,14 +777,21 @@
             const sku = document.getElementById('prod-sku').value.trim();
             const price = parseFloat(document.getElementById('prod-price').value);
             const stock = parseInt(document.getElementById('prod-stock').value);
+            
+            const discVal = document.getElementById('prod-discount-price').value;
+            const discountPrice = discVal !== '' ? parseFloat(discVal) : null;
 
             if (!name || !sku || isNaN(price) || isNaN(stock)) return alert('Invalid inputs.');
+            
+            if (discountPrice && discountPrice >= price) {
+                return alert('Discount price must be less than the regular price.');
+            }
 
             if (id) {
                 const idx = products.findIndex(p => p.id === id);
-                products[idx] = { id, name, sku, price, stock };
+                products[idx] = { id, name, sku, price, discountPrice, stock };
             } else {
-                products.push({ id: generateId(), name, sku, price, stock });
+                products.push({ id: generateId(), name, sku, price, discountPrice, stock });
             }
             saveData(); closeModal('product-modal'); renderProducts();
         }
@@ -761,11 +804,24 @@
             
             products.filter(p => p.name.toLowerCase().includes(search) || p.sku.toLowerCase().includes(search)).forEach(p => {
                 let clz = p.stock <= 0 ? 'depleted' : '';
+                
+                let priceHtml = `<div style="color:var(--primary); font-weight:700; font-size:1.1rem; margin:8px 0;">${formatMoney(p.price)}</div>`;
+                let badgeHtml = '';
+                
+                if (p.discountPrice && p.discountPrice < p.price) {
+                    priceHtml = `<div style="margin:8px 0;">
+                        <span style="text-decoration:line-through; font-size:0.8rem; color:var(--text-muted); margin-right:6px;">${formatMoney(p.price)}</span>
+                        <span style="color:var(--warning); font-weight:700; font-size:1.1rem;">${formatMoney(p.discountPrice)}</span>
+                    </div>`;
+                    badgeHtml = `<div style="position:absolute; top:-8px; right:-8px;"><span class="badge badge-sale">SALE</span></div>`;
+                }
+
                 grid.innerHTML += `
                     <div class="pos-item ${clz}" onclick="addToCart('${p.id}')">
+                        ${badgeHtml}
                         <div style="font-weight:600; margin-bottom:4px;">${p.name}</div>
                         <div style="font-family: var(--font-display); font-size: 0.75rem; color: var(--text-muted);">${p.sku}</div>
-                        <div style="color:var(--primary); font-weight:700; font-size:1.1rem; margin:8px 0;">${formatMoney(p.price)}</div>
+                        ${priceHtml}
                         <div style="font-size:0.8rem; color: ${p.stock > 5 ? 'var(--success)' : 'var(--warning)'}">Stock: ${p.stock}</div>
                     </div>`;
             });
@@ -802,11 +858,19 @@
         function addToCart(id) {
             const product = products.find(p => p.id === id);
             const cartItem = cart.find(c => c.id === id);
+            
+            // Determine active price
+            const activePrice = (product.discountPrice && product.discountPrice < product.price) ? product.discountPrice : product.price;
+            
             if (cartItem) {
-                if (cartItem.qty < product.stock) cartItem.qty++;
-                else alert('Stock limit reached.');
+                if (cartItem.qty < product.stock) {
+                    cartItem.qty++;
+                    cartItem.price = activePrice; // update to latest active price just in case
+                } else {
+                    alert('Stock limit reached.');
+                }
             } else {
-                if (product.stock > 0) cart.push({ ...product, qty: 1 });
+                if (product.stock > 0) cart.push({ ...product, price: activePrice, qty: 1 });
             }
             renderCart();
         }
