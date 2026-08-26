@@ -215,6 +215,12 @@
         .guide-card p, .guide-card li { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px;}
         .guide-card ul { padding-left: 20px; }
         .tip-box { background: rgba(56, 189, 248, 0.1); border-left: 4px solid var(--primary); padding: 12px; margin-top: 12px; border-radius: 0 8px 8px 0; }
+        
+        /* Team Credits */
+        .team-profile { display: flex; align-items: center; gap: 16px; background: rgba(0,0,0,0.3); padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); flex: 1;}
+        .team-profile img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
+        .team-profile h3 { color: var(--text-main); margin-bottom: 4px; font-size: 1.1rem;}
+        .team-profile p { color: var(--text-muted); font-size: 0.85rem; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;}
     </style>
 </head>
 <body>
@@ -228,7 +234,7 @@
             <li onclick="navigate('products')">Inventory</li>
             <li onclick="navigate('orders')">Order Logs</li>
             <li onclick="navigate('customers')">Customers & VIP</li>
-            <li onclick="navigate('help')">Client Guide</li>
+            <li onclick="navigate('help')">System Info & Help</li>
         </ul>
     </div>
 
@@ -374,11 +380,17 @@
             </div>
         </div>
 
-        <!-- CLIENT GUIDE -->
+        <!-- SYSTEM INFO & HELP CENTER -->
         <div id="help" class="section">
-            <h1>System Help Center</h1>
-            <p style="color: var(--text-muted); margin-bottom: 24px;">Welcome to Nexus POS. This guide will help you understand and operate the terminal, manage your inventory, and utilize the automated Customer Loyalty system.</p>
+            <h1>System Architecture & Help Center</h1>
+            
+            <!-- System Info -->
+            <div class="card mb-4">
+                <h2 style="color: var(--primary);">Nexus Offline POS – Next-Gen Local Point of Sale</h2>
+                <p style="color: var(--text-main); line-height: 1.6;">Nexus POS is a sleek, high-tech Point of Sale system designed specifically for local retail and service businesses. Built with a premium, modern aesthetic, it provides robust inventory and transaction management entirely offline. No internet connection, no server outages, and no monthly cloud hosting fees—just blazing-fast, secure local performance.</p>
+            </div>
 
+            <h2 style="margin-top: 32px; margin-bottom: 16px;">Client Guide</h2>
             <div class="grid-cards" style="grid-template-columns: 1fr 1fr;">
                 <div class="guide-card">
                     <h3>1. Getting Started & Dashboard</h3>
@@ -415,6 +427,26 @@
                     <p><strong>Customers:</strong> Customers are automatically generated if you type a new name/phone in the Walk-in section during checkout. You can also manually add them in the Customers tab.</p>
                 </div>
             </div>
+
+            <!-- Credits / Development Team -->
+            <h2 style="margin-top: 32px; margin-bottom: 16px;">Development Team</h2>
+            <div class="flex gap-4 flex-wrap">
+                <div class="team-profile">
+                    <img src="nicedadol.png" alt="Nice Dadol" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iIzFlMjkyYiIvPjwvc3ZnPg=='">
+                    <div>
+                        <h3>Nice Dadol</h3>
+                        <p>Designer & Vibecoder</p>
+                    </div>
+                </div>
+                <div class="team-profile">
+                    <img src="dexterpunay.jpg" alt="Dexter Punay" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iIzFlMjkyYiIvPjwvc3ZnPg=='">
+                    <div>
+                        <h3>Dexter Punay</h3>
+                        <p>Vibecoder</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
