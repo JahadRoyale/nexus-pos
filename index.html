@@ -3,44 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Nexus POS | Cybercore Edition</title>
-    <!-- Modern tech typography: Rajdhani for UI, Share Tech Mono for data -->
+    <title>Nexus POS | Cybercore V2 (Complete)</title>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <style>
         :root {
             /* Futuristic Cyberpunk Palette */
-            --bg-dark: #050508;
-            --sidebar-bg: rgba(10, 10, 15, 0.85);
-            /* Preserving original variable names for JS compatibility, but changing actual values */
-            --bento-orange: #00f3ff;       /* Neon Cyan */
+            --bg-dark: #030305;
+            --sidebar-bg: rgba(7, 8, 13, 0.7);
+            
+            --bento-orange: #00f3ff;       
             --bento-orange-hover: #00c3cc;
-            --bento-blue: #ff003c;         /* Neon Magenta */
-            --bento-grey: #11111a;         /* Deep Tech Grey */
+            --bento-blue: #ff0055;         
+            --bento-grey: #0a0b10;         
             
             --text-light: #e0f8ff;
-            --text-dark: #050508;
-            --text-muted: #4a758c;
-            --danger: #ff003c;
-            --success: #39ff14;
-            --warning: #ffb000;
+            --text-dark: #030305;
+            --text-muted: #3a6073;
+            --danger: #ff0055;
+            --success: #00ff88;
+            --warning: #ffaa00;
             
             --font-ui: 'Rajdhani', sans-serif;
             --font-display: 'Share Tech Mono', monospace;
-            --radius-bento: 0px; 
-            --radius-small: 0px;
             
-            --neon-glow: 0 0 10px rgba(0, 243, 255, 0.3), inset 0 0 10px rgba(0, 243, 255, 0.1);
-            --neon-border: 1px solid var(--bento-orange);
-            --magenta-glow: 0 0 10px rgba(255, 0, 60, 0.4);
+            --neon-glow: 0 0 15px rgba(0, 243, 255, 0.4), inset 0 0 10px rgba(0, 243, 255, 0.1);
+            --neon-glow-hover: 0 0 25px rgba(0, 243, 255, 0.6), inset 0 0 15px rgba(0, 243, 255, 0.3);
+            --magenta-glow: 0 0 15px rgba(255, 0, 85, 0.5);
+            --success-glow: 0 0 15px rgba(0, 255, 136, 0.4);
+            
+            --glass-border: rgba(0, 243, 255, 0.15);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: var(--bento-orange); box-shadow: var(--neon-glow); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); }
+        ::-webkit-scrollbar-thumb { background: var(--bento-orange); box-shadow: var(--neon-glow); border-radius: 10px; }
 
+        /* Dynamic Background System */
         body { 
             display: flex; 
             height: 100vh; 
@@ -49,24 +50,48 @@
             font-family: var(--font-ui);
             overflow: hidden; 
             position: relative;
-            background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
         }
-        
-        /* CRT Scanline Overlay */
-        body::after {
-            content: " ";
-            display: block;
+
+        /* Animated Grid */
+        .bg-grid {
             position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 9999;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-            opacity: 0.4;
+            inset: -50%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+            transform: perspective(500px) rotateX(45deg);
+            animation: gridMove 20s linear infinite;
         }
+
+        /* Floating Ambient Orbs */
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: floatOrb 10s ease-in-out infinite alternate;
+        }
+        .orb-1 { top: 10%; left: 20%; width: 300px; height: 300px; background: rgba(0, 243, 255, 0.08); }
+        .orb-2 { bottom: 10%; right: 20%; width: 400px; height: 400px; background: rgba(255, 0, 85, 0.05); animation-delay: -5s; }
+
+        /* Moving Scanline Overlay */
+        body::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.25) 51%);
+            background-size: 100% 4px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: scanline 10s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes gridMove { 0% { transform: perspective(500px) rotateX(60deg) translateY(0); } 100% { transform: perspective(500px) rotateX(60deg) translateY(40px); } }
+        @keyframes floatOrb { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, 50px) scale(1.2); } }
+        @keyframes scanline { 0% { background-position: 0 0; } 100% { background-position: 0 100vh; } }
 
         /* Utilities */
         .flex { display: flex; }
@@ -80,76 +105,110 @@
         .hidden { display: none !important; }
         .text-right { text-align: right; }
 
-        /* Typography */
+        /* Typography & Glitch Headers */
         h1, h2, h3 { font-weight: 700; letter-spacing: 2px; font-family: var(--font-ui); text-transform: uppercase; }
-        h1 { font-size: 2rem; margin-bottom: 20px; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); border-bottom: 1px solid rgba(0,243,255,0.2); padding-bottom: 10px; }
+        h1 { font-size: 2.2rem; margin-bottom: 24px; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.4); border-bottom: 1px solid rgba(0,243,255,0.3); padding-bottom: 10px; position: relative;}
         
+        .glitch-hover { transition: 0.2s; position: relative; display: inline-block; }
+        .glitch-hover:hover {
+            animation: textGlitch 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+            color: var(--bento-orange);
+            text-shadow: var(--neon-glow);
+        }
+
+        @keyframes textGlitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 1px) }
+            40% { transform: translate(-1px, -1px) }
+            60% { transform: translate(2px, 1px) }
+            80% { transform: translate(1px, -1px) }
+            100% { transform: translate(0) }
+        }
+
         /* Sidebar */
         .sidebar { 
-            width: 260px; 
+            width: 270px; 
             background: var(--sidebar-bg); 
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             display: flex; 
             flex-direction: column; 
             z-index: 100;
-            border-right: 1px solid rgba(0, 243, 255, 0.2);
-            box-shadow: 5px 0 20px rgba(0,0,0,0.5);
+            border-right: 1px solid var(--glass-border);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.7);
+            position: relative;
         }
+        
         .brand { 
             padding: 30px 24px; 
-            font-size: 1.8rem; 
+            font-size: 2rem; 
             font-weight: 700; 
             display: flex;
             align-items: center;
             gap: 12px;
             font-family: var(--font-display);
-            letter-spacing: 2px;
-            color: var(--bento-orange);
-            text-shadow: var(--neon-glow);
+            letter-spacing: 3px;
+            color: var(--text-light);
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         .logo-icon {
-            font-size: 2rem;
-            color: var(--bento-blue);
-            text-shadow: var(--magenta-glow);
-            font-weight: 700;
+            font-size: 2.2rem;
+            color: var(--bento-orange);
+            text-shadow: var(--neon-glow);
+            animation: pulseGlow 2s infinite alternate;
         }
-        .nav-links { list-style: none; padding: 10px 20px; flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;}
+
+        .nav-links { list-style: none; padding: 20px; flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;}
         .nav-links li { 
-            padding: 12px 16px; 
+            padding: 14px 18px; 
             cursor: pointer; 
-            transition: all 0.3s ease; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             display: flex; 
             align-items: center;
             color: var(--text-muted);
             font-weight: 600;
             font-size: 1.1rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border-left: 3px solid transparent;
+            letter-spacing: 2px;
+            border-left: 2px solid transparent;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .nav-links li::before {
+            content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 0;
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.15), transparent);
+            transition: width 0.4s ease; z-index: -1;
+        }
+
         .nav-links li:hover { 
-            background: rgba(0, 243, 255, 0.05); 
             color: var(--text-light); 
-            border-left: 3px solid rgba(0, 243, 255, 0.5);
+            border-left: 2px solid rgba(0, 243, 255, 0.5);
+            transform: translateX(5px);
         }
+        .nav-links li:hover::before { width: 100%; }
+        
         .nav-links li.active { 
-            background: linear-gradient(90deg, rgba(0, 243, 255, 0.15) 0%, transparent 100%);
             color: var(--bento-orange); 
-            border-left: 3px solid var(--bento-orange);
-            text-shadow: 0 0 5px rgba(0,243,255,0.5);
+            border-left: 2px solid var(--bento-orange);
+            text-shadow: 0 0 8px rgba(0,243,255,0.6);
         }
+        .nav-links li.active::before { width: 100%; background: linear-gradient(90deg, rgba(0, 243, 255, 0.25), transparent); }
         
         /* Live Clock */
         .live-clock {
             margin-top: auto;
             padding: 24px;
-            border-top: 1px solid rgba(0, 243, 255, 0.2);
+            border-top: 1px solid var(--glass-border);
             color: var(--bento-orange);
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.6);
             text-align: center;
+            position: relative;
         }
-        #clock-time { font-size: 1.8rem; font-weight: 400; font-family: var(--font-display); letter-spacing: 2px; text-shadow: var(--neon-glow); }
-        #clock-date { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-top: 4px; letter-spacing: 1px; color: var(--text-muted); }
+        .live-clock::before { content: 'SYS.TIME'; position: absolute; top: 8px; left: 10px; font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-display); }
+        #clock-time { font-size: 1.9rem; font-weight: 400; font-family: var(--font-display); letter-spacing: 3px; text-shadow: var(--neon-glow); }
+        #clock-date { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-top: 4px; letter-spacing: 2px; color: var(--text-light); opacity: 0.7;}
 
         /* Main Content */
         .main-content { 
@@ -158,11 +217,15 @@
             flex-direction: column; 
             overflow-y: auto; 
             padding: 30px 40px; 
+            position: relative;
+            z-index: 10;
         }
-        .section { display: none; animation: cyberFade 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        .section { display: none; animation: cyberFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
         .section.active { display: block; }
+        
         @keyframes cyberFade { 
-            0% { opacity: 0; transform: translateY(10px) scale(0.99); filter: blur(2px); } 
+            0% { opacity: 0; transform: translateY(20px) scale(0.98); filter: blur(5px); } 
             100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } 
         }
 
@@ -170,14 +233,14 @@
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 24px;
             margin-bottom: 24px;
         }
         
         .bento-dashboard {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 24px;
             margin-bottom: 24px;
         }
         .box-analytics { grid-column: span 2; }
@@ -188,150 +251,153 @@
             .box-analytics, .box-orders { grid-column: span 2; }
         }
 
-        /* Cyber Panels (formerly bento boxes) */
+        /* Cyber Panels (highly interactive) */
         .bento-box {
-            background: rgba(10, 15, 20, 0.7);
-            backdrop-filter: blur(8px);
+            background: rgba(10, 12, 18, 0.75);
+            backdrop-filter: blur(15px);
             padding: 24px;
             display: flex;
             flex-direction: column;
             color: var(--text-light);
             position: relative;
-            border: 1px solid rgba(0, 243, 255, 0.15);
-            /* Sci-fi chamfered corners */
-            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+            border: 1px solid var(--glass-border);
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .bento-box::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 30px; height: 30px; border-top: 2px solid var(--bento-orange); border-left: 2px solid var(--bento-orange);
-        }
-        .bento-box::after {
-            content: ''; position: absolute; bottom: 0; right: 0; width: 30px; height: 30px; border-bottom: 2px solid var(--bento-orange); border-right: 2px solid var(--bento-orange);
+        
+        .bento-box:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 243, 255, 0.4);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7), 0 0 20px rgba(0,243,255,0.1);
         }
 
-        /* Overriding hardcoded bg classes for Cyberpunk feel */
-        .bg-orange { background: linear-gradient(135deg, rgba(0, 243, 255, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%); border-color: var(--bento-orange); }
-        .bg-blue { background: linear-gradient(135deg, rgba(255, 0, 60, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%); border-color: var(--bento-blue); color: var(--text-light); }
-        .bg-grey { background: var(--bento-grey); }
-        .bg-dark { background: rgba(0,0,0,0.6); border: 1px dashed rgba(0, 243, 255, 0.3); }
+        .bento-box::before { content: ''; position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-top: 2px solid var(--bento-orange); border-left: 2px solid var(--bento-orange); transition: 0.3s;}
+        .bento-box::after { content: ''; position: absolute; bottom: 0; right: 0; width: 40px; height: 40px; border-bottom: 2px solid var(--bento-orange); border-right: 2px solid var(--bento-orange); transition: 0.3s;}
         
-        /* Panel Specifics */
-        .cart-icon-placeholder { width: 80px; height: 80px; background: rgba(0,243,255,0.1); border: 1px solid var(--bento-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 15px 0; box-shadow: var(--neon-glow); }
-        .btn-white { background: transparent; color: var(--bento-orange); border: 1px solid var(--bento-orange); padding: 10px 20px; font-weight: 700; font-family: var(--font-display); cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: inset 0 0 10px rgba(0,243,255,0.1); }
-        .btn-white:hover { background: var(--bento-orange); color: #000; box-shadow: var(--neon-glow); }
+        .bento-box:hover::before, .bento-box:hover::after { width: 60px; height: 60px; filter: drop-shadow(0 0 5px var(--bento-orange)); }
+
+        .bg-orange { background: linear-gradient(145deg, rgba(0, 243, 255, 0.05) 0%, rgba(0, 0, 0, 0.8) 100%); }
+        .bg-blue { background: linear-gradient(145deg, rgba(255, 0, 85, 0.05) 0%, rgba(0, 0, 0, 0.8) 100%); border-color: rgba(255,0,85,0.3); }
+        .bg-blue::before, .bg-blue::after { border-color: var(--bento-blue); }
+        .bg-dark { background: rgba(0,0,0,0.7); border: 1px dashed rgba(0, 243, 255, 0.2); }
         
-        .sales-header { display: flex; justify-content: space-between; align-items: flex-start; }
-        .sales-toggles { display: flex; background: rgba(0,243,255,0.1); border: 1px solid rgba(0,243,255,0.3); }
-        .sales-toggles span { padding: 6px 14px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; font-family: var(--font-display); text-transform: uppercase; }
-        .sales-toggles span:hover { background: rgba(0,243,255,0.2); }
-        .sales-toggles span.active { background: var(--bento-orange); color: #000; box-shadow: var(--neon-glow); }
+        /* Interactive Buttons */
+        button.action-btn { 
+            padding: 12px 20px; border: 1px solid rgba(255,255,255,0.2); font-weight: 700; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); background: rgba(0,0,0,0.6); color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 8px; position: relative; overflow: hidden;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
         
-        .chart-mockup { display: flex; align-items: flex-end; gap: 4px; height: 100px; margin: 24px 0; border-bottom: 1px solid rgba(0,243,255,0.3); padding-bottom: 2px; }
-        .bar { flex: 1; background: rgba(0, 243, 255, 0.7); box-shadow: 0 0 5px var(--bento-orange); transition: height 0.4s ease; min-height: 2px; border-top: 1px solid #fff; }
-        .bar.blue { background: rgba(255, 0, 60, 0.7); box-shadow: 0 0 5px var(--bento-blue); }
+        button.action-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transform: skewX(-20deg); transition: 0s; }
+        button.action-btn:hover::before { left: 200%; transition: 0.6s ease-in-out; }
         
-        .change-indicator { font-size: 0.85rem; font-family: var(--font-display); font-weight: 600; padding: 4px 8px; display: inline-block; border: 1px solid transparent; }
-        .change-positive { color: var(--success); border-color: var(--success); background: rgba(57, 255, 20, 0.1); }
-        .change-negative { color: var(--danger); border-color: var(--danger); background: rgba(255, 0, 60, 0.1); }
-        .change-neutral { color: var(--text-muted); border-color: var(--text-muted); background: rgba(255, 255, 255, 0.05); }
+        button.action-btn:hover { border-color: var(--text-light); background: rgba(255,255,255,0.1); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        button.action-btn:active { transform: translateY(1px) scale(0.98); }
         
-        .inventory-list { display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; margin-top: 16px; flex-grow: 1; overflow-y: auto; max-height: 250px;}
-        .inv-card { background: rgba(0,0,0,0.5); color: var(--text-light); padding: 12px 16px; border-left: 2px solid var(--warning); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .inv-card .alert { color: var(--warning); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+        button.action-primary { border: 1px solid var(--bento-orange); background: rgba(0, 243, 255, 0.1); color: var(--bento-orange); box-shadow: inset 0 0 10px rgba(0,243,255,0.15); }
+        button.action-primary:hover { background: var(--bento-orange); color: #000; box-shadow: var(--neon-glow-hover); border-color: var(--bento-orange); text-shadow: none; }
         
-        .order-history-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; flex-grow: 1;}
-        .history-item { background: rgba(0,0,0,0.4); color: var(--text-light); padding: 12px 16px; border: 1px solid rgba(255,0,60,0.2); border-left: 3px solid var(--bento-blue); display: flex; justify-content: space-between; align-items: center; font-family: var(--font-display); }
-        
-        /* Internal UI Elements */
-        .internal-panel { background: rgba(0,0,0,0.4); border: 1px solid rgba(0,243,255,0.2); padding: 24px; margin-bottom: 24px; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
-        
+        button.action-danger { border: 1px solid var(--danger); color: var(--danger); background: rgba(255,0,85,0.1); }
+        button.action-danger:hover { background: var(--danger); color: #fff; box-shadow: var(--magenta-glow); border-color: var(--danger); }
+
+        /* Inputs & Interactive Elements */
         input, select, textarea { 
-            width: 100%; padding: 12px 16px; 
-            background: rgba(0, 0, 0, 0.5); 
-            border: 1px solid rgba(0, 243, 255, 0.2); 
+            width: 100%; padding: 14px 16px; 
+            background: rgba(0, 0, 0, 0.6); 
+            border: 1px solid var(--glass-border); 
             border-bottom: 2px solid rgba(0, 243, 255, 0.5);
             color: var(--text-light); 
             font-family: var(--font-display); 
-            margin-bottom: 12px; transition: 0.3s;
-            font-size: 1rem;
+            margin-bottom: 14px; transition: all 0.3s ease;
+            font-size: 1.05rem;
+            border-radius: 0;
         }
-        input:focus, select:focus { outline: none; border-color: var(--bento-orange); box-shadow: inset 0 -3px 10px rgba(0,243,255,0.2); }
-        input[type="number"].cart-qty-input { width: 60px; text-align: center; padding: 6px; margin: 0; background: rgba(0,0,0,0.8); border: 1px solid var(--text-muted); color: var(--bento-orange); font-weight: bold;}
+        input:focus, select:focus { outline: none; border-color: var(--bento-orange); border-bottom-color: var(--bento-orange); box-shadow: inset 0 -3px 15px rgba(0,243,255,0.2), 0 5px 15px rgba(0,243,255,0.1); transform: translateY(-1px); }
+        input[type="number"].cart-qty-input { width: 65px; text-align: center; padding: 8px; margin: 0; background: rgba(0,0,0,0.9); border: 1px solid var(--text-muted); color: var(--bento-orange); font-weight: bold;}
         input[type="number"].cart-qty-input:focus { border-color: var(--bento-orange); box-shadow: var(--neon-glow); }
-        
-        button.action-btn { 
-            padding: 10px 16px; border: 1px solid rgba(255,255,255,0.2); font-weight: 700; font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; background: rgba(0,0,0,0.6); color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 6px; position: relative; overflow: hidden;
-        }
-        button.action-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: 0.5s; }
-        button.action-btn:hover::before { left: 100%; }
-        button.action-btn:hover { border-color: var(--text-light); background: rgba(255,255,255,0.1); }
-        
-        button.action-primary { border: 1px solid var(--bento-orange); background: rgba(0, 243, 255, 0.1); color: var(--bento-orange); box-shadow: inset 0 0 10px rgba(0,243,255,0.1); }
-        button.action-primary:hover { background: var(--bento-orange); color: #000; box-shadow: var(--neon-glow); border-color: var(--bento-orange); }
-        button.action-danger { border: 1px solid var(--danger); color: var(--danger); background: rgba(255,0,60,0.1); }
-        button.action-danger:hover { background: var(--danger); color: #000; box-shadow: var(--magenta-glow); }
 
-        /* Tables */
-        .table-container { overflow-x: auto; background: rgba(0,0,0,0.6); border: 1px solid rgba(0, 243, 255, 0.2); margin-bottom: 24px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%); }
+        /* Tables & Lists */
+        .table-container { overflow-x: auto; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); margin-bottom: 24px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%); backdrop-filter: blur(10px); }
         table { width: 100%; border-collapse: collapse; text-align: left; }
-        th, td { padding: 14px 16px; border-bottom: 1px solid rgba(0, 243, 255, 0.1); font-size: 0.95rem; font-family: var(--font-display); }
-        th { background: rgba(0, 243, 255, 0.05); font-weight: 700; color: var(--bento-orange); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; border-bottom: 2px solid rgba(0, 243, 255, 0.3); }
-        tr:hover td { background: rgba(0, 243, 255, 0.03); }
-        
-        /* POS Terminal */
+        th, td { padding: 16px; border-bottom: 1px solid rgba(0, 243, 255, 0.1); font-size: 0.95rem; font-family: var(--font-display); transition: 0.2s; }
+        th { background: rgba(0, 243, 255, 0.08); font-weight: 700; color: var(--bento-orange); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; border-bottom: 2px solid rgba(0, 243, 255, 0.4); }
+        tr { transition: all 0.2s; }
+        tr:hover { background: rgba(0, 243, 255, 0.05); transform: scale(1.005); box-shadow: inset 5px 0 0 var(--bento-orange); }
+
+        /* POS Terminal Grid Interaction */
         .pos-grid { display: grid; grid-template-columns: 2fr 1.2fr; gap: 24px; height: calc(100vh - 120px); }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; overflow-y: auto; align-content: start; padding-right: 10px;}
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; overflow-y: auto; align-content: start; padding-right: 10px; padding-bottom: 20px;}
+        
         .pos-item { 
-            background: rgba(10, 15, 20, 0.8); padding: 16px; text-align: center; cursor: pointer; 
-            border: 1px solid rgba(0, 243, 255, 0.15); transition: 0.3s; position: relative;
-            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+            background: rgba(10, 12, 18, 0.8); padding: 20px 16px; text-align: center; cursor: pointer; 
+            border: 1px solid var(--glass-border); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
+            clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
         }
-        .pos-item::before, .pos-item::after {
-            content: ''; position: absolute; width: 10px; height: 10px; opacity: 0; transition: 0.3s;
-        }
+        .pos-item::before, .pos-item::after { content: ''; position: absolute; width: 15px; height: 15px; opacity: 0.3; transition: all 0.4s ease; }
         .pos-item::before { top: 0; left: 0; border-top: 2px solid var(--bento-orange); border-left: 2px solid var(--bento-orange); }
         .pos-item::after { bottom: 0; right: 0; border-bottom: 2px solid var(--bento-orange); border-right: 2px solid var(--bento-orange); }
         
-        .pos-item:hover { border-color: transparent; background: rgba(0, 243, 255, 0.1); box-shadow: inset 0 0 20px rgba(0,243,255,0.2); }
-        .pos-item:hover::before, .pos-item:hover::after { opacity: 1; }
-        .pos-item.depleted { opacity: 0.4; pointer-events: none; filter: grayscale(1) brightness(0.5); border-color: rgba(255,0,0,0.5); }
+        .pos-item:hover { 
+            border-color: transparent; background: rgba(0, 243, 255, 0.15); 
+            box-shadow: inset 0 0 25px rgba(0,243,255,0.3), 0 10px 20px rgba(0,0,0,0.5); 
+            transform: translateY(-8px) scale(1.02);
+        }
+        .pos-item:hover::before, .pos-item:hover::after { opacity: 1; width: 30px; height: 30px; filter: drop-shadow(0 0 8px var(--bento-orange)); }
+        .pos-item:active { transform: translateY(-2px) scale(0.98); }
         
-        .cart-panel { display: flex; flex-direction: column; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,243,255,0.3); padding: 24px; position: relative; }
-        .cart-panel::before { content: 'SYS.CART//'; position: absolute; top: -10px; left: 20px; background: var(--bg-dark); padding: 0 10px; font-family: var(--font-display); color: var(--bento-orange); font-size: 0.8rem; font-weight: 700; letter-spacing: 2px;}
+        .pos-item.depleted { opacity: 0.4; pointer-events: none; filter: grayscale(1) brightness(0.5); border-color: rgba(255,0,85,0.5); }
         
-        .cart-items { flex-grow: 1; overflow-y: auto; margin-bottom: 16px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed rgba(0,243,255,0.2); }
-        .cart-item:last-child { border-bottom: none; }
+        /* Dashboard & Charts */
+        .chart-mockup { display: flex; align-items: flex-end; gap: 6px; height: 120px; margin: 30px 0; border-bottom: 1px solid rgba(0,243,255,0.3); padding-bottom: 2px; }
+        .bar { flex: 1; background: linear-gradient(to top, rgba(0, 243, 255, 0.2), rgba(0, 243, 255, 0.8)); box-shadow: 0 0 8px var(--bento-orange); transition: height 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); min-height: 2px; border-top: 2px solid #fff; border-radius: 2px 2px 0 0;}
+        .bar:hover { filter: brightness(1.3); box-shadow: var(--neon-glow); }
+        .bar.blue { background: linear-gradient(to top, rgba(255, 0, 85, 0.2), rgba(255, 0, 85, 0.8)); box-shadow: 0 0 8px var(--bento-blue); }
+
+        .sales-toggles span { padding: 6px 14px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: var(--font-display); text-transform: uppercase; border: 1px solid transparent; }
+        .sales-toggles span:hover { background: rgba(0,243,255,0.2); border-color: rgba(0,243,255,0.5); }
+        .sales-toggles span.active { background: var(--bento-orange); color: #000; box-shadow: var(--neon-glow); border-color: var(--bento-orange); transform: scale(1.05); }
+
+        /* Cart specific styling */
+        .cart-panel { display: flex; flex-direction: column; background: rgba(5, 7, 10, 0.8); border: 1px solid rgba(0,243,255,0.3); padding: 24px; position: relative; box-shadow: -5px 0 30px rgba(0,0,0,0.5); backdrop-filter: blur(15px); }
+        .cart-panel::before { content: 'SYS.CART_MATRIX//'; position: absolute; top: -12px; left: 24px; background: var(--bg-dark); padding: 0 12px; font-family: var(--font-display); color: var(--bento-orange); font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; border: 1px solid var(--bento-orange); box-shadow: var(--neon-glow);}
         
-        .cart-totals { border-top: 2px solid rgba(0, 243, 255, 0.4); padding-top: 16px; font-size: 1rem; font-family: var(--font-display); }
-        .cart-totals .row { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center; }
-        .cart-totals .grand-total { font-size: 1.6rem; font-weight: 700; color: var(--success); margin-top: 16px; padding-top: 16px; border-top: 1px dashed rgba(57, 255, 20, 0.4); text-shadow: 0 0 10px rgba(57, 255, 20, 0.3); }
+        .cart-item { transition: 0.3s; padding: 14px 10px; border-bottom: 1px dashed rgba(0,243,255,0.2); }
+        .cart-item:hover { background: rgba(0,243,255,0.05); transform: translateX(4px); border-left: 2px solid var(--bento-orange); }
 
         /* Badges */
-        .badge { padding: 4px 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; font-family: var(--font-display); letter-spacing: 1px; box-shadow: 0 0 5px rgba(255,255,255,0.2); }
-        .badge-bronze { background: rgba(205, 127, 50, 0.2); color: #cd7f32; border: 1px solid #cd7f32; }
-        .badge-silver { background: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid #94a3b8; }
-        .badge-gold { background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid #fbbf24; }
-        .badge-platinum { background: rgba(0, 243, 255, 0.2); color: var(--bento-orange); border: 1px solid var(--bento-orange); box-shadow: var(--neon-glow); }
+        .badge { padding: 4px 10px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; font-family: var(--font-display); letter-spacing: 1px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .badge-bronze { background: rgba(205, 127, 50, 0.15); color: #cd7f32; border: 1px solid #cd7f32; }
+        .badge-silver { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid #94a3b8; }
+        .badge-gold { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid #fbbf24; }
+        .badge-platinum { background: rgba(0, 243, 255, 0.15); color: var(--bento-orange); border: 1px solid var(--bento-orange); box-shadow: var(--neon-glow); }
         .badge-regular { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--text-muted); }
-        .badge-sale { background: var(--danger); color: #fff; border: 1px solid #fff; box-shadow: var(--magenta-glow); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
-
-        /* Modals */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 1000; }
-        .modal-overlay.active { display: flex; }
-        .modal-content { width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; background: rgba(10, 15, 20, 0.95); padding: 32px; border: 1px solid var(--bento-orange); box-shadow: var(--neon-glow); clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px); position: relative;}
-        .modal-content::before { content: 'SYS.MODAL'; position: absolute; top: 10px; right: 20px; font-family: var(--font-display); color: var(--bento-orange); opacity: 0.5; font-size: 0.8rem; }
+        .badge-sale { background: var(--danger); color: #fff; border: 1px solid #fff; box-shadow: var(--magenta-glow); animation: pulseGlow 1.5s infinite alternate; }
         
-        .receipt-container { font-family: 'Share Tech Mono', monospace; background: #000; color: var(--success); padding: 24px; border: 1px solid rgba(57, 255, 20, 0.3); margin-bottom: 20px; white-space: pre-wrap; font-size: 14px; text-shadow: 0 0 2px rgba(57,255,20,0.5); }
+        @keyframes pulseGlow { 0% { opacity: 0.8; box-shadow: 0 0 5px currentColor; } 100% { opacity: 1; box-shadow: 0 0 20px currentColor; } }
 
+        /* Animations for injected lists */
+        .history-item, .inv-card { animation: slideInRight 0.4s ease forwards; opacity: 0; }
+        @keyframes slideInRight { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        
+        /* Modals */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s; }
+        .modal-overlay.active { display: flex; opacity: 1; animation: fadeIn 0.3s forwards; }
+        .modal-content { width: 90%; max-width: 550px; max-height: 90vh; overflow-y: auto; background: rgba(10, 12, 18, 0.95); padding: 40px; border: 1px solid var(--bento-orange); box-shadow: 0 0 50px rgba(0,243,255,0.2), inset 0 0 20px rgba(0,243,255,0.05); clip-path: polygon(25px 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%, 0 25px); position: relative; transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        
+        .receipt-container { font-family: 'Share Tech Mono', monospace; background: #000; color: var(--success); padding: 30px; border: 1px solid rgba(0, 255, 136, 0.4); margin-bottom: 24px; white-space: pre-wrap; font-size: 15px; text-shadow: 0 0 4px rgba(0,255,136,0.6); box-shadow: inset 0 0 20px rgba(0,255,136,0.1); }
+        
         /* Interactive Help Accordions */
-        details { background: rgba(0,243,255,0.05); margin-bottom: 12px; border: 1px solid rgba(0, 243, 255, 0.15); transition: 0.3s; border-left: 4px solid var(--text-muted); }
-        details[open] { background: rgba(0,243,255,0.1); border-color: rgba(0, 243, 255, 0.4); border-left-color: var(--bento-orange); box-shadow: inset 0 0 15px rgba(0,243,255,0.05); }
-        summary { padding: 18px 20px; font-weight: 700; cursor: pointer; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        details { background: rgba(0,243,255,0.05); margin-bottom: 12px; border: 1px solid rgba(0, 243, 255, 0.2); border-left: 4px solid var(--bento-orange); transition: 0.3s; padding: 8px; }
+        details[open] { background: rgba(0,243,255,0.1); border-color: rgba(0, 243, 255, 0.5); box-shadow: inset 0 0 15px rgba(0,243,255,0.1); }
+        summary { padding: 16px; font-weight: 700; cursor: pointer; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 2px; }
         summary::-webkit-details-marker { display: none; }
         summary::after { content: '>'; font-family: var(--font-display); color: var(--bento-orange); transition: 0.3s; transform: rotate(90deg); }
         details[open] summary::after { transform: rotate(-90deg); color: var(--bento-blue); }
-        details p { padding: 0 20px 20px 20px; color: var(--text-light); line-height: 1.7; font-size: 1rem; opacity: 0.9; }
+        details p { padding: 0 16px 16px 16px; color: var(--text-light); line-height: 1.8; font-size: 1.05rem; opacity: 0.85; }
+        
+        /* Internal Panels */
+        .internal-panel { background: rgba(0,0,0,0.6); border: 1px solid var(--glass-border); padding: 24px; margin-bottom: 24px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
 
         .team-profile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; background: rgba(0,0,0,0.5); padding: 24px; flex: 1; border: 1px solid rgba(0,243,255,0.2); position: relative; overflow: hidden; }
         .team-profile::before { content:''; position: absolute; top:0; left:0; width:100%; height:4px; background: var(--bento-orange); box-shadow: var(--neon-glow); }
@@ -341,34 +407,26 @@
 
         .header-actions { display: flex; gap: 8px; align-items: center;}
 
-        /* Mobile Adjustments */
+        /* Mobile Fixes */
         @media (max-width: 768px) {
             body { flex-direction: column; }
             .sidebar { 
-                width: 100%; 
-                flex-direction: row; 
-                order: 2; 
-                border-right: none; 
-                border-top: 1px solid var(--bento-orange);
-                position: fixed;
-                bottom: 0; left: 0;
-                height: calc(75px + env(safe-area-inset-bottom));
-                padding-bottom: env(safe-area-inset-bottom);
+                width: 100%; flex-direction: row; order: 2; border-right: none; 
+                border-top: 1px solid var(--bento-orange); position: fixed; bottom: 0; left: 0;
+                height: calc(75px + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom);
                 background: rgba(5, 5, 8, 0.95);
             }
             .brand { display: none; } 
             .live-clock { display: none; }
             .nav-links { flex-direction: row; overflow-x: auto; padding: 10px; width: 100%; gap: 8px; white-space: nowrap; -webkit-overflow-scrolling: touch; }
-            .nav-links li { padding: 10px 16px; font-size: 0.9rem; border-left: none; border-bottom: 2px solid transparent; }
+            .nav-links li { padding: 10px 16px; font-size: 0.9rem; border-left: none; border-bottom: 2px solid transparent; border-radius: 0;}
             .nav-links li.active { border-left: none; border-bottom: 2px solid var(--bento-orange); background: rgba(0,243,255,0.1); }
             
             .main-content { padding: 20px; padding-bottom: calc(130px + env(safe-area-inset-bottom)); margin-bottom: 0; }
-            
             .bento-dashboard { grid-template-columns: 1fr; }
             .box-analytics, .box-orders { grid-column: span 1; }
             .pos-grid { grid-template-columns: 1fr; height: auto; }
             .product-grid { max-height: 35vh; }
-            
             .team-profile { width: 100%; flex: 1 1 100%; margin-bottom: 16px; }
             .header-actions { flex-direction: column; width: 100%; align-items: stretch; }
             .header-actions input { width: 100%; margin-bottom: 8px; }
@@ -377,16 +435,20 @@
 </head>
 <body>
 
+    <div class="bg-grid"></div>
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
     <!-- Sidebar / Navigation -->
     <div class="sidebar">
-        <div class="brand"><span class="logo-icon">▲</span> NEXUS SYS</div>
+        <div class="brand"><span class="logo-icon">▲</span> NEXUS_OS</div>
         <ul class="nav-links">
             <li class="active" onclick="navigate('dashboard')">Dashboard</li>
             <li onclick="navigate('pos')">Terminal</li>
             <li onclick="navigate('products')">Inventory</li>
             <li onclick="navigate('customers')">VIP Network</li>
             <li onclick="navigate('orders')">Order Logs</li>
-            <li onclick="navigate('settings')">Settings</li>
+            <li onclick="navigate('settings')">System Config</li>
             <li onclick="navigate('help')">Help Center</li>
             <li onclick="navigate('info')">System Info</li>
         </ul>
@@ -403,7 +465,7 @@
         
         <!-- DASHBOARD -->
         <div id="dashboard" class="section active">
-            <h1>Business Overview</h1>
+            <h1 class="glitch-hover">Business Overview</h1>
             
             <div class="bento-dashboard">
                 <!-- Box 1: Analytics -->
@@ -416,44 +478,44 @@
                             <span onclick="setAnalyticsView('month', this)">Month</span>
                         </div>
                     </div>
-                    <div style="font-size: 3rem; font-family: var(--font-display); font-weight: 700; margin-top: 12px; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.3);" id="dash-sales">₱0</div>
-                    <div class="change-indicator" id="dash-change">+0.0% vs Previous</div>
+                    <div style="font-size: 3.5rem; font-family: var(--font-display); font-weight: 700; margin-top: 16px; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.4);" id="dash-sales">₱0</div>
+                    <div class="change-indicator" id="dash-change" style="margin-top: 8px; font-size: 0.9rem;">+0.0% vs Previous</div>
                     
                     <div class="chart-mockup" id="dash-chart">
-                        <!-- Bars dynamically scaled via JS based on selected view -->
+                        <!-- Bars dynamically scaled via JS -->
                     </div>
                     
-                    <div class="flex justify-between" style="font-family: var(--font-display);">
+                    <div class="flex justify-between" style="font-family: var(--font-display); margin-top: 10px;">
                         <div>
-                            <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Orders (<span id="dash-lbl-orders">Today</span>)</div>
-                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-light);" id="dash-orders">0</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase;">Orders (<span id="dash-lbl-orders">Today</span>)</div>
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--text-light);" id="dash-orders">0</div>
                         </div>
                         <div class="text-right">
-                            <div style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">Total VIPs Active</div>
-                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--bento-orange);" id="dash-vips">0</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase;">Total VIPs Active</div>
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--bento-orange); text-shadow: var(--neon-glow);" id="dash-vips">0</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Box 2: Featured Sale Item -->
                 <div class="bento-box bg-orange">
-                    <h3 style="color: var(--bento-orange); text-shadow: var(--neon-glow);">Featured Sale</h3>
+                    <h3 style="color: var(--bento-orange); text-shadow: var(--neon-glow);">Active Protocol</h3>
                     <div id="dash-featured-content" class="flex-col items-center justify-center" style="height: 100%; text-align:center;"></div>
                 </div>
 
                 <!-- Box 3: Order History -->
                 <div class="bento-box bg-blue box-orders">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 style="color: var(--text-light); margin:0; text-shadow: var(--magenta-glow);">Recent Orders</h3>
-                        <span style="font-size: 0.8rem; font-family: var(--font-display); color: rgba(255,255,255,0.7);">Last 5 transactions</span>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 style="color: var(--text-light); margin:0; text-shadow: var(--magenta-glow);">Recent Traces</h3>
+                        <span style="font-size: 0.85rem; font-family: var(--font-display); color: rgba(255,255,255,0.5);">> Last 5 executed</span>
                     </div>
                     <div class="order-history-list" id="dash-recent-orders-list"></div>
                 </div>
 
                 <!-- Box 4: Inventory Status -->
                 <div class="bento-box bg-dark">
-                    <h3 style="color: var(--warning); text-shadow: 0 0 10px rgba(255,176,0,0.5);">Inventory Alerts</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-display);">Items running low (5 or less)</p>
+                    <h3 style="color: var(--warning); text-shadow: 0 0 15px rgba(255,170,0,0.4);">System Alerts</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); font-family: var(--font-display); margin-bottom: 10px;">> Nodes below safe threshold (5)</p>
                     <div class="inventory-list" id="inventory-status-list"></div>
                 </div>
             </div>
@@ -461,35 +523,35 @@
 
         <!-- POS TERMINAL -->
         <div id="pos" class="section">
-            <h1>Terminal_Interface</h1>
+            <h1 class="glitch-hover">Terminal_Matrix</h1>
             <div class="pos-grid">
                 <div class="flex-col gap-4">
-                    <input type="text" id="pos-search" placeholder="> Search product database..." oninput="renderPOSProducts()">
+                    <input type="text" id="pos-search" placeholder="> Query node designation..." oninput="renderPOSProducts()" style="padding: 18px; font-size: 1.1rem; background: rgba(0,0,0,0.8);">
                     <div class="product-grid" id="pos-products"></div>
                 </div>
                 
                 <div class="cart-panel">
-                    <h2 style="margin-bottom: 16px; font-size: 1.2rem; color: var(--bento-orange);">Current Order</h2>
+                    <h2 style="margin-bottom: 20px; font-size: 1.4rem; color: var(--bento-orange); text-shadow: var(--neon-glow);">Active Payload</h2>
                     
-                    <div class="mb-4" style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,243,255,0.2); padding: 16px;">
-                        <label style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-display); display: block; margin-bottom: 6px;">> Select VIP Target</label>
+                    <div class="mb-4" style="background: rgba(0,0,0,0.6); border: 1px solid rgba(0,243,255,0.2); padding: 20px; box-shadow: inset 0 0 15px rgba(0,0,0,0.8);">
+                        <label style="font-size: 0.9rem; color: var(--text-muted); font-family: var(--font-display); display: block; margin-bottom: 8px;">> Target Entity Identifier</label>
                         <select id="pos-customer-select" onchange="handleCustomerSelect()">
-                            <option value="walkin">Walk-in / Unregistered</option>
+                            <option value="walkin">GHOST_USER / UNREGISTERED</option>
                         </select>
                         
-                        <div id="pos-walkin-details" class="flex gap-2 mt-4 hidden">
-                            <input type="text" id="cart-cust-name" placeholder="Name (Optional)" style="margin:0;">
-                            <input type="text" id="cart-cust-phone" placeholder="Phone (Optional)" style="margin:0;">
+                        <div id="pos-walkin-details" class="flex gap-4 mt-4 hidden">
+                            <input type="text" id="cart-cust-name" placeholder="Name (Opt)" style="margin:0; flex:1;">
+                            <input type="text" id="cart-cust-phone" placeholder="Comms (Opt)" style="margin:0; flex:1;">
                         </div>
 
                         <div id="pos-vip-details" class="hidden mt-4 pt-4" style="border-top: 1px dashed rgba(0,243,255,0.3);">
-                            <div class="flex justify-between items-center mb-2">
+                            <div class="flex justify-between items-center mb-3">
                                 <span id="pos-vip-badge"></span>
-                                <span style="font-size: 0.9rem; font-family: var(--font-display);">Points: <strong id="pos-vip-points" style="color:var(--bento-orange); font-size:1.2rem; text-shadow: var(--neon-glow);">0</strong></span>
+                                <span style="font-size: 1rem; font-family: var(--font-display);">Merit: <strong id="pos-vip-points" style="color:var(--bento-orange); font-size:1.4rem; text-shadow: var(--neon-glow);">0</strong></span>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <span style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-display);">Redeem Pts:</span>
-                                <input type="number" id="cart-points-redeem" value="0" min="0" oninput="updateCartTotals()" style="margin:0; width: 100px;">
+                            <div class="flex items-center gap-3">
+                                <span style="font-size: 0.9rem; color: var(--text-muted); font-family: var(--font-display);">Deploy Pts:</span>
+                                <input type="number" id="cart-points-redeem" value="0" min="0" oninput="updateCartTotals()" style="margin:0; width: 120px; font-size: 1.1rem; text-align: center;">
                             </div>
                         </div>
                     </div>
@@ -498,28 +560,28 @@
 
                     <div class="cart-totals">
                         <div class="row"><span>Subtotal:</span><span id="cart-subtotal">₱0.00</span></div>
-                        <div class="row"><span>Discount:</span><input type="number" id="cart-discount" value="0" min="0" style="width: 80px; padding:6px; margin:0; text-align:right;" oninput="updateCartTotals()"></div>
-                        <div class="row"><span>Tax:</span><input type="number" id="cart-tax" value="0" min="0" style="width: 80px; padding:6px; margin:0; text-align:right;" oninput="updateCartTotals()"></div>
-                        <div class="row hidden" id="row-points-deduction"><span style="color: var(--bento-blue);">Pts Redeemed:</span><span id="cart-points-deducted" style="color: var(--bento-blue);">-₱0.00</span></div>
+                        <div class="row"><span>Discount:</span><input type="number" id="cart-discount" value="0" min="0" style="width: 90px; padding:8px; margin:0; text-align:right;" oninput="updateCartTotals()"></div>
+                        <div class="row"><span>Tax Rate:</span><input type="number" id="cart-tax" value="0" min="0" style="width: 90px; padding:8px; margin:0; text-align:right;" oninput="updateCartTotals()"></div>
+                        <div class="row hidden" id="row-points-deduction"><span style="color: var(--bento-blue);">Merit Redeemed:</span><span id="cart-points-deducted" style="color: var(--bento-blue); text-shadow: var(--magenta-glow);">-₱0.00</span></div>
                         
-                        <div class="row grand-total"><span style="color: #fff;">TOTAL_</span><span id="cart-total">₱0.00</span></div>
-                        <div style="text-align: center; font-size: 0.85rem; color: var(--success); font-family: var(--font-display); margin-top: 12px; letter-spacing: 1px;" id="cart-points-earned-preview">> Earns +0 pts</div>
+                        <div class="row grand-total"><span style="color: #fff; letter-spacing: 2px;">TOTAL_VOL</span><span id="cart-total" style="text-shadow: var(--success-glow);">₱0.00</span></div>
+                        <div style="text-align: center; font-size: 0.9rem; color: var(--success); font-family: var(--font-display); margin-top: 16px; letter-spacing: 2px; opacity: 0.8;" id="cart-points-earned-preview">> Generates +0 merit</div>
                         
-                        <button class="action-btn action-primary" style="width: 100%; margin-top: 20px; padding: 16px; font-size: 1.2rem;" onclick="completeOrder()">EXECUTE_ORDER</button>
+                        <button class="action-btn action-primary" style="width: 100%; margin-top: 24px; padding: 20px; font-size: 1.4rem;" onclick="completeOrder()">INITIALIZE TRANSFER</button>
                     </div>
                 </div>
             </div>
         </div>
-
+        
         <!-- INVENTORY -->
         <div id="products" class="section">
             <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
-                <h1>Database_Inventory</h1>
-                <button class="action-btn action-primary" onclick="openProductModal()">+ INITIALIZE ITEM</button>
+                <h1 class="glitch-hover">Database_Inventory</h1>
+                <button class="action-btn action-primary" style="padding: 14px 24px;" onclick="openProductModal()">+ DEPLOY NEW NODE</button>
             </div>
             <div class="table-container">
                 <table>
-                    <thead><tr><th>SKU</th><th>Name</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+                    <thead><tr><th>SKU</th><th>Designation</th><th>Value</th><th>Units</th><th>Status</th><th>Override</th></tr></thead>
                     <tbody id="product-table-body"></tbody>
                 </table>
             </div>
@@ -528,23 +590,21 @@
         <!-- VIP CUSTOMERS -->
         <div id="customers" class="section">
             <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
-                <h1>VIP_Network</h1>
+                <h1 class="glitch-hover">VIP_Network</h1>
                 <div class="header-actions">
-                    <input type="text" id="cust-search" placeholder="> Search IDs..." oninput="renderCustomers()" style="margin:0; width: 220px;">
-                    <button class="action-btn action-primary" onclick="openCustomerModal()">+ REGISTER ENTITY</button>
+                    <input type="text" id="cust-search" placeholder="> Search entity ID..." oninput="renderCustomers()" style="margin:0; width: 280px;">
+                    <button class="action-btn action-primary" style="padding: 14px 24px;" onclick="openCustomerModal()">+ REGISTER ENTITY</button>
                 </div>
             </div>
-
-            <div class="internal-panel flex justify-between flex-wrap gap-4" style="padding: 20px;">
-                <div><div style="font-size:0.8rem; color:var(--text-muted); font-family:var(--font-display);">TOTAL VIPS</div><div style="font-size: 1.8rem; font-weight:700; font-family:var(--font-display);" id="ret-total-cust">0</div></div>
-                <div><div style="font-size:0.8rem; color:var(--text-muted); font-family:var(--font-display);">TIERED MEMBERS</div><div style="font-size: 1.8rem; font-weight:700; color:var(--bento-orange); font-family:var(--font-display); text-shadow:var(--neon-glow);" id="ret-vip-cust">0</div></div>
-                <div><div style="font-size:0.8rem; color:var(--text-muted); font-family:var(--font-display);">POINTS ISSUED</div><div style="font-size: 1.8rem; font-weight:700; font-family:var(--font-display);" id="ret-total-pts">0</div></div>
-                <div><div style="font-size:0.8rem; color:var(--text-muted); font-family:var(--font-display);">AVG SPEND</div><div style="font-size: 1.8rem; font-weight:700; font-family:var(--font-display);" id="ret-avg-spend">₱0</div></div>
+            <div class="internal-panel flex justify-between flex-wrap gap-4" style="padding: 24px;">
+                <div><div style="font-size:0.85rem; color:var(--text-muted); font-family:var(--font-display);">> TOTAL ENTITIES</div><div style="font-size: 2.2rem; font-weight:700; font-family:var(--font-display); color: #fff;" id="ret-total-cust">0</div></div>
+                <div><div style="font-size:0.85rem; color:var(--text-muted); font-family:var(--font-display);">> VIP MEMBERS</div><div style="font-size: 2.2rem; font-weight:700; color:var(--bento-orange); font-family:var(--font-display); text-shadow:var(--neon-glow);" id="ret-vip-cust">0</div></div>
+                <div><div style="font-size:0.85rem; color:var(--text-muted); font-family:var(--font-display);">> MERIT ISSUED</div><div style="font-size: 2.2rem; font-weight:700; font-family:var(--font-display); color: #fff;" id="ret-total-pts">0</div></div>
+                <div><div style="font-size:0.85rem; color:var(--text-muted); font-family:var(--font-display);">> AVG VOLUME</div><div style="font-size: 2.2rem; font-weight:700; font-family:var(--font-display); color: #fff;" id="ret-avg-spend">₱0</div></div>
             </div>
-
             <div class="table-container">
                 <table>
-                    <thead><tr><th>ID</th><th>Designation</th><th>Comms</th><th>Spend</th><th>Points</th><th>Tier Level</th><th>Actions</th></tr></thead>
+                    <thead><tr><th>ID</th><th>Designation</th><th>Comms</th><th>Volume</th><th>Merit</th><th>Rank</th><th>Action</th></tr></thead>
                     <tbody id="customers-table-body"></tbody>
                 </table>
             </div>
@@ -552,104 +612,150 @@
 
         <!-- ORDER LOGS -->
         <div id="orders" class="section">
-            <h1>Transaction_Logs</h1>
+            <h1 class="glitch-hover">Transaction_Logs</h1>
             <div class="table-container">
                 <table>
-                    <thead><tr><th>Trace ID</th><th>Timestamp</th><th>Entity</th><th>Data Packets</th><th>Pts In/Out</th><th>Total Vol</th></tr></thead>
+                    <thead><tr><th>Trace Hash</th><th>Timestamp</th><th>Entity</th><th>Packets</th><th>Merit I/O</th><th>Total Vol</th></tr></thead>
                     <tbody id="orders-table-body"></tbody>
                 </table>
             </div>
         </div>
 
-        <!-- SETTINGS -->
+        <!-- SETTINGS (WITH SYSTEM RESET & DEMO MODULE) -->
         <div id="settings" class="section">
-            <h1>System_Config</h1>
+            <h1 class="glitch-hover">System_Config</h1>
             
             <div class="bento-grid">
+                
+                <!-- System Reset & Demo Module -->
+                <div class="bento-box bg-dark" style="border-color: var(--danger); box-shadow: inset 0 0 20px rgba(255,0,85,0.1);">
+                    <h3 style="color: var(--danger); margin-bottom: 8px; text-shadow: var(--magenta-glow);">System Reset & Demo</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;">Inject pre-configured client presentation metrics from root file or securely wipe all local arrays.</p>
+                    
+                    <div class="flex-col gap-4 mt-auto">
+                        <button class="action-btn" style="padding: 16px; font-size: 1.1rem; border-color: var(--success); color: var(--success); background: rgba(0,255,136,0.05); box-shadow: inset 0 0 15px rgba(0,255,136,0.1);" onclick="injectMockupData()">INJECT MOCKUP DATA</button>
+                        <button class="action-btn action-danger" style="padding: 16px; font-size: 1.1rem;" onclick="clearSystemData()">PURGE SYSTEM DATA</button>
+                    </div>
+                </div>
+
                 <!-- Backup Settings -->
                 <div class="bento-box bg-dark">
                     <h3 style="color: var(--bento-orange); margin-bottom: 8px;">Unified Data Core</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;">Securely extract your database (Inventory, Logs, Entities) into an encrypted backup payload.</p>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;">Securely extract your database matrix (Nodes, Logs, Entities) into an encrypted local payload.</p>
                     
                     <div class="flex-col gap-4 mt-auto">
-                        <button class="action-btn action-primary" style="padding: 16px; font-size: 1.1rem;" onclick="exportUnifiedData()">EXTRACT SYSTEM PAYLOAD</button>
+                        <button class="action-btn action-primary" style="padding: 16px; font-size: 1.1rem;" onclick="exportUnifiedData()">EXTRACT PAYLOAD</button>
                         <input type="file" id="sync-input-unified" accept=".txt,.json" style="display: none;">
-                        <button class="action-btn" style="padding: 16px; font-size: 1.1rem; border: 1px dashed var(--text-muted);" onclick="document.getElementById('sync-input-unified').click()">INJECT BACKUP DATA</button>
+                        <button class="action-btn" style="padding: 16px; font-size: 1.1rem; border: 1px dashed var(--text-muted);" onclick="document.getElementById('sync-input-unified').click()">INJECT BACKUP</button>
                     </div>
                 </div>
 
                 <!-- VIP Tier Settings -->
                 <div class="bento-box bg-dark">
-                    <h3 style="color: var(--bento-blue); margin-bottom: 8px; text-shadow: var(--magenta-glow);">VIP Threshold Algorithms</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Calibrate lifetime spending inputs (₱) to automatically upgrade entity tiers.</p>
+                    <h3 style="color: var(--bento-blue); margin-bottom: 8px; text-shadow: var(--magenta-glow);">Tier Threshold Algorithms</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Calibrate lifetime volume variables (₱) to automatically upgrade network entities.</p>
                     
-                    <div class="flex gap-2 items-center mb-3">
-                        <span class="badge badge-bronze" style="width: 80px; text-align:center;">Bronze</span>
-                        <input type="number" id="set-bronze" style="margin:0;">
+                    <div class="flex gap-3 items-center mb-3">
+                        <span class="badge badge-bronze" style="width: 90px; text-align:center;">Bronze</span>
+                        <input type="number" id="set-bronze" style="margin:0; padding: 10px;">
                     </div>
-                    <div class="flex gap-2 items-center mb-3">
-                        <span class="badge badge-silver" style="width: 80px; text-align:center;">Silver</span>
-                        <input type="number" id="set-silver" style="margin:0;">
+                    <div class="flex gap-3 items-center mb-3">
+                        <span class="badge badge-silver" style="width: 90px; text-align:center;">Silver</span>
+                        <input type="number" id="set-silver" style="margin:0; padding: 10px;">
                     </div>
-                    <div class="flex gap-2 items-center mb-3">
-                        <span class="badge badge-gold" style="width: 80px; text-align:center;">Gold</span>
-                        <input type="number" id="set-gold" style="margin:0;">
+                    <div class="flex gap-3 items-center mb-3">
+                        <span class="badge badge-gold" style="width: 90px; text-align:center;">Gold</span>
+                        <input type="number" id="set-gold" style="margin:0; padding: 10px;">
                     </div>
-                    <div class="flex gap-2 items-center mb-4">
-                        <span class="badge badge-platinum" style="width: 80px; text-align:center;">Platinum</span>
-                        <input type="number" id="set-platinum" style="margin:0;">
+                    <div class="flex gap-3 items-center mb-4">
+                        <span class="badge badge-platinum" style="width: 90px; text-align:center;">Platinum</span>
+                        <input type="number" id="set-platinum" style="margin:0; padding: 10px;">
                     </div>
                     
-                    <button class="action-btn action-danger mt-auto" style="padding: 16px;" onclick="saveVipSettings()">OVERRIDE TIER PARAMS</button>
+                    <button class="action-btn action-primary" style="padding: 16px; border-color: var(--bento-blue); color: var(--bento-blue);" onclick="saveVipSettings()">OVERRIDE PARAMS</button>
                 </div>
             </div>
         </div>
 
-        <!-- HELP CENTER -->
+        <!-- HELP CENTER (Expanded to 11 FAQs) -->
         <div id="help" class="section">
-            <h1>Support_Terminal</h1>
+            <h1 class="glitch-hover">Support_Matrix</h1>
             <div style="max-width: 800px;">
+                <!-- 1 -->
                 <details>
                     <summary>Batch Processing Protocol (Mass Orders)</summary>
-                    <p>Navigate to the <strong>Terminal</strong> matrix. Engage a product to initialize in the cart. Within the cart panel, input specific numerical values directly into the quantity field (e.g., "50") to bypass manual recursive clicking.</p>
+                    <p>Navigate to the <strong>Terminal</strong> matrix. Engage a node (product) to initialize it in the cart. Within the payload panel, override the numerical input directly (e.g., "50") to bypass manual recursion cycles (repeated clicking).[cite: 1]</p>
                 </details>
+                <!-- 2 -->
                 <details>
                     <summary>VIP Merit & Tier Upgrades</summary>
-                    <p>Entities automatically accumulate <strong>1 metric for every ₱100 transferred</strong>. During execution, points convert to direct discounts (1 pt = ₱1). The mainframe monitors lifetime volume to auto-promote through VIP classifications. <br><br><strong>Override:</strong> Administrators can recalibrate spending algorithms via the <strong>Settings</strong> module.</p>
+                    <p>Entities automatically accumulate <strong>1 metric (point) for every ₱100 transferred</strong>. During execution, points convert to direct discounts (1 pt = ₱1). The mainframe continually monitors lifetime volume to auto-promote users through VIP classifications.[cite: 1]</p>
                 </details>
+                <!-- 3 -->
                 <details>
                     <summary>Manual Profile Overrides</summary>
-                    <p>Access the <strong>VIP Network</strong>. Locate the target entity and engage <strong>Edit</strong>. This grants root access to modify Designation, Comms, forcefully lock VIP Tier (bypassing auto-calc), and manually alter merit points.</p>
+                    <p>Access the <strong>VIP Network</strong> tab. Locate the target entity and engage <strong>EDIT</strong>. This grants root access to modify their Designation, Comms, forcefully lock their VIP Tier (bypassing the auto-calculator), and manually alter their merit points.[cite: 1]</p>
                 </details>
+                <!-- 4 -->
                 <details>
-                    <summary>Promotional Pricing</summary>
-                    <p>In the <strong>Database Inventory</strong>, edit an item. Inject a discounted metric into the "Promo Price" field. The system instantly broadcasts a SALE badge to the Terminal and mainframes. Nullify the field to restore base metrics.</p>
+                    <summary>Promotional Pricing Protocol</summary>
+                    <p>In the <strong>Database Inventory</strong>, click EDIT on an item. Inject a discounted metric into the "Promo Override" field. The system instantly broadcasts a SALE badge to the Terminal and mainframes. Nullify (clear) the field to restore base metrics.[cite: 1]</p>
                 </details>
+                <!-- 5 -->
                 <details>
-                    <summary>Analytics Telemetry</summary>
-                    <p>The <strong>Dashboard</strong> cross-references current Order Logs to visualize historical telemetry. Selecting Day, Week, or Month cycles compares the trailing 7 periods, calculating exact differential percentages to gauge network velocity.</p>
+                    <summary>Analytics Telemetry (Dashboard Chart)</summary>
+                    <p>The <strong>Dashboard</strong> cross-references current Order Logs to visualize historical telemetry. Selecting Day, Week, or Month cycles compares the trailing 7 periods and calculates exact differential percentages to gauge network velocity in real-time.[cite: 1]</p>
+                </details>
+                <!-- 6 -->
+                <details>
+                    <summary>System Reset & Mockup Data Injection</summary>
+                    <p>For client presentations, navigate to <strong>System Config</strong>. Engaging the "INJECT MOCKUP DATA" protocol will attempt to fetch 'adminmockupdata.txt' from the root directory to instantly populate the grid with test entities and transactions.</p>
+                </details>
+                <!-- 7 -->
+                <details>
+                    <summary>Data Extraction (System Backups)</summary>
+                    <p>In the <strong>System Config</strong> panel, under "Unified Data Core", clicking "EXTRACT PAYLOAD" compiles your entire local array (Inventory, Logs, VIPs) into a secure, timestamped JSON text file downloaded directly to your hard drive.[cite: 1]</p>
+                </details>
+                <!-- 8 -->
+                <details>
+                    <summary>Restoring System Data</summary>
+                    <p>To restore a previously extracted payload, go to <strong>System Config</strong> and select "INJECT BACKUP". Choose the downloaded Nexus POS text file. The system will parse and overwrite the current state with the backup metrics.[cite: 1]</p>
+                </details>
+                <!-- 9 -->
+                <details>
+                    <summary>Handling Walk-in vs Registered Entities</summary>
+                    <p>In the <strong>Terminal Matrix</strong> checkout panel, the top dropdown defaults to Walk-in (Ghost User). If left as Walk-in, you can optionally type a name to quickly log the user. If you select a registered VIP from the dropdown, their current merit points will instantly become available for deployment.[cite: 1]</p>
+                </details>
+                <!-- 10 -->
+                <details>
+                    <summary>Editing & Purging Existing Nodes (Inventory)</summary>
+                    <p>Navigate to <strong>Database Inventory</strong>. You can completely overwrite a node's pricing, stock availability, or SKU by clicking EDIT. To permanently wipe the node from the system matrix, click DEL.[cite: 1]</p>
+                </details>
+                <!-- 11 -->
+                <details>
+                    <summary>Viewing Entity Telemetry (Customer Ledgers)</summary>
+                    <p>In the <strong>VIP Network</strong> tab, clicking "INSPECT" on a user opens their detailed profile. This includes a chronological Ledger Telemetry table tracking exactly when merit points were earned, redeemed, or manually injected/purged by an Admin.[cite: 1]</p>
                 </details>
                 
-                <div class="bento-box bg-dark" style="margin-top: 24px; padding: 24px; border-color: var(--bento-blue);">
+                <div class="bento-box bg-dark" style="margin-top: 24px; border-color: var(--bento-blue);">
                     <h3 style="color: var(--bento-blue); margin-bottom: 8px; text-shadow: var(--magenta-glow);">Require Engineering Support?</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px;">If terminal anomalies persist or feature injections are desired, establish comms with the development nexus.</p><a href="mailto:dadolnick@gmail.com">
-                    <button href="mailto:dadolnick@gmail.com" class="action-btn action-danger" style="text-decoration: none; display: inline-block; text-align: center; max-width: 250px;">INITIATE COMMS</button></a>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px;">If terminal anomalies persist or feature injections are desired, establish comms with the development nexus.[cite: 1]</p><a href="mailto:dadolnick@gmail.com">
+                    <button class="action-btn action-danger" style="text-decoration: none; display: inline-block; text-align: center; max-width: 250px;">INITIATE COMMS</button></a>
                 </div>
             </div>
         </div>
-
-        <!-- SYSTEM INFO -->
+        
+        <!-- SYSTEM INFO (Fully Restored Images and Profiles) -->
         <div id="info" class="section">
-            <h1>System_Data</h1>
-            
+            <h1 class="glitch-hover">System_Info</h1>
             <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
                 <div class="bento-box bg-dark">
-                    <h3 style="color: var(--bento-orange); margin-bottom: 12px; font-size: 1.4rem;">Directive: Nexus</h3>
-                    <p style="color: var(--text-muted); line-height: 1.7; font-size: 1rem;">Nexus POS is designed to arm decentralized micro-economies with enterprise-grade operational tracking. By functioning completely locally (browser isolated), it nullifies cloud taxes and connection dependency. Professional capability, zero lag.</p>
+                    <h3 style="color: var(--bento-orange); margin-bottom: 12px; font-size: 1.5rem; text-shadow: var(--neon-glow);">Directive: Nexus</h3>
+                    <p style="color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">Nexus OS equips decentralized operatives with local, zero-latency transaction management. Operates entirely isolated in the browser sandbox. No cloud tax. No external comms requirement.[cite: 1]</p>
                 </div>
                 <div class="bento-box bg-blue" style="justify-content: center; text-align: center;">
-                    <div style="font-size: 4.5rem; font-weight: 700; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.5); font-family: var(--font-display);">v6.5</div>
-                    <h3 style="color: #fff; margin-top: 10px;">Cybercore Build</h3>
+                    <div style="font-size: 5rem; font-weight: 700; color: #fff; text-shadow: 0 0 25px rgba(255,255,255,0.6); font-family: var(--font-display); animation: pulseGlow 3s infinite alternate;">v5.8</div>
+                    <h3 style="color: #fff; margin-top: 12px; font-size: 1.3rem;">Cybercore Architecture</h3>
                     <p style="color: rgba(255,255,255,0.7); font-family: var(--font-display); margin-top: 10px;">> OFFLINE_CACHE: ACTIVE<br>> UI_FRAMEWORK: CYBER_GRID</p>
                 </div>
             </div>
@@ -657,20 +763,21 @@
             <h3 style="margin-bottom: 16px; color: var(--text-muted);">Engineers</h3>
             <div class="flex gap-4 flex-wrap">
                 <div class="team-profile">
-                    <!-- Correct Asset Used: nicedadol.png -->
+                    <!-- Correct Asset Used: nicedadol.png[cite: 1] -->
                     <img src="nicedadol.png" alt="Nice Dadol" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iIzAwZjNmZiIvPjwvc3ZnPg=='">
                     <h3 style="color: var(--text-light); margin:0;">Nice Dadol</h3>
-                    <p style="font-size: 0.85rem; color: var(--bento-orange); text-transform: uppercase; font-family: var(--font-display);">Architect & Vibecoder</p>
+                    <p style="font-size: 0.85rem; color: var(--bento-orange); text-transform: uppercase; font-family: var(--font-display);">Architect & Core Eng</p>
                     <div class="team-email">Dadolnick@gmail.com</div>
                 </div>
                 <div class="team-profile">
                     <img src="dexterpunay.jpg" alt="Dexter Punay" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iIzAwZjNmZiIvPjwvc3ZnPg=='">
                     <h3 style="color: var(--text-light); margin:0;">Dexter Punay</h3>
-                    <p style="font-size: 0.85rem; color: var(--bento-orange); text-transform: uppercase; font-family: var(--font-display);">Vibecoder</p>
+                    <p style="font-size: 0.85rem; color: var(--bento-orange); text-transform: uppercase; font-family: var(--font-display);">Core Eng</p>
                     <div class="team-email">Punaydexter123@gmail.com</div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <!-- MODALS -->
@@ -710,7 +817,6 @@
             <label style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-display); display:block; margin-bottom:4px;">Comms Link (Phone)</label><input type="text" id="cust-phone">
             <label style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-display); display:block; margin-bottom:4px;">Network ID (Email)</label><input type="text" id="cust-email">
             
-            <!-- Manual Override Fields -->
             <div id="cust-vip-override-wrapper" class="hidden">
                 <label style="font-size: 0.85rem; color: var(--bento-blue); font-family: var(--font-display); display:block; margin-bottom:4px; margin-top: 10px;">Force Tier Override</label>
                 <select id="cust-vip-tier" style="border-color: var(--bento-blue);">
@@ -782,7 +888,7 @@
         </div>
     </div>
 
-    <!-- --- JAVASCRIPT LOGIC --- -->
+    <!-- ALL CORE JAVASCRIPT RESTORED COMPLETELY -->
     <script>
         let products = JSON.parse(localStorage.getItem('pos_products')) || [];
         let orders = JSON.parse(localStorage.getItem('pos_orders')) || [];
@@ -794,7 +900,45 @@
             bronze: 5000, silver: 10000, gold: 50000, platinum: 100000
         };
 
-        // Live Clock Initialization
+        // --- Mockup Injection & Clear Data System ---
+        async function injectMockupData() {
+            try {
+                const response = await fetch('adminmockupdata.txt');
+                if (!response.ok) throw new Error('File fetch failed. Status: ' + response.status);
+                
+                const data = await response.json();
+                
+                if (data.products && Array.isArray(data.products)) products = data.products;
+                if (data.orders && Array.isArray(data.orders)) orders = data.orders;
+                if (data.customers && Array.isArray(data.customers)) customers = data.customers;
+                if (data.vipSettings) vipSettings = data.vipSettings;
+                
+                saveData();
+                initSystem();
+                alert('> SYSTEM NOTIFICATION: Client Mockup Data injected successfully.');
+                
+            } catch (err) {
+                console.error(err);
+                alert('> ERROR: Failed to load "adminmockupdata.txt".\n\nEnsure the file exists in the root directory and contains valid JSON formatted backup data. Local browser security policies may block fetch API without a local server.');
+            }
+        }
+
+        function clearSystemData() {
+            if(confirm("CRITICAL WARNING:\n\nThis will permanently purge ALL arrays (Products, Orders, Customers) from local storage. \n\nProceed?")) {
+                if(confirm("FINAL OVERRIDE:\nAre you absolutely sure? This cannot be undone.")) {
+                    products = [];
+                    orders = [];
+                    customers = [];
+                    vipSettings = { bronze: 5000, silver: 10000, gold: 50000, platinum: 100000 };
+                    
+                    saveData();
+                    initSystem();
+                    alert('> SYSTEM NOTIFICATION: All local data purged. System reset to factory state.');
+                }
+            }
+        }
+
+        // --- Core Timekeeping ---
         function updateClock() {
             const now = new Date();
             document.getElementById('clock-time').innerText = now.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
@@ -803,6 +947,7 @@
         setInterval(updateClock, 1000);
         updateClock();
 
+        // --- Initialization & Logic Routing ---
         function initSystem() {
             document.getElementById('set-bronze').value = vipSettings.bronze;
             document.getElementById('set-silver').value = vipSettings.silver;
@@ -863,11 +1008,11 @@
                 c.vipLevel = c.manualVipLevel !== 'Auto' && c.manualVipLevel ? c.manualVipLevel : calculateVip(c.lifetimeSpend); 
             });
             saveData();
-            alert('VIP Thresholds Saved. Customer tiers have been updated.');
+            alert('> OVERRIDE CONFIRMED: VIP Thresholds saved.');
         }
 
         function generateId() { return '_' + Math.random().toString(36).substr(2, 9); }
-        function generateCustomerId() { return 'CUS-' + String(customers.length + 1).padStart(6, '0'); }
+        function generateCustomerId() { return 'ENT-' + String(customers.length + 1).padStart(6, '0'); }
         function formatMoney(amount) { return '₱' + parseFloat(amount).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
         
         function calculateVip(spend) {
@@ -894,6 +1039,14 @@
             if(target) target.classList.add('active');
             const activeLi = Array.from(document.querySelectorAll('.nav-links li')).find(li => li.getAttribute('onclick').includes(`'${sectionId}'`));
             if(activeLi) activeLi.classList.add('active');
+            
+            // Re-trigger animations
+            if(target) {
+                target.style.animation = 'none';
+                target.offsetHeight; 
+                target.style.animation = null; 
+            }
+            
             if(sectionId === 'dashboard') renderDashboard();
             if(sectionId === 'products') renderProducts();
             if(sectionId === 'pos') renderPOSProducts();
@@ -903,10 +1056,10 @@
 
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        // --- UNIFIED EXPORT / IMPORT ---
+        // --- Export & Import System ---
         function exportUnifiedData() {
             const unifiedData = {
-                type: "NexusPOS_Unified_Backup", version: "6.5", timestamp: new Date().toISOString(),
+                type: "NexusPOS_Unified_Backup", version: "5.8", timestamp: new Date().toISOString(),
                 products: products, orders: orders, customers: customers, vipSettings: vipSettings
             };
             const dataStr = JSON.stringify(unifiedData, null, 2);
@@ -930,15 +1083,15 @@
                         if (data.orders) orders = data.orders;
                         if (data.customers) customers = data.customers;
                         if (data.vipSettings) { vipSettings = data.vipSettings; localStorage.setItem('pos_vip_settings', JSON.stringify(vipSettings)); }
-                        saveData(); alert('Unified Data restored successfully!'); initSystem();
+                        saveData(); alert('> SYSTEM NOTIFICATION: Unified Data restored successfully.'); initSystem();
                     } else throw new Error("Invalid Format");
-                } catch (err) { alert('Error: Incompatible file format.'); }
+                } catch (err) { alert('> ERROR: Incompatible payload format.'); }
                 document.getElementById('sync-input-unified').value = '';
             };
             reader.readAsText(file);
         });
 
-        // --- Dashboard & Dynamic Analytics Chart ---
+        // --- Dashboard & Analytics ---
         function setAnalyticsView(view, el) {
             analyticsView = view;
             document.querySelectorAll('.sales-toggles span').forEach(e=>e.classList.remove('active'));
@@ -983,7 +1136,6 @@
                 }
             });
 
-            // Calculate Change
             let percentChange = 0;
             if (prevSales === 0 && currentSales > 0) percentChange = 100;
             else if (prevSales > 0) percentChange = ((currentSales - prevSales) / prevSales) * 100;
@@ -991,13 +1143,13 @@
             const changeEl = document.getElementById('dash-change');
             if (percentChange > 0) {
                 changeEl.innerText = `+${percentChange.toFixed(1)}% vs Previous`;
-                changeEl.className = 'change-indicator change-positive';
+                changeEl.style.color = "var(--success)";
             } else if (percentChange < 0) {
                 changeEl.innerText = `${percentChange.toFixed(1)}% vs Previous`;
-                changeEl.className = 'change-indicator change-negative';
+                changeEl.style.color = "var(--danger)";
             } else {
                 changeEl.innerText = `0% vs Previous`;
-                changeEl.className = 'change-indicator change-neutral';
+                changeEl.style.color = "var(--text-muted)";
             }
 
             document.getElementById('dash-sales').innerText = formatMoney(currentSales);
@@ -1005,7 +1157,6 @@
             document.getElementById('dash-lbl-orders').innerText = lbl;
             document.getElementById('dash-vips').innerText = customers.filter(c => c.vipLevel !== 'Regular').length;
 
-            // Generate Functional Chart
             const maxVal = Math.max(...chartData, 1);
             let chartHtml = '';
             chartData.forEach((val, idx) => {
@@ -1016,57 +1167,54 @@
             });
             document.getElementById('dash-chart').innerHTML = chartHtml;
 
-            // Featured Sale
             const featPanel = document.getElementById('dash-featured-content');
             const saleItem = products.find(p => p.discountPrice && p.discountPrice < p.price);
             if (saleItem) {
                 featPanel.innerHTML = `
-                    <div class="cart-icon-placeholder">🛒</div>
-                    <h2 style="margin: 0; font-size: 1.4rem;">${saleItem.name}</h2>
-                    <p style="font-size: 1.2rem; font-weight: 700; font-family: var(--font-display); margin-bottom: 12px; color: var(--text-light);">${formatMoney(saleItem.discountPrice)} <span style="text-decoration:line-through; font-size:0.8rem; color:rgba(255,255,255,0.4);">${formatMoney(saleItem.price)}</span></p>
-                    <button class="btn-white" onclick="navigate('pos')">INITIALIZE</button>
+                    <div style="font-size: 3rem; margin-bottom: 10px; text-shadow: var(--neon-glow); animation: pulseGlow 2s infinite alternate;">🛒</div>
+                    <h2 style="margin: 0; font-size: 1.6rem; color: #fff;">${saleItem.name}</h2>
+                    <p style="font-size: 1.4rem; font-weight: 700; font-family: var(--font-display); margin-bottom: 16px; color: var(--bento-orange);">${formatMoney(saleItem.discountPrice)} <span style="text-decoration:line-through; font-size:0.9rem; color:rgba(255,255,255,0.4);">${formatMoney(saleItem.price)}</span></p>
+                    <button class="action-btn action-primary" onclick="navigate('pos')">INITIALIZE PROTOCOL</button>
                 `;
             } else {
                 featPanel.innerHTML = `
-                    <div class="cart-icon-placeholder" style="border-color: var(--text-muted); color: var(--text-muted); box-shadow: none;">📦</div>
-                    <p style="margin-top: 10px; color:rgba(255,255,255,0.5); font-family: var(--font-display);">No active promo protocols.</p>
+                    <div style="font-size: 2.5rem; opacity: 0.4;">📦</div>
+                    <p style="margin-top: 15px; color:rgba(255,255,255,0.5); font-family: var(--font-display);">No active promo protocols.</p>
                 `;
             }
 
-            // Low Stock
             let lowStockHtml = '';
-            products.filter(p => p.stock <= 5).forEach(p => {
-                lowStockHtml += `<div class="inv-card">
+            products.filter(p => p.stock <= 5).forEach((p, index) => {
+                lowStockHtml += `<div class="inv-card" style="background: rgba(0,0,0,0.5); padding: 14px; margin-bottom: 8px; border-left: 3px solid var(--warning); display: flex; justify-content: space-between; align-items: center; animation-delay: ${index * 0.1}s;">
                     <div class="flex-col">
-                        <span class="alert">CRITICAL</span>
-                        <span style="font-size:0.75rem; color:var(--text-muted); font-family: var(--font-display);">${p.sku}</span>
+                        <span style="color: var(--warning); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px;">CRITICAL</span>
+                        <span style="font-size:0.8rem; color:var(--text-muted); font-family: var(--font-display);">${p.sku}</span>
                     </div>
                     <div class="text-right">
                         <strong>${p.name}</strong><br>
-                        <span style="font-size: 0.8rem; font-family: var(--font-display); color: var(--warning);">(${p.stock} units left)</span>
+                        <span style="font-size: 0.85rem; font-family: var(--font-display); color: var(--warning);">(${p.stock} units)</span>
                     </div>
                 </div>`;
             });
-            if (lowStockHtml === '') lowStockHtml = '<div style="color: var(--success); font-size: 0.85rem; font-family: var(--font-display); margin-top:10px;">> All operational metrics optimal.</div>';
+            if (lowStockHtml === '') lowStockHtml = '<div style="color: var(--success); font-size: 0.9rem; font-family: var(--font-display); margin-top:10px;">> All operational metrics optimal.</div>';
             document.getElementById('inventory-status-list').innerHTML = lowStockHtml;
 
-            // Recent Orders
             let recentHtml = '';
-            orders.slice().reverse().slice(0, 5).forEach(o => {
-                let displayId = o.customer.id ? customers.find(c=>c.id===o.customer.id)?.customerId || 'Walk-in' : 'Walk-in';
-                recentHtml += `<div class="history-item">
+            orders.slice().reverse().slice(0, 5).forEach((o, index) => {
+                let displayId = o.customer.id ? customers.find(c=>c.id===o.customer.id)?.customerId || 'GHOST' : 'GHOST';
+                recentHtml += `<div class="history-item" style="background: rgba(0,0,0,0.4); padding: 14px; margin-bottom: 8px; border-left: 3px solid var(--bento-blue); display: flex; justify-content: space-between; align-items: center; animation-delay: ${index * 0.1}s;">
                     <div>
-                        <div style="font-size:0.75rem; color:var(--text-muted);">${displayId}</div>
-                        <div style="font-weight:700; font-family: var(--font-ui);">${o.customer.name || 'Walk-in'}</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); font-family: var(--font-display);">${displayId}</div>
+                        <div style="font-weight:700; font-size: 1.1rem; color: #fff;">${o.customer.name || 'Unregistered'}</div>
                     </div>
-                    <div style="font-weight:700; color:var(--bento-blue); text-shadow: var(--magenta-glow);">${formatMoney(o.total)}</div>
+                    <div style="font-weight:700; font-family: var(--font-display); font-size: 1.2rem; color:var(--bento-blue); text-shadow: var(--magenta-glow);">${formatMoney(o.total)}</div>
                 </div>`;
             });
-            if(recentHtml === '') recentHtml = '<div style="color:var(--text-muted); font-size:0.85rem; font-family: var(--font-display);">> No recent transactions detected.</div>';
+            if(recentHtml === '') recentHtml = '<div style="color:var(--text-muted); font-size:0.9rem; font-family: var(--font-display);">> No recent traces detected.</div>';
             document.getElementById('dash-recent-orders-list').innerHTML = recentHtml;
         }
 
-        // --- Products ---
+        // --- Inventory DB Module ---
         function renderProducts() {
             const tbody = document.getElementById('product-table-body');
             tbody.innerHTML = '';
@@ -1087,8 +1235,8 @@
                     <td>${p.stock > 0 ? '<span style="color:var(--success); font-weight:700;">ONLINE</span>' : '<span style="color:var(--danger); font-weight:700;">OFFLINE</span>'}</td>
                     <td>
                         <div class="flex gap-2">
-                            <button class="action-btn" onclick="editProduct('${p.id}')">EDIT</button>
-                            <button class="action-btn action-danger" onclick="deleteProduct('${p.id}')">DEL</button>
+                            <button class="action-btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="editProduct('${p.id}')">EDIT</button>
+                            <button class="action-btn action-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="deleteProduct('${p.id}')">DEL</button>
                         </div>
                     </td>
                 </tr>`;
@@ -1120,7 +1268,7 @@
         function editProduct(id) { openProductModal(id); }
 
         function deleteProduct(id) {
-            if(confirm("Permanently wipe this record from the database?")) {
+            if(confirm("> ACTION: Permanently wipe this record from the database?")) {
                 products = products.filter(p => p.id !== id);
                 saveData(); renderProducts();
             }
@@ -1135,8 +1283,8 @@
             const discVal = document.getElementById('prod-discount-price').value;
             const discountPrice = discVal !== '' ? parseFloat(discVal) : null;
 
-            if (!name || !sku || isNaN(price) || isNaN(stock)) return alert('System error: Invalid input formats.');
-            if (discountPrice && discountPrice >= price) return alert('Logic error: Promo value exceeds base value.');
+            if (!name || !sku || isNaN(price) || isNaN(stock)) return alert('> ERROR: Invalid input formats.');
+            if (discountPrice && discountPrice >= price) return alert('> LOGIC_ERROR: Promo value exceeds base value.');
 
             if (id) {
                 const idx = products.findIndex(p => p.id === id);
@@ -1147,7 +1295,7 @@
             saveData(); closeModal('product-modal'); renderProducts();
         }
 
-        // --- POS Terminal ---
+        // --- POS Terminal System ---
         function renderPOSProducts() {
             const grid = document.getElementById('pos-products');
             const search = document.getElementById('pos-search').value.toLowerCase();
@@ -1155,31 +1303,31 @@
             
             products.filter(p => p.name.toLowerCase().includes(search) || p.sku.toLowerCase().includes(search)).forEach(p => {
                 let clz = p.stock <= 0 ? 'depleted' : '';
-                let priceHtml = `<div style="font-weight:700; font-family: var(--font-display); font-size:1.1rem; margin:6px 0; color: var(--text-light);">${formatMoney(p.price)}</div>`;
+                let priceHtml = `<div style="font-weight:700; font-family: var(--font-display); font-size:1.2rem; margin:10px 0; color: #fff;">${formatMoney(p.price)}</div>`;
                 let badgeHtml = '';
                 
                 if (p.discountPrice && p.discountPrice < p.price) {
-                    priceHtml = `<div style="margin:6px 0; font-family: var(--font-display);">
-                        <span style="text-decoration:line-through; font-size:0.75rem; color:var(--text-muted); margin-right:4px;">${formatMoney(p.price)}</span>
-                        <span style="color:var(--bento-orange); font-weight:700; font-size:1.1rem; text-shadow: var(--neon-glow);">${formatMoney(p.discountPrice)}</span>
+                    priceHtml = `<div style="margin:10px 0; font-family: var(--font-display);">
+                        <span style="text-decoration:line-through; font-size:0.8rem; color:var(--text-muted); margin-right:6px;">${formatMoney(p.price)}</span>
+                        <span style="color:var(--bento-orange); font-weight:700; font-size:1.3rem; text-shadow: var(--neon-glow);">${formatMoney(p.discountPrice)}</span>
                     </div>`;
-                    badgeHtml = `<div style="position:absolute; top:-6px; right:-6px;"><span class="badge badge-sale">SALE</span></div>`;
+                    badgeHtml = `<div style="position:absolute; top:-8px; right:-8px;"><span class="badge badge-sale">SALE</span></div>`;
                 }
 
                 grid.innerHTML += `
                     <div class="pos-item ${clz}" onclick="addToCart('${p.id}')">
                         ${badgeHtml}
-                        <div style="font-weight:700; margin-bottom:2px; font-size: 1rem; color: #fff;">${p.name}</div>
-                        <div style="font-family: var(--font-display); font-size: 0.75rem; color: var(--text-muted);">${p.sku}</div>
+                        <div style="font-weight:700; margin-bottom:4px; font-size: 1.1rem; color: #fff; letter-spacing: 1px;">${p.name}</div>
+                        <div style="font-family: var(--font-display); font-size: 0.8rem; color: var(--text-muted);">${p.sku}</div>
                         ${priceHtml}
-                        <div style="font-family: var(--font-display); font-size:0.8rem; font-weight: 700; color: ${p.stock > 5 ? 'var(--success)' : 'var(--warning)'}">Units: ${p.stock}</div>
+                        <div style="font-family: var(--font-display); font-size:0.85rem; font-weight: 700; color: ${p.stock > 5 ? 'var(--success)' : 'var(--warning)'}">Units: ${p.stock}</div>
                     </div>`;
             });
         }
 
         function updatePOSCustomerSelect() {
             const sel = document.getElementById('pos-customer-select');
-            sel.innerHTML = '<option value="walkin">Walk-in / Unregistered</option>';
+            sel.innerHTML = '<option value="walkin">GHOST_USER / UNREGISTERED</option>';
             customers.forEach(c => { sel.innerHTML += `<option value="${c.id}">${c.name} (${c.customerId})</option>`; });
         }
 
@@ -1208,7 +1356,7 @@
             
             if (cartItem) {
                 if (cartItem.qty < product.stock) { cartItem.qty++; cartItem.price = activePrice; } 
-                else alert('Capacity limit reached.');
+                else alert('> ALERT: Capacity limit reached.');
             } else {
                 if (product.stock > 0) cart.push({ ...product, price: activePrice, qty: 1 });
             }
@@ -1224,7 +1372,7 @@
             if (isNaN(qty) || qty <= 0) {
                 cart = cart.filter(c => c.id !== id);
             } else if (qty > product.stock) {
-                alert(`Insufficient inventory. Max: ${product.stock}`);
+                alert(`> SYSTEM: Insufficient inventory. Max: ${product.stock}`);
                 item.qty = product.stock;
             } else {
                 item.qty = qty;
@@ -1242,7 +1390,7 @@
             el.innerHTML = '';
             cart.forEach(item => {
                 el.innerHTML += `
-                    <div class="cart-item">
+                    <div class="cart-item flex justify-between items-center">
                         <div>
                             <div style="font-weight:600; font-size: 1rem;">${item.name}</div>
                             <div style="font-size:0.9rem; font-family: var(--font-display); color: var(--bento-orange);">${formatMoney(item.price)}</div>
@@ -1294,11 +1442,11 @@
             document.getElementById('cart-total').innerText = formatMoney(total > 0 ? total : 0);
             
             let earnPreview = Math.floor((total > 0 ? total : 0) / 100);
-            document.getElementById('cart-points-earned-preview').innerText = `> Generate +${earnPreview} data points`;
+            document.getElementById('cart-points-earned-preview').innerText = `> Generates +${earnPreview} merit`;
         }
 
         function completeOrder() {
-            if (cart.length === 0) return alert('Error: Payload is empty.');
+            if (cart.length === 0) return alert('> ERROR: Payload is empty.');
 
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
             const discount = parseFloat(document.getElementById('cart-discount').value) || 0;
@@ -1365,7 +1513,6 @@
             orders.push(newOrder);
             saveData();
             
-            // Generate Receipt
             generateReceipt(newOrder);
             
             cart = [];
@@ -1379,7 +1526,7 @@
             renderPOSProducts();
         }
 
-        // --- Receipt logic ---
+        // --- Output Formatting & Modals ---
         function generateReceiptText(order) {
             let text = `================================\n`;
             text += `         NEXUS SYS CORE         \n`;
@@ -1427,12 +1574,11 @@
 
         function copyReceipt() {
             navigator.clipboard.writeText(document.getElementById('receipt-content').innerText).then(() => {
-                alert('Telemetry cloned to clipboard.');
+                alert('> SYSTEM NOTIFICATION: Telemetry cloned to clipboard.');
             });
         }
 
-
-        // --- Orders Archive ---
+        // --- Transaction History UI ---
         function renderOrders() {
             const tbody = document.getElementById('orders-table-body');
             tbody.innerHTML = '';
@@ -1453,7 +1599,7 @@
             });
         }
 
-        // --- Customers ---
+        // --- Entity Management (Customers) ---
         function renderCustomers() {
             const term = document.getElementById('cust-search').value.toLowerCase();
             const tbody = document.getElementById('customers-table-body');
@@ -1526,10 +1672,9 @@
         function saveCustomer() {
             const id = document.getElementById('cust-id').value;
             const name = document.getElementById('cust-name').value.trim();
-            if (!name) return alert('Entity designation required.');
+            if (!name) return alert('> ERROR: Entity designation required.');
             
             if (id) {
-                // Editing existing
                 const idx = customers.findIndex(c => c.id === id);
                 customers[idx].name = name;
                 customers[idx].phone = document.getElementById('cust-phone').value.trim();
@@ -1549,7 +1694,6 @@
                     });
                 }
             } else {
-                // New
                 customers.push({
                     id: generateId(), customerId: generateCustomerId(), name: name, phone: document.getElementById('cust-phone').value.trim(),
                     email: document.getElementById('cust-email').value.trim(), dateCreated: new Date().toISOString(),
@@ -1591,6 +1735,7 @@
             document.getElementById('profile-modal').classList.add('active');
         }
 
+        // Ignite the Matrix
         initSystem();
     </script>
 </body>
